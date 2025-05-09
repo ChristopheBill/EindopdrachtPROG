@@ -9,19 +9,32 @@ namespace RentalService.Domain.Models
 {
     public class Car
     {
+        private int _id;
         private string _licensePlate;
         //private string _model;
         //private int _seats;
         private List<string> _motorTypes = ["Hybrid", "Gasoline", "Diesel", "Electric"];
         private string _motorType;
-        public Car(string lincensePlate, string model, int seats, string engineType)
+        public Car(int id, string lincensePlate, string model, int seats, string motorType)
         {
+            Id = id;
             LincensePlate = lincensePlate;
             Model = model;
             Seats = seats;
-            MotorType = engineType;
+            MotorType = motorType;
         }
 
+        public int Id { get => _id;
+        init { if (Id >= 0) 
+                {
+                    _id = value;
+                }
+        else
+                {
+                    throw new ArgumentException("Id mag niet 0 zijn.");
+                }
+            }
+        }
         public string LincensePlate
         {
             get => _licensePlate;

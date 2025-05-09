@@ -85,7 +85,7 @@ namespace RentalService.Domain.Models
             {
                 if (value > 999)
                 {
-                    throw new ArgumentException("Zipcode is not in supported");
+                    throw new ArgumentException("Zipcode is not supported");
                 }
                 else
                 {
