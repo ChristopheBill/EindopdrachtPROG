@@ -23,5 +23,23 @@ namespace RentalService.Presentation.Windows
         {
             InitializeComponent();
         }
+
+        private void ReservatieMaken_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new ReservationCreateWindow();
+            window.ShowDialog();
+        }
+
+        private void ReservatieOpzoeken_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new ReservationSearchWindow();
+            window.ShowDialog();
+        }
+
+        private void AutoOverzicht_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new CarOverviewWindow();
+            window.ShowDialog();
+        }
     }
 }
