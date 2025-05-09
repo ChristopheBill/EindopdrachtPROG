@@ -18,20 +18,20 @@ namespace RentalService.Persistence.Mappers
             using SqlCommand command = new("SELECT * FROM People", connection);
             using SqlDataReader reader = command.ExecuteReader();
 
-            List<Car> people = [];
+            List<Car> cars = [];
 
             if (reader.HasRows)
             {
                 while (reader.Read())
                 {
-                    int id = (int)reader["Id"];
-                    string name = (string)reader["Name"];
-                    DateOnly birthDate = DateOnly.FromDateTime((DateTime)reader["BirthDate"]);
-                    people.Add(new Person(id, name, birthDate));
+                    //int id = (int)reader["Id"];
+                    //string name = (string)reader["Name"];
+                    //DateOnly birthDate = DateOnly.FromDateTime((DateTime)reader["BirthDate"]);
+                    //people.Add(new Person(id, name, birthDate));
                 }
             }
 
-            return people;
+            return cars;
         }
     }
 }

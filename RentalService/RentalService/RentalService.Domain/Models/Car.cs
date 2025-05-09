@@ -24,10 +24,10 @@ namespace RentalService.Domain.Models
 
         public string LincensePlate
         {
-            get => _licensePlate; 
+            get => _licensePlate;
             init
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(LicensePlate));
+                ArgumentException.ThrowIfNullOrWhiteSpace(value);
                 _licensePlate = value;
             }
         }

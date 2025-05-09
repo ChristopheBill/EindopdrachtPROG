@@ -68,8 +68,31 @@ namespace RentalService.Domain.Models
                 }
             }
         }
-        public string StreetName { get; init; }
-        public int ZipCode { get; init; }
+        public string StreetName
+        {
+            get => _streetName;
+            init
+            {
+                ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(StreetName));
+                _streetName = value;
+                ;
+            }
+        }
+        public int ZipCode
+        {
+            get => _zipCode;
+            init
+            {
+                if (value > 999)
+                {
+                    throw new ArgumentException("Zipcode is not in supported");
+                }
+                else
+                {
+                    _zipCode = value;
+                }
+            }
+        }
         public string City { get; init; }
         public string Country { get; init; }
 
