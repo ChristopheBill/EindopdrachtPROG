@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RentalService.Domain.Models
 {
-    internal class Establishment
+    public class Establishment
     {
         public Establishment(string airport, string streetName, int postalCode, int city, string country)
         {
