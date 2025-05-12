@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,6 +9,7 @@ namespace RentalService.Domain.Models
 {
     public class Customer
     {
+        private int _id;
         private string _firstName;
         private string _lastName;
         private string _email;
@@ -23,12 +25,24 @@ namespace RentalService.Domain.Models
             Email = email;
         }
 
-        public Customer(string firstName, string lastName, string email, string streetName, int zipCode, string city, string country) : this(firstName, lastName, email)
+        public Customer(int id, string firstName, string lastName, string email, string streetName, int zipCode, string city, string country) : this(firstName, lastName, email)
         {
+            Id = id;
             StreetName = streetName;
             ZipCode = zipCode;
             City = city;
             Country = country;
+        }
+
+        public int Id
+        {
+            get => _id;
+            init
+            {
+
+                ArgumentOutOfRangeException.ThrowIfLessThanOrEqual((value), 0);
+                _id = value;
+            }
         }
 
         public string FirstName
