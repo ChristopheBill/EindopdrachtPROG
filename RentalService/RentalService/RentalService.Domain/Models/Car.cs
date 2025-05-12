@@ -25,14 +25,10 @@ namespace RentalService.Domain.Models
         }
 
         public int Id { get => _id;
-        init { if (Id >= 0) 
-                {
-                    _id = value;
-                }
-        else
-                {
-                    throw new ArgumentException("Id mag niet 0 zijn.");
-                }
+        init
+            {
+                ArgumentOutOfRangeException.ThrowIfLessThanOrEqual((value), 0);
+                _id = value;
             }
         }
         public string LincensePlate
