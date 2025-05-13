@@ -78,5 +78,10 @@ namespace RentalService.Domain.Models
             }
 
         }
+
+        public override string? ToString()
+        {
+            return $"{Model} {LicensePlate} {Seats} {MotorType}";
+        }
     }
 }

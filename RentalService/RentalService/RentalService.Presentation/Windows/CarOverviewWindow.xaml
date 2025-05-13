@@ -6,7 +6,23 @@
         xmlns:local="clr-namespace:RentalService.Presentation.Windows"
         mc:Ignorable="d"
         Title="CarOverviewWindow" Height="450" Width="800">
-    <Grid>
-        
+    
+    <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+        <ListView Grid.Row="2" Name="lvAutos">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
     </Grid>
+
 </Window>
