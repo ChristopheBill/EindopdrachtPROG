@@ -50,8 +50,15 @@ namespace RentalService.Domain.Models
         public string Model { get => _model; init => _model = value; }
         public int Seats 
         { 
-            get => _seats; 
-            init => _seats = value; 
+            get => _seats;
+            init 
+            { 
+                if (value >= 2) { _seats = value; }
+                //ArgumentOutOfRangeException.ThrowIfLessThan((value), 2);
+                //_seats = value; 
+                else { throw new ArgumentOutOfRangeException("Number of seats cannot be less than 2."); }
+            } 
+            
         }
         public string MotorType
         {
