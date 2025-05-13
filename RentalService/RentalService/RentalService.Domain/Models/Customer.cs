@@ -33,7 +33,7 @@ namespace RentalService.Domain.Models
             Country = country;
         }
 
-        public Customer(int id, string firstName, string lastName, string email, string street, string postalCode, string city, string country) : this(firstName, lastName, email, streetName, postalCode, city, country)
+        public Customer(int id, string firstName, string lastName, string email, string street, string postalCode, string city, string country) : this(firstName, lastName, email, street, postalCode, city, country)
         {
             Id = id;
         }
@@ -101,14 +101,14 @@ namespace RentalService.Domain.Models
             get => _postalCode;
             init
             {
-                if (value > 999)
-                {
-                    throw new ArgumentException("Zipcode is not supported");
-                }
-                else
-                {
+                //if (value > 999)
+                //{
+                //    throw new ArgumentException("Zipcode is not supported");
+                //}
+                //else
+                //{
                     _postalCode = value;
-                }
+                //}
             }
         }
         public string City { get; init; }

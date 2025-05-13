@@ -26,7 +26,7 @@ namespace RentalService.Persistence.Mappers
                     string lastName = (string)reader["LastName"];
                     string email = (string)reader["Email"];
                     string street = (string)reader["Street"];
-                    int postalCode = (int)reader["PostalCode"];
+                    string postalCode = (string)reader["PostalCode"];
                     string city = (string)reader["City"];
                     string country = (string)reader["Country"];
 
@@ -77,7 +77,7 @@ namespace RentalService.Persistence.Mappers
                     delen[1],
                     delen[2],
                     delen[3],
-                    int.Parse(delen[4]),
+                    delen[4],
                     delen[5],
                     delen[6]);
 
