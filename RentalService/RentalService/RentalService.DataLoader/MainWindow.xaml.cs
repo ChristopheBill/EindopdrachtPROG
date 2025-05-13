@@ -21,7 +21,6 @@ namespace RentalService.DataLoader
         private string _filePath1;
         private string _filePath2;
         private string _file3Path;
-        //logica om data uit csv te halen, tabelnamen behouden maar inhoud db verwijderen
         public MainWindow()
         {
             InitializeComponent();

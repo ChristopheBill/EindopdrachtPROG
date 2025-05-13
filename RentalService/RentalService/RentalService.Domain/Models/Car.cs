@@ -52,19 +52,12 @@ namespace RentalService.Domain.Models
         {
             get => _motorType;
             init
-            //=>
             {
-                //try
-                //{
                 if (_motorTypes.Contains(value))
                 {
-                    //ArgumentException.ThrowIfNullOrEmpty(value);
                     _motorType = value;
                 }
-                //catch (StackOverflowException ex)
-                //{
 
-                //}
                 else
 
                 {
