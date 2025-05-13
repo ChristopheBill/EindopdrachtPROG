@@ -12,7 +12,7 @@ namespace RentalService.Domain.Models
         public Establishment(string airport, string streetName, string postalCode, string city, string country)
         {
             Airport = airport;
-            StreetName = streetName;
+            Street = streetName;
             PostalCode = postalCode;
             City = city;
             Country = country;
@@ -34,7 +34,7 @@ namespace RentalService.Domain.Models
             }
         }
         public string Airport { get; init; }
-        public string StreetName { get; init; }
+        public string Street { get; init; }
         public string PostalCode { get; init; }
         public string City { get; init; }
         public string Country 

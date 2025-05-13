@@ -7,9 +7,17 @@ using System.Threading.Tasks;
 
 namespace RentalService.Domain.DTOs
 {
-    public class LocationDTO
+    public class EstablishmentDTO
     {
-
+        public EstablishmentDTO(Establishment establishment)
+        {
+            Id = establishment.Id;
+            Airport = establishment.Airport;
+            Street = establishment.Street;
+            PostalCode = establishment.PostalCode;
+            City = establishment.City;
+            Country = establishment.Country;
+        }
 
         public int Id { get; set; }
         public string Airport { get; set; }

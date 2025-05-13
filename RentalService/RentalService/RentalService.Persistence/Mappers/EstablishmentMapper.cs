@@ -81,7 +81,7 @@ namespace RentalService.Persistence.Mappers
                 {
                     using SqlCommand cmd = new("Insert into Establishments (Airport, Street, PostalCode, City, Country) Values (@Airport, @Street, @PostalCode, @City, @Country)", connection, transaction);
                     cmd.Parameters.AddWithValue("@Airport", location.Airport);
-                    cmd.Parameters.AddWithValue("@Street", location.StreetName);
+                    cmd.Parameters.AddWithValue("@Street", location.Street);
                     cmd.Parameters.AddWithValue("@PostalCode", location.PostalCode);
                     cmd.Parameters.AddWithValue("@City", location.City);
                     cmd.Parameters.AddWithValue("@Country", location.Country);
