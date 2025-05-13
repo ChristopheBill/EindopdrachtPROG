@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Microsoft.Win32;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,10 +17,58 @@ namespace RentalService.DataLoader
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly DataLoaderApplication _dataLoaderApplication;
+        private string _filePath1;
+        private string _filePath2;
+        private string _file3Path;
         //logica om data uit csv te halen, tabelnamen behouden maar inhoud db verwijderen
         public MainWindow()
         {
             InitializeComponent();
+            _dataLoaderApplication = new();
+        }
+        private void UploadFile1_Click(object sender, RoutedEventArgs e)
+        {
+            _filePath1 = OpenFile();
+            File1Text.Text = _filePath1 ?? "";
+        }
+
+        private void UploadFile2_Click(object sender, RoutedEventArgs e)
+        {
+            _filePath2 = OpenFile();
+            File2Text.Text = _filePath2 ?? "";
+        }
+
+        private void UploadFile3_Click(object sender, RoutedEventArgs e)
+        {
+            _file3Path = OpenFile();
+            File3Text.Text = _file3Path ?? "";
+        }
+
+        private string OpenFile()
+        {
+            OpenFileDialog dialog = new OpenFileDialog
+            {
+                Title = "Select a file",
+                Filter = "CSV Files|*.csv|All Files|*.*"
+            };
+
+            return dialog.ShowDialog() == true ? dialog.FileName : null;
+        }
+
+        private void SendFiles_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _dataLoaderApplication.InitialiseAllFiles(_filePath1, _filePath2, _file3Path);
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }
