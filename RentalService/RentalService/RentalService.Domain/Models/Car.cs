@@ -15,13 +15,17 @@ namespace RentalService.Domain.Models
         //private int _seats;
         private List<string> _motorTypes = ["Hybrid", "Gasoline", "Diesel", "Electric"];
         private string _motorType;
-        public Car(string lincensePlate, string model, int seats, string motorType)
+        public Car(string licensePlate, string model, int seats, string motorType)
         {
-            //Id = id;
-            LincensePlate = lincensePlate;
+            LicensePlate = licensePlate;
             Model = model;
             Seats = seats;
             MotorType = motorType;
+        }
+
+        public Car(int id, string licensePlate, string model, int seats, string motorType) : this (licensePlate, model, seats, motorType)
+        {
+            Id = id;
         }
 
         public int Id { get => _id;
@@ -31,7 +35,7 @@ namespace RentalService.Domain.Models
                 _id = value;
             }
         }
-        public string LincensePlate
+        public string LicensePlate
         {
             get => _licensePlate;
             init

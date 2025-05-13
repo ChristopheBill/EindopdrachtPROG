@@ -26,17 +26,20 @@ namespace RentalService.Persistence.Mappers
             {
                 while (reader.Read())
                 {
-                    //int id = (int)reader["Id"];
-                    //string name = (string)reader["Name"];
-                    //DateOnly birthDate = DateOnly.FromDateTime((DateTime)reader["BirthDate"]);
-                    //people.Add(new Person(id, name, birthDate));
+                    int id = (int)reader["Id"];
+                    string licensePlate = (string)reader["LicensePlate"];
+                    string model = (string)reader["Model"];
+                    int seats = (int)reader["Seats"];
+                    string motorType = (string)reader["MotorType"];
+                    Car car = new(id, licensePlate, model, seats, motorType);
+                    cars.Add(car);
                 }
             }
 
             return cars;
         }
 
-        public void LeesAutos(string pad)
+        public void ReadCars(string pad)
         {
             var regels = File.ReadAllLines(pad);
 
@@ -65,7 +68,7 @@ namespace RentalService.Persistence.Mappers
                     using SqlConnection connection = new(DBInfo.ConnectionString);
 
                     using SqlCommand command = new("Insert into Cars (LicensePlate, Model, Seats, MotorType) Values (@LicensePlate, @Model, @Seats, @MotorType)", connection);
-                    command.Parameters.AddWithValue("@LicensePlate", car.LincensePlate);
+                    command.Parameters.AddWithValue("@LicensePlate", car.LicensePlate);
                     command.Parameters.AddWithValue("@Model", car.Model);
                     command.Parameters.AddWithValue("@Seats", car.Seats);
                     command.Parameters.AddWithValue("@MotorType", car.MotorType);
