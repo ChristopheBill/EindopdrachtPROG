@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace RentalService.Domain.DTOs
 {
-    public record CarDTO
+    public class CarDTO
     {
+
     }
 }

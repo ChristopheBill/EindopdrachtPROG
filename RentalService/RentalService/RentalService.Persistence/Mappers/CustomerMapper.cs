@@ -49,7 +49,7 @@ namespace RentalService.Persistence.Mappers
 
             using SqlConnection connection = new(DBInfo.ConnectionString);
 
-            SqlCommand command = new SqlCommand("DELETE FROM Cars", connection);
+            SqlCommand command = new SqlCommand("DELETE FROM Customers", connection);
 
             try
             {

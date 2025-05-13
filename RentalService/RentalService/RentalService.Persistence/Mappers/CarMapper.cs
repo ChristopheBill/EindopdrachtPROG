@@ -70,7 +70,7 @@ namespace RentalService.Persistence.Mappers
                     delen[0],
                     delen[1],
                     int.TryParse(delen[2], out int zp) ? zp : -1,
-                delen[3]);
+                    delen[3]);
 
                 connection.Open();
                 using SqlTransaction transaction = connection.BeginTransaction();

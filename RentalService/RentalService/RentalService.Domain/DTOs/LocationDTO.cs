@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace RentalService.Domain.DTOs
 {
-    public record LocationDTO
+    public class LocationDTO
     {
+
     }
 }
