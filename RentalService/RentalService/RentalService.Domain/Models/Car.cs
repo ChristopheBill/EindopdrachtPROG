@@ -53,6 +53,7 @@ namespace RentalService.Domain.Models
             {
                 if (_motorTypes.Contains(value))
                 {
+                    StackOverflowException ex;
                     MotorType = value;
                 }
                 else

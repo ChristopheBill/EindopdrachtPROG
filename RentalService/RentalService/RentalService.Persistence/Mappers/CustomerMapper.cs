@@ -1,11 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using RentalService.Domain.Models;
 using RentalService.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RentalService.Persistence.Mappers
 {
@@ -45,16 +40,16 @@ namespace RentalService.Persistence.Mappers
 
         public void ReadCustomers(string pad)
         {
-            var regels = File.ReadAllLines(pad);
+            string[] regels = File.ReadAllLines(pad);
 
-            if (regels.Length == 0 || regels[0] != "Voornaam;Achternaam;Email;Straat;Postcode;Woonplaats;Land")
-            {
-                fouten.Add("Klanten.csv: ongeldige header.");
-            }
+            //if (regels.Length == 0 || regels[0] != "Voornaam;Achternaam;Email;Straat;Postcode;Woonplaats;Land")
+            //{
+            //    fouten.Add("Klanten.csv: ongeldige header.");
+            //}
 
             for (int i = 1; i < regels.Length; i++)
             {
-                var delen = regels[i].Split(';');
+                string[] delen = regels[i].Split(';');
                 if (delen.Length < 7)
                 {
                     fouten.Add($"Klanten.csv - Regel {i + 1}: Onvoldoende kolommen.");
@@ -70,11 +65,13 @@ namespace RentalService.Persistence.Mappers
                     delen[5],
                     delen[6]);
 
+                using SqlConnection connection = new(DBInfo.ConnectionString);
+                connection.Open();
+                using SqlTransaction transaction = connection.BeginTransaction();
+
                 try
                 {
-                    using SqlConnection connection = new(DBInfo.ConnectionString);
-
-                    using SqlCommand command = new("Insert into Customers (FirstName, LastName, Email, Street, PostalCode, City, Country) Values (@FirstName, @LastName, @Email, @Street, @PostalCode, @City, @Country)", connection);
+                    using SqlCommand command = new("Insert into Customers (FirstName, LastName, Email, Street, PostalCode, City, Country) Values (@FirstName, @LastName, @Email, @Street, @PostalCode, @City, @Country)", connection, transaction);
                     command.Parameters.AddWithValue("@FirstName", customer.FirstName);
                     command.Parameters.AddWithValue("@LastName", customer.LastName);
                     command.Parameters.AddWithValue("@Email", customer.Email);
@@ -83,11 +80,17 @@ namespace RentalService.Persistence.Mappers
                     command.Parameters.AddWithValue("@City", customer.City);
                     command.Parameters.AddWithValue("@Country", customer.Country);
 
-                    command.ExecuteNonQuery();
+                    //command.ExecuteNonQuery();
+                    transaction.Commit();
                 }
                 catch (Exception ex)
                 {
+                    transaction.Rollback();
                     throw new Exception($"Something went wrong {ex}");
+                }
+                finally 
+                {
+                    connection.Close(); 
                 }
             }
         }

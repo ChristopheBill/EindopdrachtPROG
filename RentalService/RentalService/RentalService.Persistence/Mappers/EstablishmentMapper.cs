@@ -1,11 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using RentalService.Domain.Models;
 using RentalService.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RentalService.Persistence.Mappers
 {
@@ -29,7 +24,7 @@ namespace RentalService.Persistence.Mappers
                     int id = (int)reader["Id"];
                     string airport = (string)reader["Airport"];
                     string street = (string)reader["Street"];
-                    int postalCode = (int)reader["PostalCode"];
+                    string postalCode = (string)reader["PostalCode"];
                     string city = (string)reader["City"];
                     string country = (string)reader["Country"];
 
@@ -41,17 +36,17 @@ namespace RentalService.Persistence.Mappers
         }
         public void ReadEstablishments(string pad)
         {
-            var regels = File.ReadAllLines(pad);
+            string[] regels = File.ReadAllLines(pad);
             Establishment location;
 
-            if (regels.Length == 0 || regels[0] != "Airport;Street;PostalCose;City;Country")
-            {
-                fouten.Add("Vestigingen.csv: ongeldige header.");
-            }
+            //if (regels.Length == 0 || regels[0] != "Airport;Street;PostalCose;City;Country")
+            //{
+            //    fouten.Add("Vestigingen.csv: ongeldige header.");
+            //}
 
             for (int i = 1; i < regels.Length; i++)
             {
-                var delen = regels[i].Split(';');
+                string[] delen = regels[i].Split(';');
                 if (delen.Length < 5)
                 {
                     fouten.Add($"Vestigingen.csv - Regel {i + 1}: Onvoldoende kolommen.");
@@ -61,25 +56,34 @@ namespace RentalService.Persistence.Mappers
                 location = new(
                     delen[0],
                     delen[1],
-                    int.Parse(delen[2]),
+                    delen[2],
                     delen[3],
                     delen[4]);
+
+                using SqlConnection connection = new(DBInfo.ConnectionString);
+                connection.Open();
+                using SqlTransaction transaction = connection.BeginTransaction();
+
                 try
                 {
-                    using SqlConnection connection = new(DBInfo.ConnectionString);
-
-                    using SqlCommand command = new("Insert into Establishments (Airport, Street, PostalCode, City, Country) Values (@Airport, @Street, @PostalCode, @City, @Country)", connection);
+                    using SqlCommand command = new("Insert into Establishments (Airport, Street, PostalCode, City, Country) Values (@Airport, @Street, @PostalCode, @City, @Country)", connection, transaction);
                     command.Parameters.AddWithValue("@Airport", location.Airport);
                     command.Parameters.AddWithValue("@Street", location.StreetName);
                     command.Parameters.AddWithValue("@PostalCode", location.PostalCode);
                     command.Parameters.AddWithValue("@City", location.City);
                     command.Parameters.AddWithValue("@Country", location.Country);
 
-                    command.ExecuteNonQuery();
+                    //command.ExecuteNonQuery();
+                    transaction.Commit();
                 }
                 catch (Exception ex)
                 {
+                    transaction.Rollback();
                     throw new Exception($"Something went wrong {ex}");
+                }
+                finally
+                {
+                    connection.Close();
                 }
 
             }
