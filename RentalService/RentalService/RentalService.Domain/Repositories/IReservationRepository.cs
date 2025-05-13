@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RentalService.Domain.Repositories
 {
-    public interface IReservation
+    public interface IReservationRepository
     {
     }
 }
