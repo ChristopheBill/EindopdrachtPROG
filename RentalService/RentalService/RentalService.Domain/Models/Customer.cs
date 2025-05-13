@@ -14,9 +14,9 @@ namespace RentalService.Domain.Models
         private string _lastName;
         private string _email;
         static List<string> _registeredEmails = new();
-        private string _streetName;
+        private string _street;
         private string _city;
-        private int _zipCode;
+        private string _postalCode;
         private string _country;
         public Customer(string firstName, string lastName, string email)
         {
@@ -25,15 +25,15 @@ namespace RentalService.Domain.Models
             Email = email;
         }
 
-        public Customer(string firstName, string lastName, string email, string streetName, int zipCode, string city, string country) : this(firstName, lastName, email)
+        public Customer(string firstName, string lastName, string email, string street, string postalCode, string city, string country) : this(firstName, lastName, email)
         {
-            StreetName = streetName;
-            ZipCode = zipCode;
+            Street = street;
+            PostalCode = postalCode;
             City = city;
             Country = country;
         }
 
-        public Customer(int id, string firstName, string lastName, string email, string streetName, int zipCode, string city, string country) : this(firstName, lastName, email, streetName, zipCode, city, country)
+        public Customer(int id, string firstName, string lastName, string email, string street, string postalCode, string city, string country) : this(firstName, lastName, email, streetName, postalCode, city, country)
         {
             Id = id;
         }
@@ -86,19 +86,19 @@ namespace RentalService.Domain.Models
                 }
             }
         }
-        public string StreetName
+        public string Street
         {
-            get => _streetName;
+            get => _street;
             init
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(StreetName));
-                _streetName = value;
+                ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(Street));
+                _street = value;
                 ;
             }
         }
-        public int ZipCode
+        public string PostalCode
         {
-            get => _zipCode;
+            get => _postalCode;
             init
             {
                 if (value > 999)
@@ -107,7 +107,7 @@ namespace RentalService.Domain.Models
                 }
                 else
                 {
-                    _zipCode = value;
+                    _postalCode = value;
                 }
             }
         }

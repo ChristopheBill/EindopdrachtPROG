@@ -91,8 +91,8 @@ namespace RentalService.Persistence.Mappers
                     cmd.Parameters.AddWithValue("@FirstName", customer.FirstName);
                     cmd.Parameters.AddWithValue("@LastName", customer.LastName);
                     cmd.Parameters.AddWithValue("@Email", customer.Email);
-                    cmd.Parameters.AddWithValue("@Street", customer.StreetName);
-                    cmd.Parameters.AddWithValue("@PostalCode", customer.ZipCode);
+                    cmd.Parameters.AddWithValue("@Street", customer.Street);
+                    cmd.Parameters.AddWithValue("@PostalCode", customer.PostalCode);
                     cmd.Parameters.AddWithValue("@City", customer.City);
                     cmd.Parameters.AddWithValue("@Country", customer.Country);
 
