@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RentalService.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,12 @@ namespace RentalService.Domain.DTOs
     public class LocationDTO
     {
 
+
+        public int Id { get; set; }
+        public string Airport { get; set; }
+        public string Street { get; set; }
+        public string PostalCode { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
     }
 }
