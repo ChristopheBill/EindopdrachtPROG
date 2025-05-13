@@ -6,9 +6,9 @@ namespace RentalService.Domain
     {
         private readonly ICarRepository _carRepository;
         private readonly ICustomerRepository _customerRepository;
-        private readonly ILocationRepository _locationRepository;
+        private readonly IEstablishmentRepository _locationRepository;
 
-        public DomainManager(ICarRepository carRepository, ICustomerRepository customerRepository, ILocationRepository locationRepository)
+        public DomainManager(ICarRepository carRepository, ICustomerRepository customerRepository, IEstablishmentRepository locationRepository)
         {
             _carRepository = carRepository;
             _customerRepository = customerRepository;

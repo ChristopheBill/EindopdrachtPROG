@@ -18,7 +18,7 @@ namespace RentalService.StartUp
             //Persistence
             ICarRepository carRepository = new CarMapper();
             ICustomerRepository customerRepository = new CustomerMapper();
-            ILocationRepository locationRepository = new EstablishmentMapper();
+            IEstablishmentRepository locationRepository = new EstablishmentMapper();
 
             //Domain
             DomainManager domain = new(carRepository, customerRepository, locationRepository);

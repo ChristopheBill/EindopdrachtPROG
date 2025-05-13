@@ -62,7 +62,6 @@ namespace RentalService.DataLoader
             {
                 _dataLoaderApplication.InitialiseAllFiles(_filePath1, _filePath2, _file3Path);
 
-
             }
             catch (Exception ex)
             {

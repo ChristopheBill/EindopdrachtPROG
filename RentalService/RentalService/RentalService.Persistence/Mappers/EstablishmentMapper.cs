@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RentalService.Persistence.Mappers
 {
-    public class EstablishmentMapper : ILocationRepository
+    public class EstablishmentMapper : IEstablishmentRepository
     {
         private readonly List<string> fouten = new();
 
@@ -62,7 +62,7 @@ namespace RentalService.Persistence.Mappers
                     delen[0],
                     delen[1],
                     int.Parse(delen[2]),
-                    int.Parse(delen[3]),
+                    delen[3],
                     delen[4]);
                 try
                 {
