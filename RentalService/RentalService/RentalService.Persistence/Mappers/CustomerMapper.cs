@@ -42,18 +42,11 @@ namespace RentalService.Persistence.Mappers
         {
             string[] regels = File.ReadAllLines(pad);
 
-            //if (regels.Length == 0 || regels[0] != "Voornaam;Achternaam;Email;Straat;Postcode;Woonplaats;Land")
-            //{
-            //    fouten.Add("Klanten.csv: ongeldige header.");
-            //}
-
             using SqlConnection connection = new(DBInfo.ConnectionString);
-
-            SqlCommand command = new SqlCommand("DELETE FROM Customers", connection);
 
             try
             {
-                connection.Open();
+                SqlCommand command = new SqlCommand("DELETE FROM Customers", connection);
                 command.ExecuteNonQuery();
             }
             catch (SqlException ex)

@@ -39,16 +39,11 @@ namespace RentalService.Persistence.Mappers
             string[] regels = File.ReadAllLines(pad);
             Establishment location;
 
-            //if (regels.Length == 0 || regels[0] != "Airport;Street;PostalCose;City;Country")
-            //{
-            //    fouten.Add("Vestigingen.csv: ongeldige header.");
-            //}
             using SqlConnection connection = new(DBInfo.ConnectionString);
-
-            SqlCommand command = new SqlCommand("DELETE FROM Establishments", connection);
 
             try
             {
+                SqlCommand command = new SqlCommand("DELETE FROM Establishments", connection);
                 connection.Open();
                 command.ExecuteNonQuery();
             }

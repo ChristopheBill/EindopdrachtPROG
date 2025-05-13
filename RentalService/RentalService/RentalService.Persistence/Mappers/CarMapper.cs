@@ -43,10 +43,10 @@ namespace RentalService.Persistence.Mappers
             //}
             using SqlConnection connection = new(DBInfo.ConnectionString);
 
-            SqlCommand command = new SqlCommand("DELETE FROM Cars", connection);
-                
+
             try
             {
+                SqlCommand command = new SqlCommand("DELETE FROM Cars", connection);
                 connection.Open();
                 command.ExecuteNonQuery();
             }

@@ -18,6 +18,7 @@ namespace RentalService.Domain.Models
         private string _city;
         private string _postalCode;
         private string _country;
+
         public Customer(string firstName, string lastName, string email)
         {
             FirstName = firstName;
@@ -70,22 +71,22 @@ namespace RentalService.Domain.Models
         public string Email
         {
             get => _email;
-            init
-            {
-                if (string.IsNullOrWhiteSpace(Email))
-                {
-                    throw new ArgumentException("Email cannot be empty");
-                }
-                else if (IsEmailUnique(value))
-                {
+            init =>
+            //{
+            //    if (string.IsNullOrWhiteSpace(Email))
+            //    {
+            //        throw new ArgumentException("Email cannot be empty");
+            //    }
+            //    else if (IsEmailUnique(value))
+            //    {
                     Email = value;
-                }
-                else
-                {
-                    throw new ArgumentException("Email already exists.");
-                }
+                //}
+                //else
+                //{
+                //    throw new ArgumentException("Email already exists.");
+                //}
             }
-        }
+        
         public string Street
         {
             get => _street;
@@ -111,8 +112,8 @@ namespace RentalService.Domain.Models
                 //}
             }
         }
-        public string City { get; init; }
-        public string Country { get; init; }
+        public string City { get => _city; init => _city = value; }
+        public string Country { get => _country; init => _country = value; }
 
         static bool IsEmailUnique(string email)
         {

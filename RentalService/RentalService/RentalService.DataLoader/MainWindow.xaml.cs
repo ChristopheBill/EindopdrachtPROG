@@ -20,7 +20,7 @@ namespace RentalService.DataLoader
         private readonly DataLoaderApplication _dataLoaderApplication;
         private string _filePath1;
         private string _filePath2;
-        private string _file3Path;
+        private string _filePath3;
         public MainWindow()
         {
             InitializeComponent();
@@ -40,8 +40,8 @@ namespace RentalService.DataLoader
 
         private void UploadFile3_Click(object sender, RoutedEventArgs e)
         {
-            _file3Path = OpenFile();
-            File3Text.Text = _file3Path ?? "";
+            _filePath3 = OpenFile();
+            File3Text.Text = _filePath3 ?? "";
         }
 
         private string OpenFile()
@@ -59,7 +59,7 @@ namespace RentalService.DataLoader
         {
             try
             {
-                _dataLoaderApplication.InitialiseAllFiles(_filePath1, _filePath2, _file3Path);
+                _dataLoaderApplication.InitialiseAllFiles(_filePath1, _filePath2, _filePath3);
 
             }
             catch (Exception ex)
