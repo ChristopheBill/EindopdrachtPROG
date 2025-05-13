@@ -8,7 +8,8 @@ namespace RentalService.Domain.Models
 {
     public class Establishment
     {
-        public Establishment(string airport, string streetName, int postalCode, int city, string country)
+        private int _id;
+        public Establishment(string airport, string streetName, int postalCode, string city, string country)
         {
             Airport = airport;
             StreetName = streetName;
@@ -17,10 +18,25 @@ namespace RentalService.Domain.Models
             Country = country;
         }
 
+        public Establishment(int id, string airport, string streetName, int postalCode, string city, string country) : this (airport, streetName, postalCode, city, country)
+        {
+            Id = id;
+        }
+
+        public int Id
+        {
+            get => _id;
+            init
+            {
+
+                ArgumentOutOfRangeException.ThrowIfLessThanOrEqual((value), 0);
+                _id = value;
+            }
+        }
         public string Airport { get; init; }
         public string StreetName { get; init; }
         public int PostalCode { get; init; }
-        public int City { get; init; }
+        public string City { get; init; }
         public string Country 
         {
             get; 

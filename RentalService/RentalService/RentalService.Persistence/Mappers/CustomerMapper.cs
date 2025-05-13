@@ -13,6 +13,36 @@ namespace RentalService.Persistence.Mappers
     {
         private readonly List<string> fouten = new();
 
+        public List<Customer> GetCustomers()
+        {
+            using SqlConnection connection = new(DBInfo.ConnectionString);
+            connection.Open();
+            using SqlCommand command = new("SELECT * FROM Customers", connection);
+            using SqlDataReader reader = command.ExecuteReader();
+
+            List<Customer> customers = [];
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    int id = (int)reader["Id"];
+                    string firstName = (string)reader["FirstName"];
+                    string lastName = (string)reader["LastName"];
+                    string email = (string)reader["Email"];
+                    string street = (string)reader["Street"];
+                    int postalCode = (int)reader["PostalCode"];
+                    string city = (string)reader["City"];
+                    string country = (string)reader["Country"];
+
+                    Customer customer = new(id, firstName, lastName, email, street, postalCode, city, country);
+                    customers.Add(customer);
+                }
+            }
+
+            return customers;
+        }
+
         public void ReadCustomers(string pad)
         {
             var regels = File.ReadAllLines(pad);

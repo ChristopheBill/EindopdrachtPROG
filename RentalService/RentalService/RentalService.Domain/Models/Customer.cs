@@ -27,11 +27,15 @@ namespace RentalService.Domain.Models
 
         public Customer(string firstName, string lastName, string email, string streetName, int zipCode, string city, string country) : this(firstName, lastName, email)
         {
-            //Id = id;
             StreetName = streetName;
             ZipCode = zipCode;
             City = city;
             Country = country;
+        }
+
+        public Customer(int id, string firstName, string lastName, string email, string streetName, int zipCode, string city, string country) : this(firstName, lastName, email, streetName, zipCode, city, country)
+        {
+            Id = id;
         }
 
         public int Id
