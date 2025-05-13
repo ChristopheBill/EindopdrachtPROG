@@ -43,6 +43,20 @@ namespace RentalService.Persistence.Mappers
             //{
             //    fouten.Add("Vestigingen.csv: ongeldige header.");
             //}
+            using SqlConnection connection = new(DBInfo.ConnectionString);
+
+            SqlCommand command = new SqlCommand("DELETE FROM Establishments", connection);
+
+            try
+            {
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Fout bij het verwijderen van de tabel: " + ex.Message);
+            }
+            finally { connection.Close(); }
 
             for (int i = 1; i < regels.Length; i++)
             {
@@ -60,20 +74,19 @@ namespace RentalService.Persistence.Mappers
                     delen[3],
                     delen[4]);
 
-                using SqlConnection connection = new(DBInfo.ConnectionString);
                 connection.Open();
                 using SqlTransaction transaction = connection.BeginTransaction();
 
                 try
                 {
-                    using SqlCommand command = new("Insert into Establishments (Airport, Street, PostalCode, City, Country) Values (@Airport, @Street, @PostalCode, @City, @Country)", connection, transaction);
-                    command.Parameters.AddWithValue("@Airport", location.Airport);
-                    command.Parameters.AddWithValue("@Street", location.StreetName);
-                    command.Parameters.AddWithValue("@PostalCode", location.PostalCode);
-                    command.Parameters.AddWithValue("@City", location.City);
-                    command.Parameters.AddWithValue("@Country", location.Country);
+                    using SqlCommand cmd = new("Insert into Establishments (Airport, Street, PostalCode, City, Country) Values (@Airport, @Street, @PostalCode, @City, @Country)", connection, transaction);
+                    cmd.Parameters.AddWithValue("@Airport", location.Airport);
+                    cmd.Parameters.AddWithValue("@Street", location.StreetName);
+                    cmd.Parameters.AddWithValue("@PostalCode", location.PostalCode);
+                    cmd.Parameters.AddWithValue("@City", location.City);
+                    cmd.Parameters.AddWithValue("@Country", location.Country);
 
-                    //command.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
                     transaction.Commit();
                 }
                 catch (Exception ex)

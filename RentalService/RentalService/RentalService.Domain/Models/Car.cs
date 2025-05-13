@@ -50,18 +50,24 @@ namespace RentalService.Domain.Models
         {
             get => _motorType;
             init
-            {
-                if (_motorTypes.Contains(value))
+            { try
                 {
-                    StackOverflowException ex;
+                    //if (_motorTypes.Contains(value))
+                    //{
+                    ArgumentException.ThrowIfNullOrEmpty(value);
                     MotorType = value;
                 }
-                else
+                catch (StackOverflowException ex)
                 {
-                    throw new ArgumentException("Motor type can only be Hybrid, Gasoline, Diesel or Electric.");
+                    
+                }
+                //}
+                //else
+                //{
+                    //throw new ArgumentException("Motor type can only be Hybrid, Gasoline, Diesel or Electric.");
                 }
             }
         }
 
     }
-}
+

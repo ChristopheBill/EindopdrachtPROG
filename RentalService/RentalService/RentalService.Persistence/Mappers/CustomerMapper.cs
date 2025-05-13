@@ -47,6 +47,22 @@ namespace RentalService.Persistence.Mappers
             //    fouten.Add("Klanten.csv: ongeldige header.");
             //}
 
+            using SqlConnection connection = new(DBInfo.ConnectionString);
+
+            SqlCommand command = new SqlCommand("DELETE FROM Cars", connection);
+
+            try
+            {
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Fout bij het verwijderen van de tabel: " + ex.Message);
+            }
+            finally { connection.Close(); }
+
+
             for (int i = 1; i < regels.Length; i++)
             {
                 string[] delen = regels[i].Split(';');
@@ -65,22 +81,22 @@ namespace RentalService.Persistence.Mappers
                     delen[5],
                     delen[6]);
 
-                using SqlConnection connection = new(DBInfo.ConnectionString);
                 connection.Open();
+
                 using SqlTransaction transaction = connection.BeginTransaction();
 
                 try
                 {
-                    using SqlCommand command = new("Insert into Customers (FirstName, LastName, Email, Street, PostalCode, City, Country) Values (@FirstName, @LastName, @Email, @Street, @PostalCode, @City, @Country)", connection, transaction);
-                    command.Parameters.AddWithValue("@FirstName", customer.FirstName);
-                    command.Parameters.AddWithValue("@LastName", customer.LastName);
-                    command.Parameters.AddWithValue("@Email", customer.Email);
-                    command.Parameters.AddWithValue("@Street", customer.StreetName);
-                    command.Parameters.AddWithValue("@PostalCode", customer.ZipCode);
-                    command.Parameters.AddWithValue("@City", customer.City);
-                    command.Parameters.AddWithValue("@Country", customer.Country);
+                    using SqlCommand cmd = new("Insert into Customers (FirstName, LastName, Email, Street, PostalCode, City, Country) Values (@FirstName, @LastName, @Email, @Street, @PostalCode, @City, @Country)", connection, transaction);
+                    cmd.Parameters.AddWithValue("@FirstName", customer.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", customer.LastName);
+                    cmd.Parameters.AddWithValue("@Email", customer.Email);
+                    cmd.Parameters.AddWithValue("@Street", customer.StreetName);
+                    cmd.Parameters.AddWithValue("@PostalCode", customer.ZipCode);
+                    cmd.Parameters.AddWithValue("@City", customer.City);
+                    cmd.Parameters.AddWithValue("@Country", customer.Country);
 
-                    //command.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
                     transaction.Commit();
                 }
                 catch (Exception ex)

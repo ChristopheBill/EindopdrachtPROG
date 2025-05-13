@@ -41,6 +41,21 @@ namespace RentalService.Persistence.Mappers
             //{
             //    fouten.Add("Autos.csv: ongeldige header.");
             //}
+            using SqlConnection connection = new(DBInfo.ConnectionString);
+
+            SqlCommand command = new SqlCommand("DELETE FROM Cars", connection);
+                
+            try
+            {
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Fout bij het verwijderen van de tabel: " + ex.Message);
+            }
+            finally { connection.Close(); }
+
 
             for (int i = 1; i < regels.Length; i++)
             {
@@ -57,19 +72,17 @@ namespace RentalService.Persistence.Mappers
                     int.TryParse(delen[2], out int zp) ? zp : -1,
                 delen[3]);
 
-                using SqlConnection connection = new(DBInfo.ConnectionString);
-                connection.Open();
-                using SqlTransaction transaction = connection.BeginTransaction();
 
+                using SqlTransaction transaction = connection.BeginTransaction();
                 try
                 {
-                    using SqlCommand command = new("Insert into Cars (LicensePlate, Model, Seats, MotorType) Values (@LicensePlate, @Model, @Seats, @MotorType)", connection, transaction);
-                    command.Parameters.AddWithValue("@LicensePlate", car.LicensePlate);
-                    command.Parameters.AddWithValue("@Model", car.Model);
-                    command.Parameters.AddWithValue("@Seats", car.Seats);
-                    command.Parameters.AddWithValue("@MotorType", car.MotorType);
+                    using SqlCommand cmd = new("Insert into Cars (LicensePlate, Model, Seats, MotorType) Values (@LicensePlate, @Model, @Seats, @MotorType)", connection, transaction);
+                    cmd.Parameters.AddWithValue("@LicensePlate", car.LicensePlate);
+                    cmd.Parameters.AddWithValue("@Model", car.Model);
+                    cmd.Parameters.AddWithValue("@Seats", car.Seats);
+                    cmd.Parameters.AddWithValue("@MotorType", car.MotorType);
 
-                    //command.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
 
                     transaction.Commit();
                 }
