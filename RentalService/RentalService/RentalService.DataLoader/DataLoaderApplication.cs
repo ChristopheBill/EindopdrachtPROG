@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using RentalService.Domain.Models;
 using RentalService.Persistence;
+using RentalService.Persistence.Mappers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,6 +16,7 @@ namespace RentalService.DataLoader
         private readonly HashSet<string> uniekeEmails = new();
         private readonly HashSet<string> uniekeNummerplaten = new();
         private readonly List<string> fouten = new();
+        private CarMapper _carMapper;
 
         public List<string> InitialiseAllFiles(string padVestigingen, string padAutos, string padKlanten)
         {
@@ -22,7 +24,7 @@ namespace RentalService.DataLoader
             uniekeEmails.Clear();
             uniekeNummerplaten.Clear();
             LeesVestigingen(padVestigingen);
-            LeesAutos(padAutos);
+            _carMapper.LeesAutos(padAutos);
             LeesKlanten(padKlanten);
 
             return fouten;
@@ -75,49 +77,6 @@ namespace RentalService.DataLoader
 
             }
 
-        }
-
-        public void LeesAutos(string pad)
-        {
-            var regels = File.ReadAllLines(pad);
-
-            if (regels.Length == 0 || regels[0] != "LicensePlate;Model;Seats;Motortype")
-            {
-                fouten.Add("Autos.csv: ongeldige header.");
-            }
-
-            for (int i = 1; i < regels.Length; i++)
-            {
-                var delen = regels[i].Split(';');
-                if (delen.Length < 4)
-                {
-                    fouten.Add($"Autos.csv - Regel {i + 1}: Onvoldoende kolommen.");
-                    continue;
-                }
-
-                Car car = new(
-                    delen[0],
-                    delen[1],
-                    int.TryParse(delen[2], out var zp) ? zp : -1,
-                    delen[3]);
-
-                try
-                {
-                    using SqlConnection connection = new(DBInfo.ConnectionString);
-
-                    using SqlCommand command = new("Insert into Cars (LicensePlate, Model, Seats, MotorType) Values (@LicensePlate, @Model, @Seats, @MotorType)", connection);
-                    command.Parameters.AddWithValue("@LicensePlate", car.LincensePlate);
-                    command.Parameters.AddWithValue("@Model", car.Model);
-                    command.Parameters.AddWithValue("@Seats", car.Seats);
-                    command.Parameters.AddWithValue("@MotorType", car.MotorType);
-
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception($"Something went wrong {ex}");
-                }
-            }
         }
 
         public void LeesKlanten(string pad)
