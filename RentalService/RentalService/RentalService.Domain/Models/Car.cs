@@ -23,13 +23,15 @@ namespace RentalService.Domain.Models
             MotorType = motorType;
         }
 
-        public Car(int id, string licensePlate, string model, int seats, string motorType) : this (licensePlate, model, seats, motorType)
+        public Car(int id, string licensePlate, string model, int seats, string motorType) : this(licensePlate, model, seats, motorType)
         {
             Id = id;
         }
 
-        public int Id { get => _id;
-        init
+        public int Id
+        {
+            get => _id;
+            init
             {
                 ArgumentOutOfRangeException.ThrowIfLessThanOrEqual((value), 0);
                 _id = value;
@@ -50,24 +52,26 @@ namespace RentalService.Domain.Models
         {
             get => _motorType;
             init
-            { try
-                {
-                    //if (_motorTypes.Contains(value))
-                    //{
-                    ArgumentException.ThrowIfNullOrEmpty(value);
-                    MotorType = value;
-                }
-                catch (StackOverflowException ex)
-                {
-                    
-                }
-                //}
-                //else
+            //=>
+            {
+                //try
                 //{
-                    //throw new ArgumentException("Motor type can only be Hybrid, Gasoline, Diesel or Electric.");
+                if (_motorTypes.Contains(value))
+                {
+                    //ArgumentException.ThrowIfNullOrEmpty(value);
+                    _motorType = value;
+                }
+                //catch (StackOverflowException ex)
+                //{
+
+                //}
+                else
+
+                {
+                    throw new ArgumentException("Motor type can only be Hybrid, Gasoline, Diesel or Electric.");
                 }
             }
+
         }
-
     }
-
+}
