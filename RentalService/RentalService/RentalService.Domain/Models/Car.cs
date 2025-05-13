@@ -15,9 +15,9 @@ namespace RentalService.Domain.Models
         //private int _seats;
         private List<string> _motorTypes = ["Hybrid", "Gasoline", "Diesel", "Electric"];
         private string _motorType;
-        public Car(int id, string lincensePlate, string model, int seats, string motorType)
+        public Car(string lincensePlate, string model, int seats, string motorType)
         {
-            Id = id;
+            //Id = id;
             LincensePlate = lincensePlate;
             Model = model;
             Seats = seats;

@@ -25,9 +25,9 @@ namespace RentalService.Domain.Models
             Email = email;
         }
 
-        public Customer(int id, string firstName, string lastName, string email, string streetName, int zipCode, string city, string country) : this(firstName, lastName, email)
+        public Customer(string firstName, string lastName, string email, string streetName, int zipCode, string city, string country) : this(firstName, lastName, email)
         {
-            Id = id;
+            //Id = id;
             StreetName = streetName;
             ZipCode = zipCode;
             City = city;
