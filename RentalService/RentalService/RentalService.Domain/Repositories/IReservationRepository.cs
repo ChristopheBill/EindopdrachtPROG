@@ -8,5 +8,6 @@ namespace RentalService.Domain.Repositories
 {
     public interface IReservationRepository
     {
+
     }
 }
