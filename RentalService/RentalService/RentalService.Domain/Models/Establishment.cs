@@ -44,7 +44,7 @@ namespace RentalService.Domain.Models
             get => _airport; 
             init 
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                //ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(Airport));
                 _airport = value; 
             }
         }
@@ -53,7 +53,7 @@ namespace RentalService.Domain.Models
             get => _street;
             init
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(Street));
                 _street = value;
             }
         }
@@ -62,7 +62,7 @@ namespace RentalService.Domain.Models
             get => _postalCode; 
             init
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(PostalCode));
                 _postalCode = value; 
             }
         }
@@ -70,7 +70,7 @@ namespace RentalService.Domain.Models
         { get => _city;
             init
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(City));
                 _city = value; 
             }
         }
@@ -93,7 +93,7 @@ namespace RentalService.Domain.Models
 
         public override string? ToString()
         {
-            return $"{Airport} {Country}";
+            return $"{Country}";
         }
     }
 }

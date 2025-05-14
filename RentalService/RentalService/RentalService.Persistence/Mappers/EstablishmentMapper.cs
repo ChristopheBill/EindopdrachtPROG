@@ -89,6 +89,7 @@ namespace RentalService.Persistence.Mappers
                     transaction.Rollback();
                     throw new Exception($"Something went wrong {ex}");
                 }
+                
                 finally
                 {
                     connection.Close();
