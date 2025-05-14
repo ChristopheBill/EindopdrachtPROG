@@ -71,5 +71,11 @@ namespace RentalService.Presentation.Windows
 
             //MessageBox.Show("Markdown bestand gegenereerd als 'auto-overzicht.md'");
         }
+
+        private void LoadWindow(object sender, RoutedEventArgs e)
+        {
+            //lvAutos.ItemsSource = _carRepository.GetCars();
+
+        }
     }
 }

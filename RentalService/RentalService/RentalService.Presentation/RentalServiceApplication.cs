@@ -10,6 +10,7 @@ namespace RentalService.Presentation
         private readonly DomainManager _domainManager;
         private readonly OverviewWindow _overviewWindow;
         private readonly IEstablishmentRepository _establishmentRepository;
+        private readonly ICarRepository _carRepository;
 
 
         public RentalServiceApplication(DomainManager domainManager)
