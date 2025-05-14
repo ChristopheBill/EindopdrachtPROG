@@ -43,7 +43,7 @@
         </StackPanel>
 
         <!-- Resultaat: beschikbare auto's -->
-        <DataGrid x:Name="dgAutos" Grid.Row="4" AutoGenerateColumns="False" CanUserAddRows="False">
+        <DataGrid x:Name="dgAutos" Grid.Row="4" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Model" Binding="{Binding Model}" Width="*"/>
                 <DataGridTextColumn Header="Zitplaatsen" Binding="{Binding Seats}" Width="*"/>

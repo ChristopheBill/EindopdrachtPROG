@@ -16,12 +16,14 @@ namespace RentalService.Domain.DTOs
             Model = car.Model;
             Seats = car.Seats;
             MotorType = car.MotorType;
+            EstablishmentId = car.EstablishmentId;
         }
         public int Id { get; set; }
         public string LicensePlate { get; set; }
         public string Model { get; set; }
         public int Seats { get; set; }
         public string MotorType { get; set; }
+        public int EstablishmentId { get; set; }
 
     }
 }

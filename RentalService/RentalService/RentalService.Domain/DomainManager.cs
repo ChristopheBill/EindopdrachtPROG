@@ -21,7 +21,7 @@ namespace RentalService.Domain
             return _carRepository.GetCars().Select(c=>new CarDTO(c)).ToList();
         }
 
-        public List<CustomerDTO> GetCustomer() 
+        public List<CustomerDTO> GetCustomers() 
         {
             return _customerRepository.GetCustomers().Select(c=>new CustomerDTO(c)).ToList();
         }
