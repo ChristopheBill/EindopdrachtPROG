@@ -26,37 +26,37 @@ namespace RentalService.Presentation.Windows
         public CarOverviewWindow()
         {
             InitializeComponent();
-            lvAutos.ItemsSource = _carRepository.GetCars();
+            //lvAutos.ItemsSource = _carRepository.GetCars();
 
-        //    //_establishmentRepository = establishment;
-        //    //_carRepository = carRepository;
-        //    LoadVestigingen();
-        //}
+            //_establishmentRepository = establishment;
+            //_carRepository = carRepository;
+            LoadVestigingen();
+        }
 
-        //private void LoadVestigingen()
-        //{
-        //    cmbVestigingen.ItemsSource = _establishmentRepository.GetEstablishments();
-        //    cmbVestigingen.DisplayMemberPath = "Luchthaven";
-        //}
+        private void LoadVestigingen()
+        {
+            //cmbVestigingen.ItemsSource = _establishmentRepository.GetEstablishments();
+            //cmbVestigingen.DisplayMemberPath = "Luchthaven";
+        }
 
-        //private void btnGenereerMarkdown_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (cmbVestigingen.SelectedItem is not Establishment vestiging ||
-        //        dpDatum.SelectedDate is not DateTime date ||
-        //        !TimeSpan.TryParse(txtTijd.Text, out var tijd))
-        //    {
-        //        MessageBox.Show("Gelieve een geldige vestiging, datum en tijd in te geven.");
-        //        return;
-        //    }
+        private void btnGenereerMarkdown_Click(object sender, RoutedEventArgs e)
+        {
+            //if (cmbVestigingen.SelectedItem is not Establishment vestiging ||
+            //    dpDatum.SelectedDate is not DateTime date ||
+            //    !TimeSpan.TryParse(txtTijd.Text, out var tijd))
+            //{
+            //    MessageBox.Show("Gelieve een geldige vestiging, datum en tijd in te geven.");
+            //    return;
+            //}
 
-        //    DateTime tijdstip = date.Add(tijd);
-        //    List<Car> beschikbareAutos = _carRepository.GetCars();
-        //    dgAutos.ItemsSource = beschikbareAutos;
+            //DateTime tijdstip = date.Add(tijd);
+            //List<Car> beschikbareAutos = _carRepository.GetCars();
+            //dgAutos.ItemsSource = beschikbareAutos;
 
-        //    //string markdown = MarkdownGenerator.Genereer(vestiging, tijdstip, beschikbareAutos);
-        //    //System.IO.File.WriteAllText("auto-overzicht.md", markdown);
+            //string markdown = MarkdownGenerator.Genereer(vestiging, tijdstip, beschikbareAutos);
+            //System.IO.File.WriteAllText("auto-overzicht.md", markdown);
 
-        //    //MessageBox.Show("Markdown bestand gegenereerd als 'auto-overzicht.md'");
+            //MessageBox.Show("Markdown bestand gegenereerd als 'auto-overzicht.md'");
         }
     }
 }
