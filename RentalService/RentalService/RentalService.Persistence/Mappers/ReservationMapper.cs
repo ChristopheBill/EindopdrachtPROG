@@ -18,7 +18,7 @@ namespace RentalService.Persistence.Mappers
             using SqlCommand command = new("SELECT * FROM Reservations", connection);
             command.Parameters.AddWithValue("@CarId", car.Id);
             command.Parameters.AddWithValue("@CustomerId", customer.Id);
-            command.Parameters.AddWithValue("@BranchId", establishment.Id);
+            command.Parameters.AddWithValue("@EstablishmentId", establishment.Id);
 
             using SqlDataReader reader = command.ExecuteReader();
 

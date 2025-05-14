@@ -6,7 +6,7 @@ namespace RentalService.Persistence.Mappers
 {
     public class EstablishmentMapper : IEstablishmentRepository
     {
-        private readonly List<string> fouten = new();
+        private readonly List<string> _fouten = new();
 
         public List<Establishment> GetEstablishments()
         {
@@ -58,7 +58,7 @@ namespace RentalService.Persistence.Mappers
                 string[] delen = regels[i].Split(';');
                 if (delen.Length < 5)
                 {
-                    fouten.Add($"Vestigingen.csv - Regel {i + 1}: Onvoldoende kolommen.");
+                    _fouten.Add($"Vestigingen.csv - Regel {i + 1}: Onvoldoende kolommen.");
                     continue;
                 }
 
@@ -84,11 +84,17 @@ namespace RentalService.Persistence.Mappers
                     cmd.ExecuteNonQuery();
                     transaction.Commit();
                 }
-                catch (Exception ex)
+                catch (ArgumentException ex)
                 {
-                    transaction.Rollback();
-                    throw new Exception($"Something went wrong {ex}");
+                    _fouten.Add($"Invalid entry at line {i+1}, {ex.Message}");
+                    //throw new Exception(ex.Message);
                 }
+
+                //catch (Exception ex)
+                //{
+                //    transaction.Rollback();
+                //    throw new Exception($"Something went wrong {ex}");
+                //}
                 
                 finally
                 {
