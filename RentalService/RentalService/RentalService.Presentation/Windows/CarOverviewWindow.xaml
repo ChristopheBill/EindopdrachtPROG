@@ -26,7 +26,7 @@
             <TextBox x:Name="txtTijd" Width="80" Margin="10,0"/>
         </StackPanel>
 
-        <DataGrid x:Name="dgAutos" Grid.Row="2" AutoGenerateColumns="False" CanUserAddRows="False">
+        <DataGrid x:Name="lvAutos" Grid.Row="2" AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nummerplaat" Binding="{Binding Nummerplaat}" Width="*"/>
                 <DataGridTextColumn Header="Model" Binding="{Binding Model}" Width="*"/>

@@ -19,7 +19,7 @@
         <!-- Vestiging kiezen -->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
             <Label Content="Vestiging:" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmbVestigingen" Width="200" Margin="10,0"/>
+            <ComboBox x:Name="cmbEstablishments" Width="200" Margin="10,0" />
         </StackPanel>
 
         <!-- Huurperiode -->

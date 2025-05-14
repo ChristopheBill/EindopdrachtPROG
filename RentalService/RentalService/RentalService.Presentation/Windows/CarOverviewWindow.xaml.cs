@@ -32,6 +32,19 @@ namespace RentalService.Presentation.Windows
             //_carRepository = carRepository;
             LoadVestigingen();
         }
+        public CarOverviewWindow(IEstablishmentRepository establishmentRepository, ICarRepository carRepository, ComboBox cmbVestigingen, DatePicker dpDatum, TextBox txtTijd, DataGrid dgAutos, Button btnGenereerMarkdown, bool contentLoaded)
+        {
+            _establishmentRepository = establishmentRepository;
+            _carRepository = carRepository;
+            this.cmbVestigingen = cmbVestigingen;
+            this.dpDatum = dpDatum;
+            this.txtTijd = txtTijd;
+            this.lvAutos = dgAutos;
+            this.btnGenereerMarkdown = btnGenereerMarkdown;
+            _contentLoaded = contentLoaded;
+            lvAutos.ItemsSource = _carRepository.GetCars();
+
+        }
 
         private void LoadVestigingen()
         {

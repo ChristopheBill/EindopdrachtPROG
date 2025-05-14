@@ -1,5 +1,6 @@
 
 using RentalService.Domain;
+using RentalService.Domain.Repositories;
 using RentalService.Presentation.Windows;
 
 namespace RentalService.Presentation
@@ -8,6 +9,7 @@ namespace RentalService.Presentation
     {
         private readonly DomainManager _domainManager;
         private readonly OverviewWindow _overviewWindow;
+        private readonly IEstablishmentRepository _establishmentRepository;
 
 
         public RentalServiceApplication(DomainManager domainManager)

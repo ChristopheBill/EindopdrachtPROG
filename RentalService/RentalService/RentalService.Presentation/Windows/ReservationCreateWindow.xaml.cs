@@ -100,5 +100,10 @@ namespace RentalService.Presentation.Windows
             //    MessageBox.Show("Fout bij reservatie: " + ex.Message);
             //}
         }
+
+        private void cmbEstablishments_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //cmbEstablishments.
+        }
     }
 }

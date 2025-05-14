@@ -79,6 +79,17 @@ namespace RentalService.Domain.Models
 
         }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is Car car &&
+                   Id == car.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id);
+        }
+
         public override string? ToString()
         {
             return $"{Model} {LicensePlate} {Seats} {MotorType}";

@@ -47,6 +47,7 @@ namespace RentalService.Persistence.Mappers
             try
             {
                 SqlCommand command = new SqlCommand("DELETE FROM Customers", connection);
+                connection.Open();
                 command.ExecuteNonQuery();
             }
             catch (SqlException ex)

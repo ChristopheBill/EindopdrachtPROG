@@ -37,12 +37,7 @@ namespace RentalService.Persistence.Mappers
         {
             string[] regels = File.ReadAllLines(pad);
 
-            //if (regels.Length == 0 || regels[0] != "LicensePlate;Model;Seats;Motortype")
-            //{
-            //    fouten.Add("Autos.csv: ongeldige header.");
-            //}
             using SqlConnection connection = new(DBInfo.ConnectionString);
-
 
             try
             {
