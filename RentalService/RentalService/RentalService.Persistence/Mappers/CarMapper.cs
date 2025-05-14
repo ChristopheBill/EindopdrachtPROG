@@ -7,12 +7,14 @@ namespace RentalService.Persistence.Mappers
     public class CarMapper : ICarRepository
     {
         private readonly List<string> fouten = new();
+        //private SqlConnection _connection = new SqlConnection(DBInfo.ConnectionString);
 
         public List<Car> GetCars()
         {
+            //using SqlConnection connection = _connection;
             using SqlConnection connection = new(DBInfo.ConnectionString);
             connection.Open();
-            using SqlCommand command = new("SELECT * FROM People", connection);
+            using SqlCommand command = new("SELECT * FROM Cars", connection);
             using SqlDataReader reader = command.ExecuteReader();
 
             List<Car> cars = [];
@@ -32,6 +34,17 @@ namespace RentalService.Persistence.Mappers
             }
             return cars;
         }
+
+        public List<Car> GetCarsByEstablishment(int establishmentId)
+        {
+            List<Car> cars = [];
+            using SqlConnection connection = new(DBInfo.ConnectionString);
+            using SqlCommand getCarsByEstablishmentId = new("Select * from Cars where Id = @PlayerId", connection);
+
+
+            return cars;
+        }
+
 
         public void ReadCars(string pad)
         {
