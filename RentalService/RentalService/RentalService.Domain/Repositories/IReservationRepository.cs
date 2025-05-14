@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RentalService.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace RentalService.Domain.Repositories
 {
     public interface IReservationRepository
     {
+        public List<Reservation> GetReservations(Customer customer, Car car, Establishment establishment);
 
     }
 }
