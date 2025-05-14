@@ -29,7 +29,7 @@ namespace RentalService.Presentation.Windows
 
         private void ReservatieMaken_Click(object sender, RoutedEventArgs e)
         {
-            var window = new ReservationCreateWindow();
+            var window = new ReservationCreateWindow(_domainManager);
             window.ShowDialog();
         }
 

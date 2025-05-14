@@ -55,7 +55,7 @@ namespace RentalService.Domain.Models
             get => _firstName;
             init
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(FirstName));
+                ArgumentException.ThrowIfNullOrWhiteSpace(value);
                 _firstName = value;
             }
         }
@@ -64,7 +64,7 @@ namespace RentalService.Domain.Models
             get => _lastName;
             init
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(LastName));
+                ArgumentException.ThrowIfNullOrWhiteSpace(value);
                 _lastName = value;
             }
         }
@@ -92,7 +92,7 @@ namespace RentalService.Domain.Models
             get => _street;
             init
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(Street));
+                ArgumentException.ThrowIfNullOrWhiteSpace(value);
                 _street = value;
                 ;
             }

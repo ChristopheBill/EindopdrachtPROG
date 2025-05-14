@@ -15,6 +15,7 @@ namespace RentalService.Domain.Models
         private int _seats;
         private List<string> _motorTypes = ["Hybrid", "Gasoline", "Diesel", "Electric"];
         private string _motorType;
+        private int _establishmentId;
 
         public Car(string licensePlate, string model, int seats, string motorType)
         {
@@ -59,7 +60,11 @@ namespace RentalService.Domain.Models
         { 
             get => _seats;
             init 
-            { 
+            {
+                if (value > 10)
+                {
+                    throw new ArgumentException("Car seats cannot be more than 10°.");
+                }
                 if (value >= 2) { _seats = value; }
                 //ArgumentOutOfRangeException.ThrowIfLessThan((value), 2);
                 //_seats = value; 
@@ -85,6 +90,7 @@ namespace RentalService.Domain.Models
             }
 
         }
+        public int EstablishmentId { get => _establishmentId; set => _establishmentId = value; }
 
         public override bool Equals(object? obj)
         {

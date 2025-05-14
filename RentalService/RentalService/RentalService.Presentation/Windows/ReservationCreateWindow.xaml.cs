@@ -1,4 +1,5 @@
-﻿using RentalService.Domain.DTOs;
+﻿using RentalService.Domain;
+using RentalService.Domain.DTOs;
 using RentalService.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -22,17 +23,20 @@ namespace RentalService.Presentation.Windows
     /// </summary>
     public partial class ReservationCreateWindow : Window
     {
-        private readonly IReservationRepository _reservatieService;
-        private readonly IEstablishmentRepository _vestigingService;
-        private readonly ICarRepository _autoService;
-        private readonly CustomerDTO _loggedInCustomer;
-        public ReservationCreateWindow()
+        //private readonly IReservationRepository _reservatieService;
+        //private readonly IEstablishmentRepository _vestigingService;
+        //private readonly ICarRepository _autoService;
+        //private readonly CustomerDTO _loggedInCustomer;
+        private DomainManager _domainManager;
+        public ReservationCreateWindow(DomainManager domainManager)
         {
             //(CustomerDTO customer,
             //IReservationRepository reservatieService,
             //IEstablishmentRepository vestigingService,
             //ICarRepository autoService)
             InitializeComponent();
+            _domainManager = domainManager;
+            dgAutos.ItemsSource = _domainManager.GetCars();
             //_loggedInCustomer = customer;
             //_reservatieService = reservatieService;
             //_vestigingService = vestigingService;

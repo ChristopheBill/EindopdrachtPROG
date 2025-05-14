@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using RentalService.Domain;
 using RentalService.Domain.Models;
 using RentalService.Persistence;
 using RentalService.Persistence.Mappers;
@@ -19,6 +20,7 @@ namespace RentalService.DataLoader
         private CarMapper _carMapper = new();
         private EstablishmentMapper _establishmentMapper = new();
         private CustomerMapper _customerMapper = new();
+        //private DomainManager _domainManager;
 
         public List<string> InitialiseAllFiles(string padVestigingen, string padAutos, string padKlanten)
         {

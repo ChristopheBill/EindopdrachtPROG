@@ -46,13 +46,13 @@ namespace RentalService.Presentation.Windows
             this.lvAutos = dgAutos;
             this.btnGenereerMarkdown = btnGenereerMarkdown;
             _contentLoaded = contentLoaded;
-            lvAutos.ItemsSource = _carRepository.GetCars();
+            //lvAutos.ItemsSource = _carRepository.GetCars();
 
         }
 
         private void LoadVestigingen()
         {
-            //cmbVestigingen.ItemsSource = _establishmentRepository.GetEstablishments();
+            //cmbVestigingen.ItemsSource = _domainManager.GetEstablishments();
             //cmbVestigingen.DisplayMemberPath = "Luchthaven";
         }
 
@@ -79,6 +79,8 @@ namespace RentalService.Presentation.Windows
         private void LoadWindow(object sender, RoutedEventArgs e)
         {
             lvAutos.ItemsSource = _domainManager.GetCars();
+            cmbVestigingen.ItemsSource = _domainManager.GetEstablishments();
+
 
         }
     }
