@@ -79,7 +79,7 @@ namespace RentalService.Domain.Models
             //    }
             //    else if (IsEmailUnique(value))
             //    {
-                    Email = value;
+                    _email = value;
                 //}
                 //else
                 //{

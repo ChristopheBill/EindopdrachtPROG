@@ -4,6 +4,7 @@ using RentalService.Domain.DTOs;
 using RentalService.Domain.Repositories;
 using RentalService.Presentation.Windows;
 using System.Windows.Automation.Peers;
+using System.Windows.Media.Imaging;
 
 namespace RentalService.Presentation
 {
@@ -30,6 +31,10 @@ namespace RentalService.Presentation
         internal List<EstablishmentDTO> GetEstablishments() 
         {
             return _domainManager.GetEstablishments();
+        }
+        internal List<CustomerDTO> GetCustomer()
+        {
+            return _domainManager.GetCustomers();
         }
     }
 

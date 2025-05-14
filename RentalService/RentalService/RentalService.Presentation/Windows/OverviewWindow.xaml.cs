@@ -35,7 +35,7 @@ namespace RentalService.Presentation.Windows
 
         private void ReservatieOpzoeken_Click(object sender, RoutedEventArgs e)
         {
-            var window = new ReservationSearchWindow();
+            var window = new ReservationSearchWindow(_domainManager);
             window.ShowDialog();
         }
 

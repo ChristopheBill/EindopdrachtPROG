@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RentalService.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,11 +20,14 @@ namespace RentalService.Presentation.Windows
     /// </summary>
     public partial class ReservationSearchWindow : Window
     {
+        private readonly DomainManager _domainManager;
         //private readonly IReservatieService _reservatieService;
         //private readonly IVestigingService _vestigingService;
-        public ReservationSearchWindow()
+        public ReservationSearchWindow(DomainManager domainManager)
         {
             InitializeComponent();
+            _domainManager = domainManager;
+            //dgReservaties.ItemsSource = _domainManager.GetCustomers();
             //(IReservatieService reservatieService, IVestigingService vestigingService)
             //_reservatieService = reservatieService;
             //_vestigingService = vestigingService;
