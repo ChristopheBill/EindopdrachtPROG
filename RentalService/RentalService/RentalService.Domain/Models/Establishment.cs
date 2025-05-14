@@ -43,5 +43,20 @@ namespace RentalService.Domain.Models
             init //logica om land te checken op cijfers in de naam
                 ;
         }
+        public override bool Equals(object? obj)
+        {
+            return obj is Establishment establishment &&
+                   Id == establishment.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id);
+        }
+
+        public override string? ToString()
+        {
+            return $"{Airport} {Country}";
+        }
     }
 }

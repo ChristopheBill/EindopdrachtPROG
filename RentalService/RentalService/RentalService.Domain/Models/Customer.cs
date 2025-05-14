@@ -112,8 +112,24 @@ namespace RentalService.Domain.Models
                 //}
             }
         }
-        public string City { get => _city; init => _city = value; }
-        public string Country { get => _country; init => _country = value; }
+        public string City
+        {
+            get => _city;
+            init
+            {
+                ArgumentException.ThrowIfNullOrWhiteSpace(value);
+               _city = value;
+            }
+        }
+        public string Country
+        {
+            get => _country;
+            init
+            {
+                ArgumentException.ThrowIfNullOrWhiteSpace(value);
+               _country = value;
+            }
+        }
 
         static bool IsEmailUnique(string email)
         {
@@ -127,6 +143,22 @@ namespace RentalService.Domain.Models
                 return false;
             }
 
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Customer customer &&
+                   Id == customer.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id);
+        }
+
+        public override string? ToString()
+        {
+            return $"{FirstName} {LastName}";
         }
     }
 }

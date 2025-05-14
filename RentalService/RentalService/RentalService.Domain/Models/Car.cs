@@ -47,7 +47,14 @@ namespace RentalService.Domain.Models
                 _licensePlate = value;
             }
         }
-        public string Model { get => _model; init => _model = value; }
+        public string Model 
+        {
+            get => _model; init 
+            {
+                ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                _model = value; 
+            } 
+        }
         public int Seats 
         { 
             get => _seats;
