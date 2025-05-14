@@ -45,9 +45,10 @@
         <!-- Resultaat: beschikbare auto's -->
         <DataGrid x:Name="dgAutos" Grid.Row="4" AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nummerplaat" Binding="{Binding Nummerplaat}" Width="*"/>
                 <DataGridTextColumn Header="Model" Binding="{Binding Model}" Width="*"/>
-                <DataGridTextColumn Header="Zitplaatsen" Binding="{Binding Zitplaatsen}" Width="*"/>
+                <DataGridTextColumn Header="Zitplaatsen" Binding="{Binding Seats}" Width="*"/>
+                <DataGridTextColumn Header="Nummerplaat" Binding="{Binding LicensePlate}" Width="*"/>
+                <DataGridTextColumn Header="Motortype" Binding="{Binding MotorType}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 

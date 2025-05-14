@@ -27,6 +27,10 @@ namespace RentalService.Presentation
         {
             return _domainManager.GetCars();
         }
+        internal List<EstablishmentDTO> GetEstablishments() 
+        {
+            return _domainManager.GetEstablishments();
+        }
     }
 
 }

@@ -39,10 +39,41 @@ namespace RentalService.Domain.Models
                 _id = value;
             }
         }
-        public string Airport { get => _airport; init => _airport = value; }
-        public string Street { get => _street; init => _street = value; }
-        public string PostalCode { get => _postalCode; init => _postalCode = value; }
-        public string City { get => _city; init => _city = value; }
+        public string Airport 
+        { 
+            get => _airport; 
+            init 
+            {
+                ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                _airport = value; 
+            }
+        }
+        public string Street
+        {
+            get => _street;
+            init
+            {
+                ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                _street = value;
+            }
+        }
+        public string PostalCode
+        {
+            get => _postalCode; 
+            init
+            {
+                ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                _postalCode = value; 
+            }
+        }
+        public string City 
+        { get => _city;
+            init
+            {
+                ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                _city = value; 
+            }
+        }
         public string Country
         {
             get => _country;

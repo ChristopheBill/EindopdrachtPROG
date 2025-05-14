@@ -37,6 +37,7 @@ namespace RentalService.Presentation.Windows
             InitializeComponent();
             _domainManager = domainManager;
             dgAutos.ItemsSource = _domainManager.GetCars();
+            cmbEstablishments.ItemsSource = _domainManager.GetEstablishments();
             //_loggedInCustomer = customer;
             //_reservatieService = reservatieService;
             //_vestigingService = vestigingService;
