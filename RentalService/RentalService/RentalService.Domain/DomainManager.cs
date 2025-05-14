@@ -1,4 +1,6 @@
-﻿using RentalService.Domain.Repositories;
+﻿using RentalService.Domain.DTOs;
+using RentalService.Domain.Models;
+using RentalService.Domain.Repositories;
 
 namespace RentalService.Domain
 {
@@ -13,6 +15,10 @@ namespace RentalService.Domain
             _carRepository = carRepository;
             _customerRepository = customerRepository;
             _locationRepository = locationRepository;
+        }
+        public List<CarDTO> GetCars()
+        {
+            return _carRepository.GetCars().Select(c=>new CarDTO(c)).ToList();
         }
     }
 }

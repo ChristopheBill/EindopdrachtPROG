@@ -1,8 +1,10 @@
-﻿using RentalService.Domain.Models;
+﻿using RentalService.Domain;
+using RentalService.Domain.Models;
 using RentalService.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,9 +25,11 @@ namespace RentalService.Presentation.Windows
     {
         private IEstablishmentRepository _establishmentRepository;
         private ICarRepository _carRepository;
-        public CarOverviewWindow()
+        private DomainManager _domainManager;
+        public CarOverviewWindow(DomainManager domainmanager)
         {
             InitializeComponent();
+            _domainManager = domainmanager;
             //lvAutos.ItemsSource = _carRepository.GetCars();
 
             //_establishmentRepository = establishment;
@@ -74,7 +78,7 @@ namespace RentalService.Presentation.Windows
 
         private void LoadWindow(object sender, RoutedEventArgs e)
         {
-            //lvAutos.ItemsSource = _carRepository.GetCars();
+            lvAutos.ItemsSource = _domainManager.GetCars();
 
         }
     }

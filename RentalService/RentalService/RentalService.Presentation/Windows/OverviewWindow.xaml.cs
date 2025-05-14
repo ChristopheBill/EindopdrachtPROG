@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RentalService.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,11 @@ namespace RentalService.Presentation.Windows
     /// </summary>
     public partial class OverviewWindow : Window
     {
-        public OverviewWindow()
+        private DomainManager _domainManager;
+        public OverviewWindow(DomainManager domainManager)
         {
             InitializeComponent();
+            _domainManager = domainManager;
         }
 
         private void ReservatieMaken_Click(object sender, RoutedEventArgs e)
@@ -38,7 +41,7 @@ namespace RentalService.Presentation.Windows
 
         private void AutoOverzicht_Click(object sender, RoutedEventArgs e)
         {
-            var window = new CarOverviewWindow();
+            var window = new CarOverviewWindow(_domainManager);
             window.ShowDialog();
         }
     }

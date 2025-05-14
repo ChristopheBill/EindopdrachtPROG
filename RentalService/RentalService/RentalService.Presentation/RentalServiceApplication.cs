@@ -1,7 +1,9 @@
 
 using RentalService.Domain;
+using RentalService.Domain.DTOs;
 using RentalService.Domain.Repositories;
 using RentalService.Presentation.Windows;
+using System.Windows.Automation.Peers;
 
 namespace RentalService.Presentation
 {
@@ -17,8 +19,13 @@ namespace RentalService.Presentation
         {
             _domainManager = domainManager;
 
-            _overviewWindow = new OverviewWindow();
+            _overviewWindow = new OverviewWindow(domainManager);
             _overviewWindow.Show();
+        }
+
+        internal List<CarDTO> GetCars()
+        {
+            return _domainManager.GetCars();
         }
     }
 
