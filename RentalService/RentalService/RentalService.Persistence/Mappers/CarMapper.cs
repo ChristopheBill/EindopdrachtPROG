@@ -39,7 +39,8 @@ namespace RentalService.Persistence.Mappers
         {
             List<Car> cars = [];
             using SqlConnection connection = new(DBInfo.ConnectionString);
-            using SqlCommand getCarsByEstablishmentId = new("Select * from Cars where Id = @PlayerId", connection);
+            using SqlCommand getCarsByEstablishmentId = new("Select * from Cars where EstablishmentId = @EstablishmentId", connection);
+            getCarsByEstablishmentId.Parameters.AddWithValue("@EstablishmentId", establishmentId);
 
 
             return cars;
@@ -105,5 +106,6 @@ namespace RentalService.Persistence.Mappers
                 }
             }
         }
+        
     }
 }
