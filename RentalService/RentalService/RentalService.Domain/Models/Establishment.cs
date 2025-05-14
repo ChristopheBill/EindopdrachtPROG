@@ -9,6 +9,12 @@ namespace RentalService.Domain.Models
     public class Establishment
     {
         private int _id;
+        private string _airport;
+        private string _street;
+        private string _postalCode;
+        private string _city;
+        private string _country;
+
         public Establishment(string airport, string streetName, string postalCode, string city, string country)
         {
             Airport = airport;
@@ -33,15 +39,15 @@ namespace RentalService.Domain.Models
                 _id = value;
             }
         }
-        public string Airport { get; init; }
-        public string Street { get; init; }
-        public string PostalCode { get; init; }
-        public string City { get; init; }
-        public string Country 
+        public string Airport { get => _airport; init => _airport = value; }
+        public string Street { get => _street; init => _street = value; }
+        public string PostalCode { get => _postalCode; init => _postalCode = value; }
+        public string City { get => _city; init => _city = value; }
+        public string Country
         {
-            get; 
+            get => _country;
             init //logica om land te checken op cijfers in de naam
-                ;
+            => _country = value;
         }
         public override bool Equals(object? obj)
         {
