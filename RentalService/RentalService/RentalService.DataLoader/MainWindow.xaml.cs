@@ -21,10 +21,12 @@ namespace RentalService.DataLoader
         private string _filePath1;
         private string _filePath2;
         private string _filePath3;
+        private List<string> _fouten;
         public MainWindow()
         {
             InitializeComponent();
             _dataLoaderApplication = new();
+            _fouten = new List<string>();
         }
         private void UploadFile1_Click(object sender, RoutedEventArgs e)
         {
@@ -64,7 +66,8 @@ namespace RentalService.DataLoader
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                _fouten.Add(ex.Message);
+                //MessageBox.Show(ex.Message);
             }
 
         }

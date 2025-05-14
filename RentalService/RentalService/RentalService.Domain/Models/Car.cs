@@ -17,6 +17,10 @@ namespace RentalService.Domain.Models
         private string _motorType;
         private int _establishmentId;
 
+        public Car()
+        {
+        }
+
         public Car(string licensePlate, string model, int seats, string motorType)
         {
             LicensePlate = licensePlate;

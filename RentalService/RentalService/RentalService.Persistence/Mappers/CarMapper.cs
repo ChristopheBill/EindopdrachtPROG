@@ -6,7 +6,7 @@ namespace RentalService.Persistence.Mappers
 {
     public class CarMapper : ICarRepository
     {
-        private readonly List<string> fouten = new();
+        private readonly List<string> _fouten = new();
         //private SqlConnection _connection = new SqlConnection(DBInfo.ConnectionString);
 
         public List<Car> GetCars()
@@ -16,7 +16,6 @@ namespace RentalService.Persistence.Mappers
             connection.Open();
             using SqlCommand command = new("SELECT * FROM Cars", connection);
             using SqlDataReader reader = command.ExecuteReader();
-
             List<Car> cars = [];
 
             if (reader.HasRows)
@@ -71,15 +70,22 @@ namespace RentalService.Persistence.Mappers
                 string[] delen = regels[i].Split(';');
                 if (delen.Length < 4)
                 {
-                    fouten.Add($"Autos.csv - Regel {i + 1}: Onvoldoende kolommen.");
+                    _fouten.Add($"Autos.csv - Regel {i + 1}: Onvoldoende kolommen.");
                     continue;
                 }
-
-                Car car = new(
-                    delen[0],
-                    delen[1],
-                    int.TryParse(delen[2], out int zp) ? zp : -1,
-                    delen[3]);
+                Car car = new();
+                try
+                {
+                    car = new(
+                        delen[0],
+                        delen[1],
+                        int.TryParse(delen[2], out int zp) ? zp : -1,
+                        delen[3]);
+                }
+                catch (Exception ex)
+                {
+                    _fouten.Add(ex.Message);
+                }
 
                 connection.Open();
                 using SqlTransaction transaction = connection.BeginTransaction();
