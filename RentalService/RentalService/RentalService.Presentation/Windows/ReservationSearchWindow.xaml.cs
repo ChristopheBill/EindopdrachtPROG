@@ -27,6 +27,8 @@ namespace RentalService.Presentation.Windows
         {
             InitializeComponent();
             _domainManager = domainManager;
+            cmbCustomers.ItemsSource = _domainManager.GetCustomers();
+            cmbVestiging.ItemsSource = _domainManager.GetEstablishments();
             //dgReservaties.ItemsSource = _domainManager.GetCustomers();
             //(IReservatieService reservatieService, IVestigingService vestigingService)
             //_reservatieService = reservatieService;

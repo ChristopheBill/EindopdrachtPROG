@@ -17,7 +17,7 @@
         <!-- Zoekcriteria -->
         <StackPanel Orientation="Vertical" Grid.Row="0" Margin="0,0,0,10" HorizontalAlignment="Left" >
             <Label Content="Klantnaam:"/>
-            <TextBox x:Name="txtKlantNaam" Width="150" Margin="5,0"/>
+            <ComboBox x:Name="cmbCustomers" Width="200" Margin="5,0"/>
 
             <Label Content="Datum:" Margin="15,0,0,0"/>
             <DatePicker x:Name="dpDatum" Width="150" Margin="5,0"/>

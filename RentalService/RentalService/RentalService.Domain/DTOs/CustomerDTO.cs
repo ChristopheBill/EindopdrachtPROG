@@ -29,5 +29,10 @@ namespace RentalService.Domain.DTOs
         public string PostalCode { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
+
+        public override string? ToString()
+        {
+            return $"{FirstName} {LastName}";
+        }
     }
 }
