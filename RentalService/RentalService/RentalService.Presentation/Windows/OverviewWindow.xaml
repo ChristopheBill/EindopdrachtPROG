@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RentalService.Presentation.Windows"
         mc:Ignorable="d"
-        Title="OverviewWindow" Height="450" Width="800">
+        Title="OverviewWindow" Height="350" Width="450">
     <Grid>
-        <TextBlock HorizontalAlignment="Stretch" Margin="120" VerticalAlignment="Top" TextWrapping="Wrap" Name="inlogGegevens" Width="200" TextAlignment="Center"/>
+        <TextBlock HorizontalAlignment="Stretch" Margin="80" VerticalAlignment="Top" TextWrapping="Wrap" Name="inlogGegevens" Width="200" TextAlignment="Center"/>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Content="Reservatie maken" Margin="10" Width="200" Click="ReservatieMaken_Click"/>
             <Button Content="Reservatie opzoeken" Margin="10" Width="200" Click="ReservatieOpzoeken_Click"/>

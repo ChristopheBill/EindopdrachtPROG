@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -94,7 +95,21 @@ namespace RentalService.Domain.Models
             }
 
         }
-        public int EstablishmentId { get => _establishmentId; set => _establishmentId = value; }
+        public int EstablishmentId 
+        {
+            get => _establishmentId;
+            set
+            {
+                if (value != 0)
+                {
+                    _establishmentId = value;
+                }
+                else
+                {
+
+                }
+            }
+        }
 
         public override bool Equals(object? obj)
         {
@@ -110,6 +125,14 @@ namespace RentalService.Domain.Models
         public override string? ToString()
         {
             return $"{Model} {LicensePlate} {Seats} {MotorType}";
+        }
+
+        private int InitialEstablishmentId()
+        {
+            int i = 1;
+            
+
+            return i;
         }
     }
 }
