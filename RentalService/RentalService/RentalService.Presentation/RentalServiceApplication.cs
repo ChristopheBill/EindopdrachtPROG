@@ -12,6 +12,7 @@ namespace RentalService.Presentation
     {
         private readonly DomainManager _domainManager;
         private readonly OverviewWindow _overviewWindow;
+        private readonly LoginWindow _loginWindow;
         //private readonly IEstablishmentRepository _establishmentRepository;
         //private readonly ICarRepository _carRepository;
 
@@ -20,8 +21,8 @@ namespace RentalService.Presentation
         {
             _domainManager = domainManager;
 
-            _overviewWindow = new OverviewWindow(domainManager);
-            _overviewWindow.Show();
+            _loginWindow = new LoginWindow(domainManager);
+            _loginWindow.Show();
         }
 
         internal List<CarDTO> GetCars()
