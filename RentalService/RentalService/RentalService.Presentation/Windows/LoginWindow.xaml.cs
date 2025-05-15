@@ -45,11 +45,5 @@ namespace RentalService.Presentation.Windows
             //    MessageBox.Show("Selecteer een klant om verder te gaan.", "Fout", MessageBoxButton.OK, MessageBoxImage.Warning);
             //}
         }
-
-        private void cmbCustomers_Loaded(object sender, RoutedEventArgs e)
-        {
-            cmbCustomers.ItemsSource = _domainManager.GetCustomers();
-
-        }
     }
 }
