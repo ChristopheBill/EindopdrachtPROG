@@ -1,4 +1,5 @@
 ﻿using RentalService.Domain;
+using RentalService.Domain.DTOs;
 using RentalService.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace RentalService.Presentation.Windows
     {
         private DomainManager _domainManager;
         private OverviewWindow _overviewWindow;
-        public Customer SelectedCustomer { get; private set; }
+        public CustomerDTO SelectedCustomer { get; private set; }
         public LoginWindow(DomainManager domainManager)
         {
             InitializeComponent();
@@ -32,18 +33,18 @@ namespace RentalService.Presentation.Windows
         }
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            //if (cmbCustomers.SelectedItem is Customer klant)
-            //{
-                //SelectedCustomer = klant;
+            if (cmbCustomers.SelectedItem is CustomerDTO customer)
+            {
+                SelectedCustomer = customer;
                 //DialogResult = true;
                 //Close();
-                _overviewWindow = new OverviewWindow(_domainManager);
+                _overviewWindow = new OverviewWindow(_domainManager, customer);
                 _overviewWindow.Show();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Selecteer een klant om verder te gaan.", "Fout", MessageBoxButton.OK, MessageBoxImage.Warning);
-            //}
+            }
+            else
+            {
+                MessageBox.Show("Selecteer een klant om verder te gaan.", "Fout", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }

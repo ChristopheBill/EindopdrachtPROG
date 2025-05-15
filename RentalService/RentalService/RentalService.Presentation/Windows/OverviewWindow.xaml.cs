@@ -1,4 +1,5 @@
 ﻿using RentalService.Domain;
+using RentalService.Domain.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,12 @@ namespace RentalService.Presentation.Windows
     public partial class OverviewWindow : Window
     {
         private DomainManager _domainManager;
-        public OverviewWindow(DomainManager domainManager)
+        private readonly CustomerDTO _customer;
+        public OverviewWindow(DomainManager domainManager, CustomerDTO customer)
         {
             InitializeComponent();
             _domainManager = domainManager;
+            inlogGegevens.Text = $"Ingelogd als {customer.ToString()}.";
         }
 
         private void ReservatieMaken_Click(object sender, RoutedEventArgs e)

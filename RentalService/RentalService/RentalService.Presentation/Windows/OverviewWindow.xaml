@@ -7,10 +7,13 @@
         mc:Ignorable="d"
         Title="OverviewWindow" Height="450" Width="800">
     <Grid>
+        <TextBlock HorizontalAlignment="Stretch" Margin="120" VerticalAlignment="Top" TextWrapping="Wrap" Name="inlogGegevens" Width="200" TextAlignment="Center"/>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="Reservatie maken" Width="200" Click="ReservatieMaken_Click"/>
-            <Button Content="Reservatie opzoeken" Width="200" Click="ReservatieOpzoeken_Click"/>
-            <Button Content="Auto overzicht" Width="200" Click="AutoOverzicht_Click"/>
+            <Button Content="Reservatie maken" Margin="10" Width="200" Click="ReservatieMaken_Click"/>
+            <Button Content="Reservatie opzoeken" Margin="10" Width="200" Click="ReservatieOpzoeken_Click"/>
+            <Button Content="Auto overzicht" Margin="10" Width="200" Click="AutoOverzicht_Click"/>
         </StackPanel>
+
+
     </Grid>
 </Window>
