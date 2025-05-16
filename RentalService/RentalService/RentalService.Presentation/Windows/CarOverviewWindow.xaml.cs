@@ -37,6 +37,8 @@ namespace RentalService.Presentation.Windows
             //_carRepository = carRepository;
             LoadVestigingen();
         }
+
+
         //public CarOverviewWindow(IEstablishmentRepository establishmentRepository, ICarRepository carRepository, ComboBox cmbVestigingen, DatePicker dpDatum, TextBox txtTijd, DataGrid dgAutos, Button btnGenereerMarkdown, bool contentLoaded)
         //{
         //    _establishmentRepository = establishmentRepository;
@@ -76,6 +78,11 @@ namespace RentalService.Presentation.Windows
 
             //MessageBox.Show("Markdown bestand gegenereerd als 'auto-overzicht.md'");
         }
+
+        //private void Window_Closed(object sender, EventArgs e)
+        //{
+        //    _rentalServiceApplication.TakeToOverviewWindow(this, "");
+        //}
 
         //private void LoadWindow(object sender, RoutedEventArgs e)
         //{

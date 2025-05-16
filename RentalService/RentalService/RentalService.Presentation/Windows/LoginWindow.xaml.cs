@@ -36,13 +36,12 @@ namespace RentalService.Presentation.Windows
         {
             if (cmbCustomers.SelectedItem is CustomerDTO customer)
             {
-                //_customerName = $"{customer.FirstName} {customer.LastName}";
-                _customerName = _rentalServiceApplication.GetCustomerName(customer);
-
+                _customerName = $"{customer.FirstName} {customer.LastName}";
+                _rentalServiceApplication.TakeToOverviewWindow(this, _customerName);
                 //DialogResult = true;
                 //Close();
-                _overviewWindow = new OverviewWindow(_rentalServiceApplication, _customerName);
-                _overviewWindow.Show();
+                //_overviewWindow = new OverviewWindow(_rentalServiceApplication, _customerName);
+                //_overviewWindow.Show();
             }
             else
             {

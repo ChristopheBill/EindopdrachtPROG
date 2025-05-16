@@ -37,14 +37,14 @@ namespace RentalService.Presentation.Windows
             //IReservationRepository reservatieService,
             //IEstablishmentRepository vestigingService,
             //ICarRepository autoService)
-            _rentalServiceApplication = rentalServiceApplication;
             InitializeComponent();
+            _rentalServiceApplication = rentalServiceApplication;
 
 
             //_domainManager = domainManager;
             //_customerDTO = customer;
-            dgAutos.ItemsSource = _rentalServiceApplication.GetCars();
-            cmbEstablishments.ItemsSource = _rentalServiceApplication.GetEstablishments().ToList();
+            dgAutos.ItemsSource = rentalServiceApplication.GetCars();
+            cmbEstablishments.ItemsSource = rentalServiceApplication.GetEstablishments().ToList();
             //_loggedInCustomer = customer;
             //_reservatieService = reservatieService;
             //_vestigingService = vestigingService;

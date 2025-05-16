@@ -28,8 +28,8 @@ namespace RentalService.Presentation.Windows
         {
             InitializeComponent();
             _rentalServiceApplication = rentalServiceApplication;
-            cmbCustomers.ItemsSource = _rentalServiceApplication.GetCustomers();
-            cmbVestiging.ItemsSource = _rentalServiceApplication.GetEstablishments();
+            cmbCustomers.ItemsSource = rentalServiceApplication.GetCustomers();
+            cmbVestiging.ItemsSource = rentalServiceApplication.GetEstablishments();
             //dgReservaties.ItemsSource = _domainManager.GetCustomers();
             //(IReservatieService reservatieService, IVestigingService vestigingService)
             //_reservatieService = reservatieService;

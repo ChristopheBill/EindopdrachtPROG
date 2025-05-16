@@ -27,6 +27,7 @@ namespace RentalService.Presentation.Windows
         public OverviewWindow(RentalServiceApplication rentalServiceApplication, string customerName)
         {
             InitializeComponent();
+            _rentalServiceApplication = rentalServiceApplication;
             //_domainManager = domainManager;
             //_customer = customer;
             inlogGegevens.Text = $"Ingelogd als {customerName}.";
@@ -34,8 +35,7 @@ namespace RentalService.Presentation.Windows
 
         private void ReservatieMaken_Click(object sender, RoutedEventArgs e)
         {
-            var window = new ReservationCreateWindow(_rentalServiceApplication);
-            window.ShowDialog();
+            _rentalServiceApplication.TakeToReservationCreateWindow(this);
         }
 
         private void ReservatieOpzoeken_Click(object sender, RoutedEventArgs e)

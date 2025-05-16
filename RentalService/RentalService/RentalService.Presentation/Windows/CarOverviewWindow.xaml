@@ -8,6 +8,10 @@
         Title="CarOverviewWindow" Height="450" Width="800">
 
     <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="109*"/>
+            <ColumnDefinition Width="21*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -15,18 +19,18 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10" Grid.ColumnSpan="2">
             <Label Content="Vestiging:" VerticalAlignment="Center"/>
             <ComboBox x:Name="cmbVestigingen" Width="240" Margin="10,0"/>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,10">
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,10" Grid.ColumnSpan="2">
             <Label Content="Tijdstip:" VerticalAlignment="Center"/>
             <DatePicker x:Name="dpDatum" Width="150" Margin="10,0"/>
             <TextBox x:Name="txtTijd" Width="80" Margin="10,0"/>
         </StackPanel>
 
-        <DataGrid x:Name="lvAutos" Grid.Row="2" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+        <DataGrid x:Name="lvAutos" Grid.Row="2" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Model" Binding="{Binding Model}" Width="*"/>
                 <DataGridTextColumn Header="Zitplaatsen" Binding="{Binding Seats}" Width="*"/>
@@ -38,7 +42,7 @@
 
         <Button x:Name="btnGenereerMarkdown" Grid.Row="3" Content="Genereer Markdown Overzicht"
     Width="250" Height="35" Margin="0,10,0,0" HorizontalAlignment="Right"
-    Click="btnGenereerMarkdown_Click"/>
+    Click="btnGenereerMarkdown_Click" Grid.ColumnSpan="2"/>
     </Grid>
 
 </Window>
