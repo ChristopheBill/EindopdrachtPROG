@@ -24,18 +24,18 @@ namespace RentalService.Presentation.Windows
         private DomainManager _domainManager;
         private readonly CustomerDTO _customer;
         private RentalServiceApplication _rentalServiceApplication;
-        public OverviewWindow(RentalServiceApplication rentalServiceApplication, string customerName)
+        public OverviewWindow(RentalServiceApplication rentalServiceApplication, CustomerDTO customer)
         {
             InitializeComponent();
             _rentalServiceApplication = rentalServiceApplication;
             //_domainManager = domainManager;
-            //_customer = customer;
-            inlogGegevens.Text = $"Ingelogd als {customerName}.";
+            _customer = customer;
+            inlogGegevens.Text = $"Ingelogd als {customer.FirstName} {customer.LastName}.";
         }
 
         private void ReservatieMaken_Click(object sender, RoutedEventArgs e)
         {
-            _rentalServiceApplication.TakeToReservationCreateWindow(this);
+            _rentalServiceApplication.TakeToReservationCreateWindow(this, _customer);
         }
 
         private void ReservatieOpzoeken_Click(object sender, RoutedEventArgs e)

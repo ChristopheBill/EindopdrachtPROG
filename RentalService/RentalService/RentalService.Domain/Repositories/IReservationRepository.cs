@@ -10,6 +10,6 @@ namespace RentalService.Domain.Repositories
     public interface IReservationRepository
     {
         public List<Reservation> GetReservations(Customer customer, Car car, Establishment establishment);
-        public void MakeReservation(DateTime startDate, DateTime endDate, Customer customer, Car car, Establishment establishment);
+        public void MakeReservation(DateTime startDate, DateTime endDate, int customerId, int carId, int establishmentId);
     }
 }

@@ -37,6 +37,34 @@ namespace RentalService.Persistence.Mappers
 
             return customers;
         }
+        public Customer GetCustomerById(int customerId)
+        {
+            Customer customer = new();
+            using SqlConnection connection = new(DBInfo.ConnectionString);
+            using SqlCommand getCustomerById = new("Select * from Customers where Id = @Id", connection);
+            getCustomerById.Parameters.AddWithValue("@Id", customerId);
+            connection.Open();
+            using SqlDataReader reader = getCustomerById.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    int id = (int)reader["Id"];
+                    string firstName = (string)reader["FirstName"];
+                    string lastName = (string)reader["LastName"];
+                    string email = (string)reader["Email"];
+                    string street = (string)reader["Street"];
+                    string postalCode = (string)reader["PostalCode"];
+                    string city = (string)reader["City"];
+                    string country = (string)reader["Country"];
+                    customer = new(id, firstName, lastName, email, street, postalCode, city, country);
+                    return customer;
+                }
+            }
+
+
+            return customer;
+        }
 
         public void ReadCustomers(string pad)
         {

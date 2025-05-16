@@ -23,15 +23,10 @@ namespace RentalService.Presentation.Windows
     /// </summary>
     public partial class ReservationCreateWindow : Window
     {
-        //private readonly IReservationRepository _reservatieService;
-        //private readonly IEstablishmentRepository _vestigingService;
-        //private readonly ICarRepository _autoService;
-        //private readonly CustomerDTO _loggedInCustomer;
-        private DomainManager _domainManager;
-        private readonly EstablishmentDTO _establishmentDTO;
-        private CustomerDTO _customerDTO;
+        private CustomerDTO _customer;
+        //private readonly EstablishmentDTO _establishmentDTO;
         private RentalServiceApplication _rentalServiceApplication;
-        public ReservationCreateWindow(RentalServiceApplication rentalServiceApplication)
+        public ReservationCreateWindow(RentalServiceApplication rentalServiceApplication, CustomerDTO customer)
         {
             //(CustomerDTO customer,
             //IReservationRepository reservatieService,
@@ -39,10 +34,9 @@ namespace RentalService.Presentation.Windows
             //ICarRepository autoService)
             InitializeComponent();
             _rentalServiceApplication = rentalServiceApplication;
-
+            _customer = customer;
 
             //_domainManager = domainManager;
-            //_customerDTO = customer;
             dgAutos.ItemsSource = rentalServiceApplication.GetCars();
             cmbEstablishments.ItemsSource = rentalServiceApplication.GetEstablishments().ToList();
             //_loggedInCustomer = customer;
@@ -95,9 +89,12 @@ namespace RentalService.Presentation.Windows
         {
             EstablishmentDTO establishment = (EstablishmentDTO)cmbEstablishments.SelectedItem;
             CarDTO car = (CarDTO)dgAutos.SelectedItem;
-            CustomerDTO customer = _customerDTO;
             DateTime startDate = (DateTime)dpStart.SelectedDate;
             DateTime endDate = (DateTime)dpEinde.SelectedDate;
+            int establishmentId = establishment.Id;
+            int carId = car.Id;
+            int customerId = _customer.Id;
+            _rentalServiceApplication.MakeReservation(startDate, endDate, customerId, carId, establishmentId);
             //_domainManager.MakeReservation(startDate, endDate, customer, car, establishment);
             //if (dgAutos.SelectedItem is not Auto geselecteerdeAuto)
             //{

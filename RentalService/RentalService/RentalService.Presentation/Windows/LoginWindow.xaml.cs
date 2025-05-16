@@ -36,8 +36,8 @@ namespace RentalService.Presentation.Windows
         {
             if (cmbCustomers.SelectedItem is CustomerDTO customer)
             {
-                _customerName = $"{customer.FirstName} {customer.LastName}";
-                _rentalServiceApplication.TakeToOverviewWindow(this, _customerName);
+                //_customerName = $"{customer.FirstName} {customer.LastName}";
+                _rentalServiceApplication.TakeToOverviewWindow(this, customer);
                 //DialogResult = true;
                 //Close();
                 //_overviewWindow = new OverviewWindow(_rentalServiceApplication, _customerName);

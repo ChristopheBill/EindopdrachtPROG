@@ -38,17 +38,18 @@ namespace RentalService.Persistence.Mappers
             }
             return reservations;
         }
-        public void MakeReservation(DateTime startDate, DateTime endDate, Customer customer, Car car, Establishment establishment) 
+        public void MakeReservation(DateTime startDate, DateTime endDate, int customerId, int carId, int establishmentId) 
         {
             using SqlConnection connection = new(DBInfo.ConnectionString);
-            using SqlCommand MakeReservation = new("Insert into Reservations (StartDate, EndDate, CustomerId, CarId, EstablishmentId) VALUES (@StartDate, @EndDate, @CustomerId, @CarId, @EstablishmentId", connection);
-            MakeReservation.Parameters.AddWithValue("@StartDate", startDate);
-            MakeReservation.Parameters.AddWithValue("@EndDate", endDate);
-            MakeReservation.Parameters.AddWithValue("@CustomerId", customer.Id);
-            MakeReservation.Parameters.AddWithValue("@CarId", car.Id);
-            MakeReservation.Parameters.AddWithValue("@EstablishmentId", establishment.Id);
+            connection.Open();
+            using SqlCommand MakeReservation = new("Insert into Reservations (StartDate, EndDate, CustomerId, CarId, EstablishmentId) VALUES (@StartDate, @EndDate, @CustomerId, @CarId, @EstablishmentId);", connection);
+            MakeReservation.Parameters.Add(new SqlParameter("@StartDate", startDate));
+            MakeReservation.Parameters.Add(new SqlParameter("@EndDate", endDate));
+            MakeReservation.Parameters.Add(new SqlParameter("@CustomerId", customerId));
+            MakeReservation.Parameters.Add(new SqlParameter("@CarId", carId));
+            MakeReservation.Parameters.Add(new SqlParameter("@EstablishmentId", establishmentId));
             MakeReservation.ExecuteNonQuery();
-
+            connection.Close();
         }
     }
 }

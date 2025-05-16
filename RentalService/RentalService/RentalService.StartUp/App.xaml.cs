@@ -19,9 +19,10 @@ namespace RentalService.StartUp
             ICarRepository carRepository = new CarMapper();
             ICustomerRepository customerRepository = new CustomerMapper();
             IEstablishmentRepository locationRepository = new EstablishmentMapper();
+            IReservationRepository reservationRepository = new ReservationMapper();
 
             //Domain
-            DomainManager domain = new(carRepository, customerRepository, locationRepository);
+            DomainManager domain = new(carRepository, customerRepository, locationRepository, reservationRepository);
 
             //Presentation
             RentalServiceApplication application = new(domain);

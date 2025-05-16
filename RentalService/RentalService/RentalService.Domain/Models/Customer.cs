@@ -39,6 +39,10 @@ namespace RentalService.Domain.Models
             Id = id;
         }
 
+        public Customer()
+        {
+        }
+
         public int Id
         {
             get => _id;

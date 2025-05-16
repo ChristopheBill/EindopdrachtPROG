@@ -11,11 +11,12 @@ namespace RentalService.Domain
         private readonly IEstablishmentRepository _establishmentRepository;
         private readonly IReservationRepository _reservationRepository;
 
-        public DomainManager(ICarRepository carRepository, ICustomerRepository customerRepository, IEstablishmentRepository locationRepository)
+        public DomainManager(ICarRepository carRepository, ICustomerRepository customerRepository, IEstablishmentRepository locationRepository, IReservationRepository reservationRepository)
         {
             _carRepository = carRepository;
             _customerRepository = customerRepository;
             _establishmentRepository = locationRepository;
+            _reservationRepository = reservationRepository;
         }
         public List<CarDTO> GetCars()
         {
@@ -26,6 +27,10 @@ namespace RentalService.Domain
         {
             return _customerRepository.GetCustomers().Select(c=>new CustomerDTO(c)).ToList();
         }
+        //public CustomerDTO GetCustomerById(int customerId)
+        //{
+            //return _customerRepository.GetCustomerById(customerId).;
+        //}
 
         public List<EstablishmentDTO> GetEstablishments() 
         {
@@ -36,9 +41,9 @@ namespace RentalService.Domain
         //{
         //    _establishmentRepository.ReadEstablishments(pad);
         //}
-        public void MakeReservation(DateTime startDate, DateTime endDate, Customer customer, Car car, Establishment establishment)
+        public void MakeReservation(DateTime startDate, DateTime endDate, int customerId, int carId, int establishmentId)
         {
-            _reservationRepository.MakeReservation(startDate, endDate, customer, car, establishment);
+            _reservationRepository.MakeReservation(startDate, endDate, customerId, carId, establishmentId);
         }
 
         //public void MakeReservation(DateTime startDate, DateTime endDate, CustomerDTO customer, CarDTO car, EstablishmentDTO establishment)

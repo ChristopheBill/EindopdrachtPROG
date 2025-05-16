@@ -19,46 +19,52 @@ namespace RentalService.Presentation
         private readonly ReservationSearchWindow _reservationSearchWindow;
         private readonly ReservationCreateWindow _reservationCreateWindow;
         private readonly RentalServiceApplication _rentalServiceApplication;
-        //private readonly IEstablishmentRepository _establishmentRepository;
-        //private readonly ICarRepository _carRepository;
-        private string _loggedInCustomer;
-
+        private CustomerDTO _customer;
 
         public RentalServiceApplication(DomainManager domainManager)
         {
             _domainManager = domainManager;
 
             _loginWindow = new LoginWindow(this);
-            _carOverviewWindow = new CarOverviewWindow(this);
-            _reservationCreateWindow = new ReservationCreateWindow(this);
-            _reservationCreateWindow = new ReservationCreateWindow(this);
-            _reservationSearchWindow = new ReservationSearchWindow(this);
+            //_carOverviewWindow = new CarOverviewWindow(this);
+            //_reservationCreateWindow = new ReservationCreateWindow(this);
+            //_reservationCreateWindow = new ReservationCreateWindow(this);
+            //_reservationSearchWindow = new ReservationSearchWindow(this);
             _loginWindow.Show();
 
             //logica om windows te openen moet hier
             //geen referentie naar domainmanager in windows?
         }
-        internal void TakeToOverviewWindow(Window window, string customerName)
+        internal void TakeToOverviewWindow(Window window, CustomerDTO customer)
         {
+            _customer = customer;
+            new OverviewWindow(this, customer).Show();
             _loginWindow.Close();
-            _loggedInCustomer = customerName;
-            new OverviewWindow(this, customerName).Show();
+            //CustomerDTO customer = _domainManager.GetCustomerById(customerId);
         }
-        internal void TakeToReservationCreateWindow(Window window)
+        internal void TakeToReservationCreateWindow(Window window, CustomerDTO customer)
         {
+            _customer = customer;
+            new ReservationCreateWindow(this, customer).Show();
             window.Close();
-            _reservationCreateWindow.Show();
+            //_reservationCreateWindow.Show();
         }
         internal void TakeToCarOverviewWindow(Window window)
         {
+            new CarOverviewWindow(this).Show();
             window.Close();
-            _loginWindow.Show();
+            //_loginWindow.Show();
         }
         internal void TakeToReservationSearchWindow(Window window)
         {
+            new ReservationSearchWindow(this).Show();
             window.Close();
-            _reservationSearchWindow.Show();
+            //_reservationSearchWindow.Show();
         }
+        //internal CustomerDTO GetCustomerById(int customerId)
+        //{
+        //    return _domainManager.GetCustomerById(customerId);
+        //}
 
         public string GetCustomerName(CustomerDTO customer)
         {
@@ -76,9 +82,9 @@ namespace RentalService.Presentation
         {
             return _domainManager.GetCustomers();
         }
-        internal void MakeReservation(DateTime startDate, DateTime endDate, CustomerDTO customer, CarDTO car, EstablishmentDTO establishment)
+        internal void MakeReservation(DateTime startDate, DateTime endDate, int customerId, int carId, int establishmentId)
         {
-            //_domainManager.MakeReservation(startDate, endDate, customer, car, establishment);
+            _domainManager.MakeReservation(startDate, endDate, customerId, carId, establishmentId);
         }
     }
 
