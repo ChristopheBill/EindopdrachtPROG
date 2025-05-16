@@ -22,8 +22,6 @@ namespace RentalService.Presentation.Windows
     {
         private readonly DomainManager _domainManager;
         private RentalServiceApplication _rentalServiceApplication;
-        //private readonly IReservatieService _reservatieService;
-        //private readonly IVestigingService _vestigingService;
         public ReservationSearchWindow(RentalServiceApplication rentalServiceApplication)
         {
             InitializeComponent();
@@ -31,14 +29,6 @@ namespace RentalService.Presentation.Windows
             cmbCustomers.ItemsSource = rentalServiceApplication.GetCustomers();
             cmbVestiging.ItemsSource = rentalServiceApplication.GetEstablishments();
             dgReservaties.ItemsSource = rentalServiceApplication.GetReservations();
-            //dgReservaties.ItemsSource = _domainManager.GetCustomers();
-            //(IReservatieService reservatieService, IVestigingService vestigingService)
-            //_reservatieService = reservatieService;
-            //_vestigingService = vestigingService;
-
-            //cmbVestiging.ItemsSource = _vestigingService.GetAlleVestigingen();
-            //cmbVestiging.DisplayMemberPath = "Luchthaven";
-            //cmbVestiging.SelectedIndex = -1;
         }
 
         private void btnZoek_Click(object sender, RoutedEventArgs e)

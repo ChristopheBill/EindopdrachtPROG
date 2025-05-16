@@ -55,10 +55,10 @@ namespace RentalService.Presentation
         //    return _domainManager.GetCustomerById(customerId);
         //}
 
-        public string GetCustomerName(CustomerDTO customer)
-        {
-            return $"{customer.FirstName} {customer.LastName}";
-        }
+        //public string GetCustomerName(CustomerDTO customer)
+        //{
+        //    return $"{customer.FirstName} {customer.LastName}";
+        //}
         internal List<CarDTO> GetCars()
         {
             return _domainManager.GetCars();

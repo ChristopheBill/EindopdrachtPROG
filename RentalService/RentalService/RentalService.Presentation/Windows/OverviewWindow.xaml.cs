@@ -46,10 +46,5 @@ namespace RentalService.Presentation.Windows
         {
             _rentalServiceApplication.TakeToCarOverviewWindow(this);
         }
-        
-        //private string GetLoggedInCustomer()
-        //{
-        //    return _rentalServiceApplication.
-        //}
     }
 }

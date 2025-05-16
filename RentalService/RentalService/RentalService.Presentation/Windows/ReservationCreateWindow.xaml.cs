@@ -28,24 +28,12 @@ namespace RentalService.Presentation.Windows
         private RentalServiceApplication _rentalServiceApplication;
         public ReservationCreateWindow(RentalServiceApplication rentalServiceApplication, CustomerDTO customer)
         {
-            //(CustomerDTO customer,
-            //IReservationRepository reservatieService,
-            //IEstablishmentRepository vestigingService,
-            //ICarRepository autoService)
             InitializeComponent();
             _rentalServiceApplication = rentalServiceApplication;
             _customer = customer;
-
-            //_domainManager = domainManager;
             dgAutos.ItemsSource = rentalServiceApplication.GetCars();
             cmbEstablishments.ItemsSource = rentalServiceApplication.GetEstablishments().ToList();
-            //_loggedInCustomer = customer;
-            //_reservatieService = reservatieService;
-            //_vestigingService = vestigingService;
-            //_autoService = autoService;
 
-            //cmbVestigingen.ItemsSource = _vestigingService.GetAlleVestigingen();
-            //cmbVestigingen.DisplayMemberPath = "Luchthaven";
         }
 
         private void btnZoekAutos_Click(object sender, RoutedEventArgs e)
@@ -87,15 +75,28 @@ namespace RentalService.Presentation.Windows
 
         private void btnReserveer_Click(object sender, RoutedEventArgs e)
         {
-            EstablishmentDTO establishment = (EstablishmentDTO)cmbEstablishments.SelectedItem;
-            CarDTO car = (CarDTO)dgAutos.SelectedItem;
-            DateTime startDate = (DateTime)dpStart.SelectedDate;
-            DateTime endDate = (DateTime)dpEinde.SelectedDate;
-            int establishmentId = establishment.Id;
-            int carId = car.Id;
-            int customerId = _customer.Id;
-            _rentalServiceApplication.MakeReservation(startDate, endDate, customerId, carId, establishmentId);
-            //_domainManager.MakeReservation(startDate, endDate, customer, car, establishment);
+            try
+            {
+                EstablishmentDTO establishment = (EstablishmentDTO)cmbEstablishments.SelectedItem;
+                CarDTO car = (CarDTO)dgAutos.SelectedItem;
+                DateTime startDate = (DateTime)dpStart.SelectedDate;
+                DateTime endDate = (DateTime)dpEinde.SelectedDate;
+                int establishmentId = establishment.Id;
+                int carId = car.Id;
+                int customerId = _customer.Id;
+                _rentalServiceApplication.MakeReservation(startDate, endDate, customerId, carId, establishmentId);
+                MessageBox.Show("Reservatie succesvol opgeslagen.");
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Selecteer een startdatum, einddatum, auto en vestiging om te reserveren.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Fout bij het maken van de reservatie: " + ex.Message);
+            }
+
+
             //if (dgAutos.SelectedItem is not Auto geselecteerdeAuto)
             //{
             //    MessageBox.Show("Selecteer een auto om te reserveren.");
@@ -108,7 +109,6 @@ namespace RentalService.Presentation.Windows
             //try
             //{
             //    _reservatieService.VoegReservatieToe(_loggedInCustomer.Id, geselecteerdeAuto.Id, start, einde);
-            //    MessageBox.Show("Reservatie succesvol opgeslagen.");
             //    this.Close();
             //}
             //catch (Exception ex)
