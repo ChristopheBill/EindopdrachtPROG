@@ -46,7 +46,7 @@ namespace RentalService.Presentation
         {
             _customer = customer;
             new ReservationCreateWindow(this, customer).Show();
-            window.Close();
+            //window.Close();
             //_reservationCreateWindow.Show();
         }
         internal void TakeToCarOverviewWindow(Window window)
