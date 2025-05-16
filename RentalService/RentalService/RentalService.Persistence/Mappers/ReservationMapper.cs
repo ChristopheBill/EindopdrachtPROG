@@ -38,5 +38,17 @@ namespace RentalService.Persistence.Mappers
             }
             return reservations;
         }
+        public void MakeReservation(DateTime startDate, DateTime endDate, Customer customer, Car car, Establishment establishment) 
+        {
+            using SqlConnection connection = new(DBInfo.ConnectionString);
+            using SqlCommand MakeReservation = new("Insert into Reservations (StartDate, EndDate, CustomerId, CarId, EstablishmentId) VALUES (@StartDate, @EndDate, @CustomerId, @CarId, @EstablishmentId", connection);
+            MakeReservation.Parameters.AddWithValue("@StartDate", startDate);
+            MakeReservation.Parameters.AddWithValue("@EndDate", endDate);
+            MakeReservation.Parameters.AddWithValue("@CustomerId", customer.Id);
+            MakeReservation.Parameters.AddWithValue("@CarId", car.Id);
+            MakeReservation.Parameters.AddWithValue("@EstablishmentId", establishment.Id);
+            MakeReservation.ExecuteNonQuery();
+
+        }
     }
 }

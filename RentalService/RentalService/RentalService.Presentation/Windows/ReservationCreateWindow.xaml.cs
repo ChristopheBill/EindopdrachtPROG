@@ -28,7 +28,9 @@ namespace RentalService.Presentation.Windows
         //private readonly ICarRepository _autoService;
         //private readonly CustomerDTO _loggedInCustomer;
         private DomainManager _domainManager;
-        public ReservationCreateWindow(DomainManager domainManager)
+        private readonly EstablishmentDTO _establishmentDTO;
+        private CustomerDTO _customerDTO;
+        public ReservationCreateWindow(DomainManager domainManager, CustomerDTO customer)
         {
             //(CustomerDTO customer,
             //IReservationRepository reservatieService,
@@ -36,6 +38,7 @@ namespace RentalService.Presentation.Windows
             //ICarRepository autoService)
             InitializeComponent();
             _domainManager = domainManager;
+            _customerDTO = customer;
             dgAutos.ItemsSource = _domainManager.GetCars();
             cmbEstablishments.ItemsSource = _domainManager.GetEstablishments().ToList();
             //_loggedInCustomer = customer;
@@ -49,11 +52,12 @@ namespace RentalService.Presentation.Windows
 
         private void btnZoekAutos_Click(object sender, RoutedEventArgs e)
         {
+
             //if (cmbVestigingen.SelectedItem is not Vestiging vestiging ||
-            //    dpStart.SelectedDate is not DateTime startDatum ||
-            //    !TimeSpan.TryParse(txtStartTijd.Text, out var startTijd) ||
-            //    dpEinde.SelectedDate is not DateTime eindDatum ||
-            //    !TimeSpan.TryParse(txtEindeTijd.Text, out var eindTijd))
+            //dpStart.SelectedDate is not DateTime startDatum ||
+            //!TimeSpan.TryParse(txtStartTijd.Text, out var startTijd) ||
+            //dpEinde.SelectedDate is not DateTime eindDatum ||
+            //!TimeSpan.TryParse(txtEindeTijd.Text, out var eindTijd))
             //{
             //    MessageBox.Show("Vul alle velden correct in.");
             //    return;
@@ -85,6 +89,12 @@ namespace RentalService.Presentation.Windows
 
         private void btnReserveer_Click(object sender, RoutedEventArgs e)
         {
+            EstablishmentDTO establishment = (EstablishmentDTO)cmbEstablishments.SelectedItem;
+            CarDTO car = (CarDTO)dgAutos.SelectedItem;
+            CustomerDTO customer = _customerDTO;
+            DateTime startDate = (DateTime)dpStart.SelectedDate;
+            DateTime endDate = (DateTime)dpEinde.SelectedDate;
+            //_domainManager.MakeReservation(startDate, endDate, customer, car, establishment);
             //if (dgAutos.SelectedItem is not Auto geselecteerdeAuto)
             //{
             //    MessageBox.Show("Selecteer een auto om te reserveren.");

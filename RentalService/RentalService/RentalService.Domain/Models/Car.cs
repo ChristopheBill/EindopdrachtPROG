@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RentalService.Domain.Repositories;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace RentalService.Domain.Models
         private List<string> _motorTypes = ["Hybrid", "Gasoline", "Diesel", "Electric"];
         private string _motorType;
         private int _establishmentId;
+        private IEstablishmentRepository _establishmentRepository;
+        private ICarRepository _carRepository;
 
         public Car()
         {
@@ -100,14 +103,14 @@ namespace RentalService.Domain.Models
             get => _establishmentId;
             set
             {
-                if (value != 0)
-                {
-                    _establishmentId = value;
-                }
-                else
-                {
-
-                }
+                //if (value != 0)
+                //{
+                //    _establishmentId = value;
+                //}
+                //else
+                //{
+                    InitialEstablishmentId(this);
+                //}
             }
         }
 
@@ -127,12 +130,23 @@ namespace RentalService.Domain.Models
             return $"{Model} {LicensePlate} {Seats} {MotorType}";
         }
 
-        private int InitialEstablishmentId()
+        private void InitialEstablishmentId(Car car)
         {
-            int i = 1;
-            
+            IEstablishmentRepository establishmentRepository = _establishmentRepository;
+            List<Establishment> establishments = _establishmentRepository.GetEstablishments();
+            int aantalVestigingen = establishments.Count();
+            ICarRepository carRepository = _carRepository;
+            List<Car> cars = _carRepository.GetCars();
+            int aantalAutos = cars.Count();
+            int locationIndex = aantalAutos % aantalVestigingen;
+            Establishment establishment = establishments[locationIndex];
+            car.EstablishmentId = establishment.Id;
 
-            return i;
+        }
+
+        private void AssignCarToEstablishment(int id)
+        {
+
         }
     }
 }

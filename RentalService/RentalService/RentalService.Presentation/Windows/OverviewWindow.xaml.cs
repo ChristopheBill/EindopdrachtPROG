@@ -27,12 +27,13 @@ namespace RentalService.Presentation.Windows
         {
             InitializeComponent();
             _domainManager = domainManager;
+            _customer = customer;
             inlogGegevens.Text = $"Ingelogd als {customer.ToString()}.";
         }
 
         private void ReservatieMaken_Click(object sender, RoutedEventArgs e)
         {
-            var window = new ReservationCreateWindow(_domainManager);
+            var window = new ReservationCreateWindow(_domainManager, this._customer);
             window.ShowDialog();
         }
 

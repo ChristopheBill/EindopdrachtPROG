@@ -13,6 +13,7 @@ namespace RentalService.Presentation
         private readonly DomainManager _domainManager;
         private readonly OverviewWindow _overviewWindow;
         private readonly LoginWindow _loginWindow;
+        private readonly RentalServiceApplication _rentalServiceApplication;
         //private readonly IEstablishmentRepository _establishmentRepository;
         //private readonly ICarRepository _carRepository;
 
@@ -23,6 +24,8 @@ namespace RentalService.Presentation
 
             _loginWindow = new LoginWindow(domainManager);
             _loginWindow.Show();
+            //logica om windows te openen moet hier
+            //geen referentie naar domainmanager in windows?
         }
 
         internal List<CarDTO> GetCars()
@@ -36,6 +39,10 @@ namespace RentalService.Presentation
         internal List<CustomerDTO> GetCustomer()
         {
             return _domainManager.GetCustomers();
+        }
+        internal void MakeReservation(DateTime startDate, DateTime endDate, CustomerDTO customer, CarDTO car, EstablishmentDTO establishment)
+        {
+            //_domainManager.MakeReservation(startDate, endDate, customer, car, establishment);
         }
     }
 

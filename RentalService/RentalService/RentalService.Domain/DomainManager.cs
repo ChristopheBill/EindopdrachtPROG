@@ -9,6 +9,7 @@ namespace RentalService.Domain
         private readonly ICarRepository _carRepository;
         private readonly ICustomerRepository _customerRepository;
         private readonly IEstablishmentRepository _establishmentRepository;
+        private readonly IReservationRepository _reservationRepository;
 
         public DomainManager(ICarRepository carRepository, ICustomerRepository customerRepository, IEstablishmentRepository locationRepository)
         {
@@ -34,6 +35,15 @@ namespace RentalService.Domain
         //public void ReadEstablishments(string pad)
         //{
         //    _establishmentRepository.ReadEstablishments(pad);
+        //}
+        public void MakeReservation(DateTime startDate, DateTime endDate, Customer customer, Car car, Establishment establishment)
+        {
+            _reservationRepository.MakeReservation(startDate, endDate, customer, car, establishment);
+        }
+
+        //public void MakeReservation(DateTime startDate, DateTime endDate, CustomerDTO customer, CarDTO car, EstablishmentDTO establishment)
+        //{
+        //    throw new NotImplementedException();
         //}
     }
 }
