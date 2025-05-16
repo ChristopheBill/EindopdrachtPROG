@@ -44,8 +44,10 @@ namespace RentalService.Persistence.Mappers
             try
             {
                 SqlCommand command = new SqlCommand("DELETE FROM Establishments", connection);
+                SqlCommand deleteReservations = new SqlCommand("DELETE FROM Reservations", connection);
                 connection.Open();
                 command.ExecuteNonQuery();
+                deleteReservations.ExecuteNonQuery();
             }
             catch (SqlException ex)
             {

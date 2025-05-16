@@ -69,6 +69,7 @@ namespace RentalService.DataLoader
                 _fouten.Add(ex.Message);
                 //MessageBox.Show(ex.Message);
             }
+            MessageBox.Show($"Fouten: {string.Join(Environment.NewLine, _fouten)}");
 
         }
     }

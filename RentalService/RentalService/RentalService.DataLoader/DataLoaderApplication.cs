@@ -27,9 +27,16 @@ namespace RentalService.DataLoader
             fouten.Clear();
             uniekeEmails.Clear();
             uniekeNummerplaten.Clear();
-            _customerMapper.ReadCustomers(padKlanten);
-            _establishmentMapper.ReadEstablishments(padVestigingen);
-            _carMapper.ReadCars(padAutos);
+            try
+            {
+                _customerMapper.ReadCustomers(padKlanten);
+                _establishmentMapper.ReadEstablishments(padVestigingen);
+                _carMapper.ReadCars(padAutos);
+            }
+            catch (SqlException ex)
+            {
+                fouten.Add(ex.Message);
+            }
 
             return fouten;
         }
