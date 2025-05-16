@@ -16,18 +16,30 @@ namespace RentalService.Presentation
         private readonly RentalServiceApplication _rentalServiceApplication;
         //private readonly IEstablishmentRepository _establishmentRepository;
         //private readonly ICarRepository _carRepository;
+        private string _loggedInCustomer;
 
 
         public RentalServiceApplication(DomainManager domainManager)
         {
             _domainManager = domainManager;
 
-            _loginWindow = new LoginWindow(domainManager);
+            _loginWindow = new LoginWindow(this);
             _loginWindow.Show();
+
             //logica om windows te openen moet hier
             //geen referentie naar domainmanager in windows?
         }
+        internal void TakeToOverviewWindow(RentalServiceApplication rentalServiceApplication)
+        {
+            //_loggedInCustomer = GetCustomerName();
+            _loginWindow.Close();
+            _overviewWindow.Show();
+        }
 
+        public string GetCustomerName(CustomerDTO customer)
+        {
+            return $"{customer.FirstName} {customer.LastName}";
+        }
         internal List<CarDTO> GetCars()
         {
             return _domainManager.GetCars();
@@ -36,7 +48,7 @@ namespace RentalService.Presentation
         {
             return _domainManager.GetEstablishments();
         }
-        internal List<CustomerDTO> GetCustomer()
+        internal List<CustomerDTO> GetCustomers()
         {
             return _domainManager.GetCustomers();
         }

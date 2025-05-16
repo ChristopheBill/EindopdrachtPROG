@@ -30,17 +30,21 @@ namespace RentalService.Presentation.Windows
         private DomainManager _domainManager;
         private readonly EstablishmentDTO _establishmentDTO;
         private CustomerDTO _customerDTO;
-        public ReservationCreateWindow(DomainManager domainManager, CustomerDTO customer)
+        private RentalServiceApplication _rentalServiceApplication;
+        public ReservationCreateWindow(RentalServiceApplication rentalServiceApplication)
         {
             //(CustomerDTO customer,
             //IReservationRepository reservatieService,
             //IEstablishmentRepository vestigingService,
             //ICarRepository autoService)
+            _rentalServiceApplication = rentalServiceApplication;
             InitializeComponent();
-            _domainManager = domainManager;
-            _customerDTO = customer;
-            dgAutos.ItemsSource = _domainManager.GetCars();
-            cmbEstablishments.ItemsSource = _domainManager.GetEstablishments().ToList();
+
+
+            //_domainManager = domainManager;
+            //_customerDTO = customer;
+            dgAutos.ItemsSource = _rentalServiceApplication.GetCars();
+            cmbEstablishments.ItemsSource = _rentalServiceApplication.GetEstablishments().ToList();
             //_loggedInCustomer = customer;
             //_reservatieService = reservatieService;
             //_vestigingService = vestigingService;

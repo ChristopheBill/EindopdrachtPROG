@@ -24,21 +24,24 @@ namespace RentalService.Presentation.Windows
     {
         private DomainManager _domainManager;
         private OverviewWindow _overviewWindow;
-        public CustomerDTO SelectedCustomer { get; private set; }
-        public LoginWindow(DomainManager domainManager)
+        private RentalServiceApplication _rentalServiceApplication;
+        private string _customerName;
+        public LoginWindow(RentalServiceApplication rentalServiceApplication)
         {
             InitializeComponent();
-            _domainManager = domainManager;
-            cmbCustomers.ItemsSource = _domainManager.GetCustomers();
+            _rentalServiceApplication = rentalServiceApplication;
+            cmbCustomers.ItemsSource = _rentalServiceApplication.GetCustomers();
         }
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             if (cmbCustomers.SelectedItem is CustomerDTO customer)
             {
-                SelectedCustomer = customer;
+                //_customerName = $"{customer.FirstName} {customer.LastName}";
+                _customerName = _rentalServiceApplication.GetCustomerName(customer);
+
                 //DialogResult = true;
                 //Close();
-                _overviewWindow = new OverviewWindow(_domainManager, customer);
+                _overviewWindow = new OverviewWindow(_rentalServiceApplication, _customerName);
                 _overviewWindow.Show();
             }
             else

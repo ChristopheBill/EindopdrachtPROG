@@ -23,30 +23,36 @@ namespace RentalService.Presentation.Windows
     {
         private DomainManager _domainManager;
         private readonly CustomerDTO _customer;
-        public OverviewWindow(DomainManager domainManager, CustomerDTO customer)
+        private RentalServiceApplication _rentalServiceApplication;
+        public OverviewWindow(RentalServiceApplication rentalServiceApplication, string customerName)
         {
             InitializeComponent();
-            _domainManager = domainManager;
-            _customer = customer;
-            inlogGegevens.Text = $"Ingelogd als {customer.ToString()}.";
+            //_domainManager = domainManager;
+            //_customer = customer;
+            inlogGegevens.Text = $"Ingelogd als {customerName}.";
         }
 
         private void ReservatieMaken_Click(object sender, RoutedEventArgs e)
         {
-            var window = new ReservationCreateWindow(_domainManager, this._customer);
+            var window = new ReservationCreateWindow(_rentalServiceApplication);
             window.ShowDialog();
         }
 
         private void ReservatieOpzoeken_Click(object sender, RoutedEventArgs e)
         {
-            var window = new ReservationSearchWindow(_domainManager);
+            var window = new ReservationSearchWindow(_rentalServiceApplication);
             window.ShowDialog();
         }
 
         private void AutoOverzicht_Click(object sender, RoutedEventArgs e)
         {
-            var window = new CarOverviewWindow(_domainManager);
+            var window = new CarOverviewWindow(_rentalServiceApplication);
             window.ShowDialog();
         }
+        
+        //private string GetLoggedInCustomer()
+        //{
+        //    return _rentalServiceApplication.
+        //}
     }
 }

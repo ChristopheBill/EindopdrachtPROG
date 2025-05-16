@@ -21,14 +21,15 @@ namespace RentalService.Presentation.Windows
     public partial class ReservationSearchWindow : Window
     {
         private readonly DomainManager _domainManager;
+        private RentalServiceApplication _rentalServiceApplication;
         //private readonly IReservatieService _reservatieService;
         //private readonly IVestigingService _vestigingService;
-        public ReservationSearchWindow(DomainManager domainManager)
+        public ReservationSearchWindow(RentalServiceApplication rentalServiceApplication)
         {
             InitializeComponent();
-            _domainManager = domainManager;
-            cmbCustomers.ItemsSource = _domainManager.GetCustomers();
-            cmbVestiging.ItemsSource = _domainManager.GetEstablishments();
+            _rentalServiceApplication = rentalServiceApplication;
+            cmbCustomers.ItemsSource = _rentalServiceApplication.GetCustomers();
+            cmbVestiging.ItemsSource = _rentalServiceApplication.GetEstablishments();
             //dgReservaties.ItemsSource = _domainManager.GetCustomers();
             //(IReservatieService reservatieService, IVestigingService vestigingService)
             //_reservatieService = reservatieService;

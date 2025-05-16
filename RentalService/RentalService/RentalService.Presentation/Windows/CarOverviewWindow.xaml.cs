@@ -23,32 +23,33 @@ namespace RentalService.Presentation.Windows
     /// </summary>
     public partial class CarOverviewWindow : Window
     {
-        private IEstablishmentRepository _establishmentRepository;
-        private ICarRepository _carRepository;
-        private DomainManager _domainManager;
-        public CarOverviewWindow(DomainManager domainmanager)
+        private RentalServiceApplication _rentalServiceApplication;
+        public CarOverviewWindow(RentalServiceApplication rentalServiceApplication)
         {
             InitializeComponent();
-            _domainManager = domainmanager;
+            _rentalServiceApplication = rentalServiceApplication;
+            lvAutos.ItemsSource = _rentalServiceApplication.GetCars();
+            cmbVestigingen.ItemsSource = _rentalServiceApplication.GetEstablishments();
+
             //lvAutos.ItemsSource = _carRepository.GetCars();
 
             //_establishmentRepository = establishment;
             //_carRepository = carRepository;
             LoadVestigingen();
         }
-        public CarOverviewWindow(IEstablishmentRepository establishmentRepository, ICarRepository carRepository, ComboBox cmbVestigingen, DatePicker dpDatum, TextBox txtTijd, DataGrid dgAutos, Button btnGenereerMarkdown, bool contentLoaded)
-        {
-            _establishmentRepository = establishmentRepository;
-            _carRepository = carRepository;
-            this.cmbVestigingen = cmbVestigingen;
-            this.dpDatum = dpDatum;
-            this.txtTijd = txtTijd;
-            this.lvAutos = dgAutos;
-            this.btnGenereerMarkdown = btnGenereerMarkdown;
-            _contentLoaded = contentLoaded;
+        //public CarOverviewWindow(IEstablishmentRepository establishmentRepository, ICarRepository carRepository, ComboBox cmbVestigingen, DatePicker dpDatum, TextBox txtTijd, DataGrid dgAutos, Button btnGenereerMarkdown, bool contentLoaded)
+        //{
+        //    _establishmentRepository = establishmentRepository;
+        //    _carRepository = carRepository;
+        //    this.cmbVestigingen = cmbVestigingen;
+        //    this.dpDatum = dpDatum;
+        //    this.txtTijd = txtTijd;
+        //    this.lvAutos = dgAutos;
+        //    this.btnGenereerMarkdown = btnGenereerMarkdown;
+        //    _contentLoaded = contentLoaded;
             //lvAutos.ItemsSource = _carRepository.GetCars();
 
-        }
+        //}
 
         private void LoadVestigingen()
         {
@@ -76,12 +77,12 @@ namespace RentalService.Presentation.Windows
             //MessageBox.Show("Markdown bestand gegenereerd als 'auto-overzicht.md'");
         }
 
-        private void LoadWindow(object sender, RoutedEventArgs e)
-        {
-            lvAutos.ItemsSource = _domainManager.GetCars();
-            cmbVestigingen.ItemsSource = _domainManager.GetEstablishments();
+        //private void LoadWindow(object sender, RoutedEventArgs e)
+        //{
+        //    lvAutos.ItemsSource = _rentalServiceApplication.GetCars();
+        //    cmbVestigingen.ItemsSource = _rentalServiceApplication.GetEstablishments();
 
 
-        }
+        //}
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RentalService.Presentation.Windows"
         mc:Ignorable="d"
-        Title="CarOverviewWindow" Height="450" Width="800" Loaded="LoadWindow">
+        Title="CarOverviewWindow" Height="450" Width="800">
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
