@@ -46,20 +46,14 @@ namespace RentalService.Presentation
         {
             _customer = customer;
             new ReservationCreateWindow(this, customer).Show();
-            //window.Close();
-            //_reservationCreateWindow.Show();
         }
         internal void TakeToCarOverviewWindow(Window window)
         {
             new CarOverviewWindow(this).Show();
-            window.Close();
-            //_loginWindow.Show();
         }
         internal void TakeToReservationSearchWindow(Window window)
         {
             new ReservationSearchWindow(this).Show();
-            window.Close();
-            //_reservationSearchWindow.Show();
         }
         //internal CustomerDTO GetCustomerById(int customerId)
         //{

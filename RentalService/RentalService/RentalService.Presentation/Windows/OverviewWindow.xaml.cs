@@ -28,7 +28,6 @@ namespace RentalService.Presentation.Windows
         {
             InitializeComponent();
             _rentalServiceApplication = rentalServiceApplication;
-            //_domainManager = domainManager;
             _customer = customer;
             inlogGegevens.Text = $"Ingelogd als {customer.FirstName} {customer.LastName}.";
         }
@@ -40,14 +39,12 @@ namespace RentalService.Presentation.Windows
 
         private void ReservatieOpzoeken_Click(object sender, RoutedEventArgs e)
         {
-            var window = new ReservationSearchWindow(_rentalServiceApplication);
-            window.ShowDialog();
+            _rentalServiceApplication.TakeToReservationSearchWindow(this);
         }
 
         private void AutoOverzicht_Click(object sender, RoutedEventArgs e)
         {
-            var window = new CarOverviewWindow(_rentalServiceApplication);
-            window.ShowDialog();
+            _rentalServiceApplication.TakeToCarOverviewWindow(this);
         }
         
         //private string GetLoggedInCustomer()
