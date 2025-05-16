@@ -36,10 +36,10 @@ namespace RentalService.Domain
         {
             return _establishmentRepository.GetEstablishments().Select(e=>new EstablishmentDTO(e)).ToList();
         }
-        //public List<EstablishmentDTO> GetReservations()
-        //{
-        //    return _reservationRepository.GetReservations().Select(r => new EstablishmentDTO(r)).ToList();
-        //}
+        public List<ReservationDTO> GetReservations()
+        {
+            return _reservationRepository.GetReservations().Select(r => new ReservationDTO(r)).ToList();
+        }
 
         //public void ReadEstablishments(string pad)
         //{

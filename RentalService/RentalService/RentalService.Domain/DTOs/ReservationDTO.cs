@@ -15,17 +15,17 @@ namespace RentalService.Domain.DTOs
             Id = reservation.Id;
             StartDatum = reservation.StartDatum;
             EindDatum = reservation.EindDatum;
-            Customer = reservation.Customer;
-            Car = reservation.Car;
-            Establishment = reservation.Establishment;
+            CustomerId = reservation.CustomerId;
+            CarId = reservation.CarId;
+            EstablishmentId = reservation.EstablishmentId;
         }
 
         public int Id { get; set; }
         public DateTime StartDatum { get; set; }
         public DateTime EindDatum { get; set; }
-        public Customer Customer { get; set; }
-        public Car Car { get; set; }
-        public Establishment Establishment { get; set; }
+        public int CustomerId { get; set; }
+        public int CarId{ get; set; }
+        public int EstablishmentId { get; set; }
         
     }
 }

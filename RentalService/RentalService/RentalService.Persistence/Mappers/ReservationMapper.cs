@@ -11,15 +11,11 @@ namespace RentalService.Persistence.Mappers
 {
     public class ReservationMapper : IReservationRepository
     {
-        public List<Reservation> GetReservations(Customer customer, Car car, Establishment establishment)
+        public List<Reservation> GetReservations()
         {
             using SqlConnection connection = new(DBInfo.ConnectionString);
             connection.Open();
             using SqlCommand command = new("SELECT * FROM Reservations", connection);
-            command.Parameters.AddWithValue("@CarId", car.Id);
-            command.Parameters.AddWithValue("@CustomerId", customer.Id);
-            command.Parameters.AddWithValue("@EstablishmentId", establishment.Id);
-
             using SqlDataReader reader = command.ExecuteReader();
 
             List<Reservation> reservations = [];
@@ -31,8 +27,10 @@ namespace RentalService.Persistence.Mappers
                     int id = (int)reader["Id"];
                     DateTime startDate = (DateTime)reader["StartDate"];
                     DateTime endDate = (DateTime)reader["EndDate"];
-
-                    Reservation reservation = new(id, startDate, endDate, customer, car, establishment);
+                    int customerId = (int)reader["CustomerId"];
+                    int carId = (int)reader["CarId"];
+                    int establishmentId = (int)reader["EstablishmentId"];
+                    Reservation reservation = new(id, startDate, endDate, customerId, carId, establishmentId);
                     reservations.Add(reservation);
                 }
             }
