@@ -24,12 +24,7 @@ namespace RentalService.Presentation
         public RentalServiceApplication(DomainManager domainManager)
         {
             _domainManager = domainManager;
-
             _loginWindow = new LoginWindow(this);
-            //_carOverviewWindow = new CarOverviewWindow(this);
-            //_reservationCreateWindow = new ReservationCreateWindow(this);
-            //_reservationCreateWindow = new ReservationCreateWindow(this);
-            //_reservationSearchWindow = new ReservationSearchWindow(this);
             _loginWindow.Show();
 
             //logica om windows te openen moet hier
