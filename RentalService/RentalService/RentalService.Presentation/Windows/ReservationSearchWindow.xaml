@@ -32,11 +32,11 @@
         <!-- Resultaten -->
         <DataGrid x:Name="dgReservaties" Grid.Row="2" AutoGenerateColumns="False" Margin="0,10,0,10" SelectionMode="Single">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Klant" Binding="{Binding FirstName}" Width="*"/>
-                <DataGridTextColumn Header="Vestiging" Binding="{Binding VestigingNaam}" Width="*"/>
-                <DataGridTextColumn Header="Auto" Binding="{Binding AutoModel}" Width="*"/>
-                <DataGridTextColumn Header="Start" Binding="{Binding StartDatum}" Width="*"/>
-                <DataGridTextColumn Header="Einde" Binding="{Binding EindDatum}" Width="*"/>
+                <DataGridTextColumn Header="Klant" Binding="{Binding CustomerId}" Width="*"/>
+                <DataGridTextColumn Header="Vestiging" Binding="{Binding EstablishmentId}" Width="*"/>
+                <DataGridTextColumn Header="Auto" Binding="{Binding CarId}" Width="*"/>
+                <DataGridTextColumn Header="Start" Binding="{Binding StartDate}" Width="*"/>
+                <DataGridTextColumn Header="Einde" Binding="{Binding EndDate}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 

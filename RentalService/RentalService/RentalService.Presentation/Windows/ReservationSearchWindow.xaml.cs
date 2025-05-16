@@ -30,6 +30,7 @@ namespace RentalService.Presentation.Windows
             _rentalServiceApplication = rentalServiceApplication;
             cmbCustomers.ItemsSource = rentalServiceApplication.GetCustomers();
             cmbVestiging.ItemsSource = rentalServiceApplication.GetEstablishments();
+            //dgReservaties.ItemsSource = rentalServiceApplication.GetReservations();
             //dgReservaties.ItemsSource = _domainManager.GetCustomers();
             //(IReservatieService reservatieService, IVestigingService vestigingService)
             //_reservatieService = reservatieService;

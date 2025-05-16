@@ -82,6 +82,10 @@ namespace RentalService.Presentation
         {
             return _domainManager.GetCustomers();
         }
+        //internal List<ReservationDTO> GetReservations()
+        //{
+        //    //return _domainManager.GetReservations();
+        //}
         internal void MakeReservation(DateTime startDate, DateTime endDate, int customerId, int carId, int establishmentId)
         {
             _domainManager.MakeReservation(startDate, endDate, customerId, carId, establishmentId);
