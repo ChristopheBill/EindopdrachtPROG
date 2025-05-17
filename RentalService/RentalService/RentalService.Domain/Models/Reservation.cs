@@ -34,7 +34,18 @@ namespace RentalService.Domain.Models
         public int CustomerId { get => _customer; set => _customer = value; }
         public int CarId { get => _car; set => _car = value; }
         public int EstablishmentId { get => _establishment; set => _establishment = value; }
-        public DateTime StartDatum { get => _startDatum; set => _startDatum = value; }
+        public DateTime StartDatum 
+        {
+            get => _startDatum;
+            set
+            {
+                //if (StartDatum < DateTime.Now)
+                //{
+                //    throw new ArgumentException("Startdatum moet in de toekomst liggen.");
+                //}
+                    _startDatum = value; 
+            }
+        }
         public DateTime EindDatum { get => _eindDatum; set => _eindDatum = value; }
 
         public void Valideer()

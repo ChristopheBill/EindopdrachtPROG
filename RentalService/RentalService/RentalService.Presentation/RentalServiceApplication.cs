@@ -35,7 +35,6 @@ namespace RentalService.Presentation
             _customer = customer;
             new OverviewWindow(this, customer).Show();
             _loginWindow.Close();
-            //CustomerDTO customer = _domainManager.GetCustomerById(customerId);
         }
         internal void TakeToReservationCreateWindow(Window window, CustomerDTO customer)
         {
