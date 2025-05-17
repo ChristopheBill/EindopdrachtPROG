@@ -7,11 +7,8 @@ namespace RentalService.Persistence.Mappers
     public class CarMapper : ICarRepository
     {
         private readonly List<string> _fouten = new();
-        //private SqlConnection _connection = new SqlConnection(DBInfo.ConnectionString);
-
         public List<Car> GetCars()
         {
-            //using SqlConnection connection = _connection;
             using SqlConnection connection = new(DBInfo.ConnectionString);
             connection.Open();
             using SqlCommand command = new("SELECT * FROM Cars", connection);

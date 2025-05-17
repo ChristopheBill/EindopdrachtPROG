@@ -46,7 +46,12 @@ namespace RentalService.Persistence.Mappers
             MakeReservation.Parameters.Add(new SqlParameter("@CustomerId", customerId));
             MakeReservation.Parameters.Add(new SqlParameter("@CarId", carId));
             MakeReservation.Parameters.Add(new SqlParameter("@EstablishmentId", establishmentId));
+            //using SqlCommand SetCar = new("Insert into Cars (EstablishmentId) WHERE Id = @CarId VALUES (@EstablishmentId);", connection);
+            //SetCar.Parameters.AddWithValue(("@CarId"), carId);
+            //SetCar.Parameters.Add(new SqlParameter("@EstablishmentId", establishmentId));
+
             MakeReservation.ExecuteNonQuery();
+            //SetCar.ExecuteNonQuery();
             connection.Close();
         }
     }
