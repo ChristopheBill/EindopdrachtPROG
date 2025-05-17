@@ -22,6 +22,7 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10" Grid.ColumnSpan="2">
             <Label Content="Vestiging:" VerticalAlignment="Center"/>
             <ComboBox x:Name="cmbVestigingen" Width="240" Margin="10,0"/>
+            <Button Content="Zoek auto's" Name="getCarsByEstablishmentId" Click="getCarsByEstablishmentId_Click"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,10" Grid.ColumnSpan="2">

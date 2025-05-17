@@ -1,4 +1,5 @@
 ﻿using RentalService.Domain;
+using RentalService.Domain.DTOs;
 using RentalService.Domain.Models;
 using RentalService.Domain.Repositories;
 using System;
@@ -35,7 +36,7 @@ namespace RentalService.Presentation.Windows
 
             //_establishmentRepository = establishment;
             //_carRepository = carRepository;
-            LoadVestigingen();
+            //LoadVestigingen();
         }
 
 
@@ -49,15 +50,14 @@ namespace RentalService.Presentation.Windows
         //    this.lvAutos = dgAutos;
         //    this.btnGenereerMarkdown = btnGenereerMarkdown;
         //    _contentLoaded = contentLoaded;
-            //lvAutos.ItemsSource = _carRepository.GetCars();
+        //lvAutos.ItemsSource = _carRepository.GetCars();
 
         //}
 
-        private void LoadVestigingen()
-        {
-            //cmbVestigingen.ItemsSource = _domainManager.GetEstablishments();
-            //cmbVestigingen.DisplayMemberPath = "Luchthaven";
-        }
+        //private void LoadVestigingen()
+        //{
+           
+        //}
 
         private void btnGenereerMarkdown_Click(object sender, RoutedEventArgs e)
         {
@@ -77,6 +77,19 @@ namespace RentalService.Presentation.Windows
             //System.IO.File.WriteAllText("auto-overzicht.md", markdown);
 
             //MessageBox.Show("Markdown bestand gegenereerd als 'auto-overzicht.md'");
+        }
+
+        private void getCarsByEstablishmentId_Click(object sender, RoutedEventArgs e)
+        {
+            if (cmbVestigingen.SelectedItem is EstablishmentDTO establishment)
+            {
+                int id = establishment.Id;
+                lvAutos.ItemsSource = _rentalServiceApplication.GetCarsByEstablishment(id);
+            }
+            else
+            {
+                MessageBox.Show("Gelieve een vestiging te selecteren.");
+            }
         }
 
         //private void Window_Closed(object sender, EventArgs e)

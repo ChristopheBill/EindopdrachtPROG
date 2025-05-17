@@ -38,6 +38,11 @@ namespace RentalService.Domain.Models
             Id = id;
         }
 
+        public Car(int id, string licensePlate, string model, int seats, string motorType, int establishmentId) : this(id, licensePlate, model, seats, motorType)
+        {
+            EstablishmentId = establishmentId;
+        }
+
         public int Id
         {
             get => _id;

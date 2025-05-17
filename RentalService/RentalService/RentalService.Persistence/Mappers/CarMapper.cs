@@ -22,13 +22,7 @@ namespace RentalService.Persistence.Mappers
             {
                 while (reader.Read())
                 {
-                    int id = (int)reader["Id"];
-                    string licensePlate = (string)reader["LicensePlate"];
-                    string model = (string)reader["Model"];
-                    int seats = (int)reader["Seats"];
-                    string motorType = (string)reader["MotorType"];
-                    Car car = new(id, licensePlate, model, seats, motorType);
-                    cars.Add(car);
+                    cars.Add(MapReaderToCar(reader));
                 }
             }
             return cars;
@@ -38,10 +32,14 @@ namespace RentalService.Persistence.Mappers
         {
             List<Car> cars = [];
             using SqlConnection connection = new(DBInfo.ConnectionString);
+            connection.Open();
             using SqlCommand getCarsByEstablishmentId = new("Select * from Cars where EstablishmentId = @EstablishmentId", connection);
             getCarsByEstablishmentId.Parameters.AddWithValue("@EstablishmentId", establishmentId);
-
-
+            SqlDataReader reader = getCarsByEstablishmentId.ExecuteReader();
+            while (reader.Read()) 
+            {
+                cars.Add(MapReaderToCar(reader));
+            }
             return cars;
         }
 
@@ -49,9 +47,7 @@ namespace RentalService.Persistence.Mappers
         public void ReadCars(string pad)
         {
             string[] regels = File.ReadAllLines(pad);
-
             using SqlConnection connection = new(DBInfo.ConnectionString);
-
             try
             {
                 SqlCommand command = new SqlCommand("DELETE FROM Cars", connection);
@@ -63,7 +59,6 @@ namespace RentalService.Persistence.Mappers
                 Console.WriteLine("Fout bij het verwijderen van de tabel: " + ex.Message);
             }
             finally { connection.Close(); }
-
 
             for (int i = 1; i < regels.Length; i++)
             {
@@ -86,7 +81,6 @@ namespace RentalService.Persistence.Mappers
                 {
                     _fouten.Add(ex.Message);
                 }
-
                 connection.Open();
                 using SqlTransaction transaction = connection.BeginTransaction();
                 try
@@ -96,9 +90,7 @@ namespace RentalService.Persistence.Mappers
                     cmd.Parameters.AddWithValue("@Model", car.Model);
                     cmd.Parameters.AddWithValue("@Seats", car.Seats);
                     cmd.Parameters.AddWithValue("@MotorType", car.MotorType);
-
                     cmd.ExecuteNonQuery();
-
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -112,6 +104,17 @@ namespace RentalService.Persistence.Mappers
                 }
             }
         }
-        
+
+        private Car MapReaderToCar(SqlDataReader reader)
+        {
+            int id = (int)reader["Id"];
+            string licensePlate = (string)reader["LicensePlate"];
+            string model = (string)reader["Model"];
+            int seats = (int)reader["Seats"];
+            string motorType = (string)reader["MotorType"];
+            //int establishmentId = (int)reader["EstablishmentId"]; EERST EST ID TOEKENNEN
+
+            return new Car(id, licensePlate, model, seats, motorType);
+        }
     }
 }

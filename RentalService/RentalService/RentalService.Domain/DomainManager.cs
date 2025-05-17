@@ -22,16 +22,10 @@ namespace RentalService.Domain
         {
             return _carRepository.GetCars().Select(c=>new CarDTO(c)).ToList();
         }
-
         public List<CustomerDTO> GetCustomers() 
         {
             return _customerRepository.GetCustomers().Select(c=>new CustomerDTO(c)).ToList();
         }
-        //public CustomerDTO GetCustomerById(int customerId)
-        //{
-            //return _customerRepository.GetCustomerById(customerId).;
-        //}
-
         public List<EstablishmentDTO> GetEstablishments() 
         {
             return _establishmentRepository.GetEstablishments().Select(e=>new EstablishmentDTO(e)).ToList();
@@ -40,19 +34,19 @@ namespace RentalService.Domain
         {
             return _reservationRepository.GetReservations().Select(r => new ReservationDTO(r)).ToList();
         }
+        public List<CarDTO> GetCarsByEstablishment(int establishmentId)
+        {
+            return _carRepository.GetCarsByEstablishment(establishmentId).Select(c => new CarDTO(c)).ToList();
+        }
 
-        //public void ReadEstablishments(string pad)
-        //{
-        //    _establishmentRepository.ReadEstablishments(pad);
-        //}
         public void MakeReservation(DateTime startDate, DateTime endDate, int customerId, int carId, int establishmentId)
         {
             _reservationRepository.MakeReservation(startDate, endDate, customerId, carId, establishmentId);
         }
-
-        //public void MakeReservation(DateTime startDate, DateTime endDate, CustomerDTO customer, CarDTO car, EstablishmentDTO establishment)
+        //public CustomerDTO GetCustomerById(int customerId)
         //{
-        //    throw new NotImplementedException();
+            //return _customerRepository.GetCustomerById(customerId).;
         //}
+
     }
 }

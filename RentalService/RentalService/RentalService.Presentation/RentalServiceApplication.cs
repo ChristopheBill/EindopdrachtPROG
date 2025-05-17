@@ -78,6 +78,10 @@ namespace RentalService.Presentation
         {
             _domainManager.MakeReservation(startDate, endDate, customerId, carId, establishmentId);
         }
+        internal List<CarDTO> GetCarsByEstablishment(int establishmentId)
+        {
+            return _domainManager.GetCarsByEstablishment(establishmentId);
+        }
     }
 
 }
