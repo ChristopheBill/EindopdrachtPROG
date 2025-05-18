@@ -38,6 +38,7 @@ namespace RentalService.Presentation.Windows
             {
                 List<ReservationDTO> reservations = _rentalServiceApplication.GetReservationsByCustomerIdEstablishmentId(customer.Id, establishment.Id);
                 dgReservaties.ItemsSource = reservations;
+                //lvReservaties.ItemsSource = reservations;
                 //List<CarDTO> cars = new();
                 //foreach (var reservation in reservations)
                 {
