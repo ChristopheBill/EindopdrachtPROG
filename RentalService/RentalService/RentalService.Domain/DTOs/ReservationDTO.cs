@@ -17,17 +17,17 @@ namespace RentalService.Domain.DTOs
             Id = reservation.Id;
             StartDatum = reservation.StartDatum;
             EindDatum = reservation.EindDatum;
-            CustomerId = reservation.CustomerId;
-            CarId = reservation.CarId;
-            EstablishmentId = reservation.EstablishmentId;
+            Customer = reservation.Customer;
+            Car = reservation.Car;
+            Establishment = reservation.Establishment;
         }
 
         public int Id { get; set; }
         public DateTime StartDatum { get; set; }
         public DateTime EindDatum { get; set; }
-        public int CustomerId { get; set; }
-        public int CarId{ get; set; }
-        public int EstablishmentId { get; set; }
+        public Customer Customer { get; set; }
+        public Car Car { get; set; }
+        public Establishment Establishment { get; set; }
 
         //public override string? ToString()
         //{

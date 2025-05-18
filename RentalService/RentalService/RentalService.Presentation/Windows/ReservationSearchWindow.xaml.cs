@@ -29,16 +29,21 @@ namespace RentalService.Presentation.Windows
             _rentalServiceApplication = rentalServiceApplication;
             cmbCustomers.ItemsSource = rentalServiceApplication.GetCustomers();
             cmbVestiging.ItemsSource = rentalServiceApplication.GetEstablishments();
-            dgReservaties.ItemsSource = rentalServiceApplication.GetReservations();
+            //dgReservaties.ItemsSource = rentalServiceApplication.GetReservations();
         }
 
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {
             if (cmbCustomers.SelectedItem is CustomerDTO customer && cmbVestiging.SelectedItem is EstablishmentDTO establishment)
             {
-                dgReservaties.ItemsSource = _rentalServiceApplication.GetReservationsByCustomerIdEstablishmentId(customer.Id, establishment.Id);
-                
-                lvAutos.ItemsSource = _rentalServiceApplication.GetCarsById(reservationDTO.CarId);
+                List<ReservationDTO> reservations = _rentalServiceApplication.GetReservationsByCustomerIdEstablishmentId(customer.Id, establishment.Id);
+                dgReservaties.ItemsSource = reservations;
+                //List<CarDTO> cars = new();
+                //foreach (var reservation in reservations)
+                {
+                    //cars.Add(_rentalServiceApplication.GetCarsById(reservation.CarId).FirstOrDefault());
+                }
+                //lvAutos.ItemsSource = cars;
                 
             }
             else

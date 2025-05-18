@@ -15,6 +15,10 @@ namespace RentalService.Domain.Models
         private string _city;
         private string _country;
 
+        public Establishment()
+        {
+        }
+
         public Establishment(string airport, string streetName, string postalCode, string city, string country)
         {
             Airport = airport;

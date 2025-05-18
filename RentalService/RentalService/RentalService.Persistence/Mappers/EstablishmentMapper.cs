@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.Data.SqlClient.DataClassification;
 using RentalService.Domain.Models;
 using RentalService.Domain.Repositories;
 
@@ -33,6 +34,29 @@ namespace RentalService.Persistence.Mappers
                 }
             }
             return establishments;
+        }
+        public Establishment GetEstablishmentById(int establishmentId)
+        {
+            using SqlConnection connection = new(DBInfo.ConnectionString);
+            connection.Open();
+            using SqlCommand command = new("SELECT * FROM Establishments WHERE Id = @Id", connection);
+            command.Parameters.Add(new SqlParameter("@Id", establishmentId));
+            using SqlDataReader reader = command.ExecuteReader();
+            Establishment establishment = new();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    int id = (int)reader["Id"];
+                    string airport = (string)reader["Airport"];
+                    string street = (string)reader["Street"];
+                    string postalCode = (string)reader["PostalCode"];
+                    string city = (string)reader["City"];
+                    string country = (string)reader["Country"];
+                    establishment = new(id, airport, street, postalCode, city, country);
+                }
+            }
+            return establishment;
         }
         public void ReadEstablishments(string pad)
         {

@@ -81,7 +81,10 @@ namespace RentalService.Persistence.Mappers
             int customerId = (int)reader["CustomerId"];
             int carId = (int)reader["CarId"];
             int establishmentId = (int)reader["EstablishmentId"];
-            return new Reservation(id, startDate, endDate, customerId, carId, establishmentId);
+            Customer customer = new CustomerMapper().GetCustomerById(customerId);
+            Car car = new CarMapper().GetCarById(carId);
+            Establishment establishment = new EstablishmentMapper().GetEstablishmentById(establishmentId);
+            return new Reservation(id, startDate, endDate, customer, car, establishment);
         }
     }
 }

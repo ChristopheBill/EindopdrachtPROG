@@ -10,18 +10,18 @@ namespace RentalService.Domain.Models
     public class Reservation
     {
         private int _id;
-        private int _customer;
-        private int _car;
-        private int _establishment;
+        private Customer _customer;
+        private Car _car;
+        private Establishment _establishment;
         private DateTime _startDatum;
         private DateTime _eindDatum;
 
-        public Reservation(int id, DateTime startDatum, DateTime eindDatum, int customerId, int carId, int establishmentId)
+        public Reservation(int id, DateTime startDatum, DateTime eindDatum, Customer customer, Car car, Establishment establishment)
         {
             Id = id;
-            CustomerId = customerId;
-            CarId = carId;
-            EstablishmentId = establishmentId;
+            Customer = customer;
+            Car = car;
+            Establishment = establishment;
             StartDatum = startDatum;
             EindDatum = eindDatum;
         }
@@ -31,9 +31,9 @@ namespace RentalService.Domain.Models
             get => _id; 
             set => _id = value;
         }
-        public int CustomerId { get => _customer; set => _customer = value; }
-        public int CarId { get => _car; set => _car = value; }
-        public int EstablishmentId { get => _establishment; set => _establishment = value; }
+        public Customer Customer { get => _customer; set => _customer = value; }
+        public Car Car { get => _car; set => _car = value; }
+        public Establishment Establishment { get => _establishment; set => _establishment = value; }
         public DateTime StartDatum 
         {
             get => _startDatum;
