@@ -32,7 +32,7 @@ namespace RentalService.Persistence.Mappers
             List<Car> cars = [];
             using SqlConnection connection = new(DBInfo.ConnectionString);
             connection.Open();
-            using SqlCommand getCarsByEstablishmentId = new("Select * from Cars where EstablishmentId = @EstablishmentId", connection);
+            using SqlCommand getCarsByEstablishmentId = new("Select * from Cars where EstablishmentId = @EstablishmentId;", connection);
             getCarsByEstablishmentId.Parameters.AddWithValue("@EstablishmentId", establishmentId);
             SqlDataReader reader = getCarsByEstablishmentId.ExecuteReader();
             while (reader.Read()) 
@@ -40,6 +40,21 @@ namespace RentalService.Persistence.Mappers
                 cars.Add(MapReaderToCar(reader));
             }
             return cars;
+        }
+
+        public Car GetCarById(int carId)
+        {
+            Car car = new();
+            using SqlConnection connection = new(DBInfo.ConnectionString);
+            connection.Open();
+            using SqlCommand getCarById = new("Select * from Cars where Id : @CarId;", connection);
+            getCarById.Parameters.AddWithValue("@CarId", carId);
+            SqlDataReader reader = getCarById.ExecuteReader();
+            while (reader.Read())
+            {
+                car = MapReaderToCar(reader);
+            }
+            return car;
         }
 
 
@@ -75,7 +90,7 @@ namespace RentalService.Persistence.Mappers
                         delen[1],
                         int.TryParse(delen[2], out int zp) ? zp : -1,
                         delen[3],
-                        InitialEstablishmentId(delen));
+                        InitialEstablishmentId(i));
                 }
                 catch (Exception ex)
                 {
@@ -85,7 +100,7 @@ namespace RentalService.Persistence.Mappers
                 using SqlTransaction transaction = connection.BeginTransaction();
                 try
                 {
-                    using SqlCommand cmd = new("Insert into Cars (LicensePlate, Model, Seats, MotorType) Values (@LicensePlate, @Model, @Seats, @MotorType)", connection, transaction);
+                    using SqlCommand cmd = new("Insert into Cars (LicensePlate, Model, Seats, MotorType, EstablishmentId) Values (@LicensePlate, @Model, @Seats, @MotorType, @EstablishmentId)", connection, transaction);
                     cmd.Parameters.AddWithValue("@LicensePlate", car.LicensePlate);
                     cmd.Parameters.AddWithValue("@Model", car.Model);
                     cmd.Parameters.AddWithValue("@Seats", car.Seats);
@@ -113,19 +128,17 @@ namespace RentalService.Persistence.Mappers
             string model = (string)reader["Model"];
             int seats = (int)reader["Seats"];
             string motorType = (string)reader["MotorType"];
-            //int establishmentId = (int)reader["EstablishmentId"]; EERST EST ID TOEKENNEN
+            int establishmentId = (int)reader["EstablishmentId"];
 
             return new Car(id, licensePlate, model, seats, motorType);
         }
 
-        private int InitialEstablishmentId(string[] cars)
+        private int InitialEstablishmentId(int carIndex)
         {
             _establishmentRepository = new EstablishmentMapper();
             List<Establishment> establishments = _establishmentRepository.GetEstablishments();
             int aantalVestigingen = establishments.Count();
-            int aantalAutos = cars.Count();
-            int locationIndex = aantalAutos % aantalVestigingen;
-            Establishment establishment = establishments[locationIndex];
+            Establishment establishment = establishments[carIndex % aantalVestigingen];
             int establishmentId = establishment.Id;
             return establishmentId;
 
