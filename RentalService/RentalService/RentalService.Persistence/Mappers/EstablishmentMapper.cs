@@ -63,13 +63,20 @@ namespace RentalService.Persistence.Mappers
                     _fouten.Add($"Vestigingen.csv - Regel {i + 1}: Onvoldoende kolommen.");
                     continue;
                 }
-
-                location = new(
-                    delen[0],
-                    delen[1],
-                    delen[2],
-                    delen[3],
-                    delen[4]);
+                try
+                {
+                    location = new(
+                        delen[0],
+                        delen[1],
+                        delen[2],
+                        delen[3],
+                        delen[4]);
+                }
+                catch (ArgumentException ex)
+                {
+                    _fouten.Add($"Vestigingen.csv - Regel {i + 1}: {ex.Message}");
+                    continue;
+                }
 
                 connection.Open();
                 using SqlTransaction transaction = connection.BeginTransaction();

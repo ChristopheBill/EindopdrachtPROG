@@ -59,7 +59,7 @@ namespace RentalService.Domain.Models
             get => _firstName;
             init
             {
-                //ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                ArgumentException.ThrowIfNullOrWhiteSpace(value);
                 _firstName = value;
             }
         }
@@ -68,7 +68,7 @@ namespace RentalService.Domain.Models
             get => _lastName;
             init
             {
-                //ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                ArgumentException.ThrowIfNullOrWhiteSpace(value);
                 _lastName = value;
             }
         }
@@ -96,7 +96,7 @@ namespace RentalService.Domain.Models
             get => _street;
             init
             {
-                //ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                ArgumentException.ThrowIfNullOrWhiteSpace(value);
                 _street = value;
                 ;
             }
@@ -121,7 +121,7 @@ namespace RentalService.Domain.Models
             get => _city;
             init
             {
-                //ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                ArgumentException.ThrowIfNullOrWhiteSpace(value);
                _city = value;
             }
         }
@@ -130,7 +130,7 @@ namespace RentalService.Domain.Models
             get => _country;
             init
             {
-                //ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                ArgumentException.ThrowIfNullOrWhiteSpace(value);
                _country = value;
             }
         }

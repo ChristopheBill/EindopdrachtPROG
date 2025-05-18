@@ -70,7 +70,7 @@ namespace RentalService.DataLoader
             {
                 _fouten.Add(ex.Message);
             }
-            MessageBox.Show($"Fouten: {string.Join(Environment.NewLine, _fouten)}");
+            MessageBox.Show($"Bestanden geladen, er zijn {_fouten.Count()} fouten opgetreden.");
 
         }
     }

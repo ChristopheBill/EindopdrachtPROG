@@ -94,6 +94,7 @@ namespace RentalService.Persistence.Mappers
                 catch (Exception ex)
                 {
                     _fouten.Add(ex.Message);
+                    continue;
                 }
                 connection.Open();
                 using SqlTransaction transaction = connection.BeginTransaction();

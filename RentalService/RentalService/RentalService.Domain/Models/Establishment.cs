@@ -44,7 +44,7 @@ namespace RentalService.Domain.Models
             get => _airport; 
             init 
             {
-                //ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(Airport));
+                ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(Airport));
                 _airport = value; 
             }
         }

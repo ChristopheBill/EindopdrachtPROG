@@ -93,15 +93,23 @@ namespace RentalService.Persistence.Mappers
                     fouten.Add($"Klanten.csv - Regel {i + 1}: Onvoldoende kolommen.");
                     continue;
                 }
-
-                Customer customer = new(
-                    delen[0],
-                    delen[1],
-                    delen[2],
-                    delen[3],
-                    delen[4],
-                    delen[5],
-                    delen[6]);
+                Customer customer = new();
+                try
+                {
+                    customer = new(
+                        delen[0],
+                        delen[1],
+                        delen[2],
+                        delen[3],
+                        delen[4],
+                        delen[5],
+                        delen[6]);
+                }
+                catch (Exception ex)
+                {
+                    fouten.Add($"Klanten.csv - Regel {i + 1}: {ex.Message}");
+                    continue;
+                }
 
                 connection.Open();
 

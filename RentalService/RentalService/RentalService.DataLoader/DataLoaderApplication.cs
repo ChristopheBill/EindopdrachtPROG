@@ -22,7 +22,7 @@ namespace RentalService.DataLoader
         private CustomerMapper _customerMapper = new();
         //private DomainManager _domainManager;
 
-        public List<string> InitialiseAllFiles(string padVestigingen, string padAutos, string padKlanten)
+        public void InitialiseAllFiles(string padVestigingen, string padAutos, string padKlanten)
         {
             fouten.Clear();
             uniekeEmails.Clear();
@@ -38,7 +38,7 @@ namespace RentalService.DataLoader
                 fouten.Add(ex.Message);
             }
 
-            return fouten;
+            //return fouten;
         }
 
 
