@@ -34,9 +34,7 @@ namespace RentalService.Presentation.Windows
 
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {
-            CustomerDTO customer = (CustomerDTO)cmbCustomers.SelectedItem;
-            EstablishmentDTO establishment = (EstablishmentDTO)cmbVestiging.SelectedItem;
-            if (cmbCustomers.SelectedItem != null || cmbVestiging.SelectedItem != null)
+            if (cmbCustomers.SelectedItem is CustomerDTO customer && cmbVestiging.SelectedItem is EstablishmentDTO establishment)
             {
                 dgReservaties.ItemsSource = _rentalServiceApplication.GetReservationsByCustomerIdEstablishmentId(customer.Id, establishment.Id);
             }
