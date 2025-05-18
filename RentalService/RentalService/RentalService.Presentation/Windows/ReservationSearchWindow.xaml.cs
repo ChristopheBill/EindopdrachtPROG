@@ -1,4 +1,5 @@
 ﻿using RentalService.Domain;
+using RentalService.Domain.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,22 +34,16 @@ namespace RentalService.Presentation.Windows
 
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {
-            //string klantnaam = txtKlantNaam.Text.Trim();
-            //DateTime? datum = dpDatum.SelectedDate;
-            //int? vestigingId = cmbVestiging.SelectedItem is Vestiging vest ? vest.Id : (int?)null;
-
-            //try
-            //{
-            //    List<ReservatieDTO> resultaten = _reservatieService.ZoekReservaties(klantnaam, datum, vestigingId);
-            //    dgReservaties.ItemsSource = resultaten;
-
-            //    if (resultaten.Count == 0)
-            //        MessageBox.Show("Geen reservaties gevonden.");
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Fout bij zoeken: " + ex.Message);
-            //}
+            CustomerDTO customer = (CustomerDTO)cmbCustomers.SelectedItem;
+            EstablishmentDTO establishment = (EstablishmentDTO)cmbVestiging.SelectedItem;
+            if (cmbCustomers.SelectedItem != null || cmbVestiging.SelectedItem != null)
+            {
+                dgReservaties.ItemsSource = _rentalServiceApplication.GetReservationsByCustomerIdEstablishmentId(customer.Id, establishment.Id);
+            }
+            else
+            {
+                MessageBox.Show("Gelieve een vestiging en klant te selecteren.");
+            }
         }
 
         private void btnAnnuleer_Click(object sender, RoutedEventArgs e)

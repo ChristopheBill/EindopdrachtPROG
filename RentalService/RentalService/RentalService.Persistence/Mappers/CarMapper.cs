@@ -46,7 +46,7 @@ namespace RentalService.Persistence.Mappers
             Car car = new();
             using SqlConnection connection = new(DBInfo.ConnectionString);
             connection.Open();
-            using SqlCommand getCarById = new("Select * from Cars where Id : @CarId;", connection);
+            using SqlCommand getCarById = new("Select * from Cars where Id = @CarId;", connection);
             getCarById.Parameters.AddWithValue("@CarId", carId);
             SqlDataReader reader = getCarById.ExecuteReader();
             while (reader.Read())

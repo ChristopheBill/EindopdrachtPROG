@@ -62,6 +62,10 @@ namespace RentalService.Presentation
         {
             return _domainManager.GetCars();
         }
+        internal List<CarDTO> GetCarsByEstablishment(int establishmentId)
+        {
+            return _domainManager.GetCarsByEstablishment(establishmentId);
+        }
         internal List<EstablishmentDTO> GetEstablishments() 
         {
             return _domainManager.GetEstablishments();
@@ -74,13 +78,13 @@ namespace RentalService.Presentation
         {
             return _domainManager.GetReservations();
         }
+        internal List<ReservationDTO> GetReservationsByCustomerIdEstablishmentId(int customerId, int establishmentId)
+        {
+            return _domainManager.GetReservationsByCustomerIdEstablishmentId(customerId, establishmentId);
+        }
         internal void MakeReservation(DateTime startDate, DateTime endDate, int customerId, int carId, int establishmentId)
         {
             _domainManager.MakeReservation(startDate, endDate, customerId, carId, establishmentId);
-        }
-        internal List<CarDTO> GetCarsByEstablishment(int establishmentId)
-        {
-            return _domainManager.GetCarsByEstablishment(establishmentId);
         }
     }
 

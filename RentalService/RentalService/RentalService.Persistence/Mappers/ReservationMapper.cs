@@ -24,17 +24,33 @@ namespace RentalService.Persistence.Mappers
             {
                 while (reader.Read())
                 {
-                    int id = (int)reader["Id"];
-                    DateTime startDate = (DateTime)reader["StartDate"];
-                    DateTime endDate = (DateTime)reader["EndDate"];
-                    int customerId = (int)reader["CustomerId"];
-                    int carId = (int)reader["CarId"];
-                    int establishmentId = (int)reader["EstablishmentId"];
-                    Reservation reservation = new(id, startDate, endDate, customerId, carId, establishmentId);
+                    
+                    Reservation reservation = MapReaderToReservation(reader);
                     reservations.Add(reservation);
                 }
             }
             return reservations;
+        }
+        public List<Reservation> GetReservationsByCustomerIdEstablishmentId(int customerId, int establishmentId)
+        {
+            List<Reservation> reservations = new();
+            using SqlConnection connection = new( DBInfo.ConnectionString);
+            connection.Open();
+            using SqlCommand command = new("SELECT * FROM Reservations WHERE CustomerId = @CustomerId AND EstablishmentId = @EstablishmentId;", connection);
+            command.Parameters.Add(new SqlParameter("@CustomerId", customerId));
+            command.Parameters.Add(new SqlParameter("@EstablishmentId", establishmentId));
+            using SqlDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Reservation reservation = MapReaderToReservation(reader);
+                    reservations.Add(reservation);
+                }
+            }
+            return reservations;
+
+
         }
         public void MakeReservation(DateTime startDate, DateTime endDate, int customerId, int carId, int establishmentId) 
         {
@@ -56,6 +72,16 @@ namespace RentalService.Persistence.Mappers
             transaction.Commit();
 
             connection.Close();
+        }
+        private Reservation MapReaderToReservation(SqlDataReader reader) 
+        {
+            int id = (int)reader["Id"];
+            DateTime startDate = (DateTime)reader["StartDate"];
+            DateTime endDate = (DateTime)reader["EndDate"];
+            int customerId = (int)reader["CustomerId"];
+            int carId = (int)reader["CarId"];
+            int establishmentId = (int)reader["EstablishmentId"];
+            return new Reservation(id, startDate, endDate, customerId, carId, establishmentId);
         }
     }
 }
