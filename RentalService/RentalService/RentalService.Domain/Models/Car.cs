@@ -18,8 +18,6 @@ namespace RentalService.Domain.Models
         private List<string> _motorTypes = ["Hybrid", "Gasoline", "Diesel", "Electric"];
         private string _motorType;
         private int _establishmentId;
-        private IEstablishmentRepository _establishmentRepository;
-        private ICarRepository _carRepository;
 
         public Car()
         {
@@ -36,6 +34,11 @@ namespace RentalService.Domain.Models
         public Car(int id, string licensePlate, string model, int seats, string motorType) : this(licensePlate, model, seats, motorType)
         {
             Id = id;
+        }
+
+        public Car(string licensePlate, string model, int seats, string motorType, int establishmentId) : this(licensePlate, model, seats, motorType)
+        {
+            EstablishmentId = establishmentId;
         }
 
         public Car(int id, string licensePlate, string model, int seats, string motorType, int establishmentId) : this(id, licensePlate, model, seats, motorType)
@@ -110,11 +113,11 @@ namespace RentalService.Domain.Models
             {
                 //if (value != 0)
                 //{
-                //    _establishmentId = value;
+                _establishmentId = value;
                 //}
                 //else
                 //{
-                    InitialEstablishmentId(this);
+                    //InitialEstablishmentId(this);
                 //}
             }
         }
@@ -133,20 +136,6 @@ namespace RentalService.Domain.Models
         public override string? ToString()
         {
             return $"{Model} {LicensePlate} {Seats} {MotorType}";
-        }
-
-        private void InitialEstablishmentId(Car car)
-        {
-            IEstablishmentRepository establishmentRepository = _establishmentRepository;
-            List<Establishment> establishments = _establishmentRepository.GetEstablishments();
-            int aantalVestigingen = establishments.Count();
-            ICarRepository carRepository = _carRepository;
-            List<Car> cars = _carRepository.GetCars();
-            int aantalAutos = cars.Count();
-            int locationIndex = aantalAutos % aantalVestigingen;
-            Establishment establishment = establishments[locationIndex];
-            car.EstablishmentId = establishment.Id;
-
         }
 
         private void AssignCarToEstablishment(int id)

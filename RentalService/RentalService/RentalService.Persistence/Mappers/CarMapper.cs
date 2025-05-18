@@ -7,6 +7,8 @@ namespace RentalService.Persistence.Mappers
     public class CarMapper : ICarRepository
     {
         private readonly List<string> _fouten = new();
+        private IEstablishmentRepository _establishmentRepository;
+        private ICarRepository _carRepository;
         public List<Car> GetCars()
         {
             using SqlConnection connection = new(DBInfo.ConnectionString);
@@ -72,7 +74,8 @@ namespace RentalService.Persistence.Mappers
                         delen[0],
                         delen[1],
                         int.TryParse(delen[2], out int zp) ? zp : -1,
-                        delen[3]);
+                        delen[3],
+                        InitialEstablishmentId(delen));
                 }
                 catch (Exception ex)
                 {
@@ -87,6 +90,7 @@ namespace RentalService.Persistence.Mappers
                     cmd.Parameters.AddWithValue("@Model", car.Model);
                     cmd.Parameters.AddWithValue("@Seats", car.Seats);
                     cmd.Parameters.AddWithValue("@MotorType", car.MotorType);
+                    cmd.Parameters.AddWithValue("@EstablishmentId", car.EstablishmentId);
                     cmd.ExecuteNonQuery();
                     transaction.Commit();
                 }
@@ -112,6 +116,19 @@ namespace RentalService.Persistence.Mappers
             //int establishmentId = (int)reader["EstablishmentId"]; EERST EST ID TOEKENNEN
 
             return new Car(id, licensePlate, model, seats, motorType);
+        }
+
+        private int InitialEstablishmentId(string[] cars)
+        {
+            _establishmentRepository = new EstablishmentMapper();
+            List<Establishment> establishments = _establishmentRepository.GetEstablishments();
+            int aantalVestigingen = establishments.Count();
+            int aantalAutos = cars.Count();
+            int locationIndex = aantalAutos % aantalVestigingen;
+            Establishment establishment = establishments[locationIndex];
+            int establishmentId = establishment.Id;
+            return establishmentId;
+
         }
     }
 }

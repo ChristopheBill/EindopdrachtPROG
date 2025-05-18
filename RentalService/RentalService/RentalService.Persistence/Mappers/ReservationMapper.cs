@@ -47,14 +47,14 @@ namespace RentalService.Persistence.Mappers
             MakeReservation.Parameters.Add(new SqlParameter("@CustomerId", customerId));
             MakeReservation.Parameters.Add(new SqlParameter("@CarId", carId));
             MakeReservation.Parameters.Add(new SqlParameter("@EstablishmentId", establishmentId));
-
-            MakeReservation.ExecuteNonQuery();
-            transaction.Commit();
-
-            using SqlCommand SetCar = new("UPDATE Cars SET EstablishmentId = @EstablishmentId WHERE Id = @CarId;", connection);
+            using SqlCommand SetCar = new("UPDATE Cars SET EstablishmentId = @EstablishmentId WHERE Id = @CarId;", connection, transaction);
             SetCar.Parameters.AddWithValue(("@CarId"), carId);
             SetCar.Parameters.Add(new SqlParameter("@EstablishmentId", establishmentId));
+            MakeReservation.ExecuteNonQuery();
             SetCar.ExecuteScalar();
+
+            transaction.Commit();
+
             connection.Close();
         }
     }
