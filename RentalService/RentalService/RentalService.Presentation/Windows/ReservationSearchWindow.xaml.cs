@@ -21,7 +21,6 @@ namespace RentalService.Presentation.Windows
     /// </summary>
     public partial class ReservationSearchWindow : Window
     {
-        private readonly DomainManager _domainManager;
         private RentalServiceApplication _rentalServiceApplication;
         public ReservationSearchWindow(RentalServiceApplication rentalServiceApplication)
         {
@@ -38,14 +37,6 @@ namespace RentalService.Presentation.Windows
             {
                 List<ReservationDTO> reservations = _rentalServiceApplication.GetReservationsByCustomerIdEstablishmentId(customer.Id, establishment.Id);
                 dgReservaties.ItemsSource = reservations;
-                //lvReservaties.ItemsSource = reservations;
-                //List<CarDTO> cars = new();
-                //foreach (var reservation in reservations)
-                {
-                    //cars.Add(_rentalServiceApplication.GetCarsById(reservation.CarId).FirstOrDefault());
-                }
-                //lvAutos.ItemsSource = cars;
-                
             }
             else
             {

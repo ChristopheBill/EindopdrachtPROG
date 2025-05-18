@@ -31,7 +31,7 @@ namespace RentalService.Presentation.Windows
             InitializeComponent();
             _rentalServiceApplication = rentalServiceApplication;
             _customer = customer;
-            dgAutos.ItemsSource = rentalServiceApplication.GetCars();
+            //dgAutos.ItemsSource = rentalServiceApplication.GetCars();
             cmbEstablishments.ItemsSource = rentalServiceApplication.GetEstablishments().ToList();
 
         }
@@ -39,7 +39,10 @@ namespace RentalService.Presentation.Windows
         private void btnZoekAutos_Click(object sender, RoutedEventArgs e)
         {
 
-            //if (cmbVestigingen.SelectedItem is not Vestiging vestiging ||
+            if (cmbEstablishments.SelectedItem is EstablishmentDTO establishment)
+            {
+                dgAutos.ItemsSource = _rentalServiceApplication.GetCarsByEstablishment(establishment.Id);
+            }
             //dpStart.SelectedDate is not DateTime startDatum ||
             //!TimeSpan.TryParse(txtStartTijd.Text, out var startTijd) ||
             //dpEinde.SelectedDate is not DateTime eindDatum ||
