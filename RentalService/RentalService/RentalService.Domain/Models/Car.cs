@@ -17,7 +17,7 @@ namespace RentalService.Domain.Models
         private int _seats;
         private List<string> _motorTypes = ["Hybrid", "Gasoline", "Diesel", "Electric"];
         private string _motorType;
-        private int _establishmentId;
+        private Establishment _establishment;
 
         public Car()
         {
@@ -36,14 +36,14 @@ namespace RentalService.Domain.Models
             Id = id;
         }
 
-        public Car(string licensePlate, string model, int seats, string motorType, int establishmentId) : this(licensePlate, model, seats, motorType)
+        public Car(string licensePlate, string model, int seats, string motorType, Establishment establishment) : this(licensePlate, model, seats, motorType)
         {
-            EstablishmentId = establishmentId;
+            Establishment = establishment;
         }
 
-        public Car(int id, string licensePlate, string model, int seats, string motorType, int establishmentId) : this(id, licensePlate, model, seats, motorType)
+        public Car(int id, string licensePlate, string model, int seats, string motorType, Establishment establishment) : this(id, licensePlate, model, seats, motorType)
         {
-            EstablishmentId = establishmentId;
+            Establishment = establishment;
         }
 
         public int Id
@@ -106,14 +106,14 @@ namespace RentalService.Domain.Models
             }
 
         }
-        public int EstablishmentId 
+        public Establishment Establishment 
         {
-            get => _establishmentId;
+            get => _establishment;
             set
             {
                 //if (value != 0)
                 //{
-                _establishmentId = value;
+                _establishment = value;
                 //}
                 //else
                 //{

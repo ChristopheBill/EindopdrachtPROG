@@ -37,6 +37,8 @@
                 <DataGridTextColumn Header="Zitplaatsen" Binding="{Binding Seats}" Width="*"/>
                 <DataGridTextColumn Header="Nummerplaat" Binding="{Binding LicensePlate}" Width="*"/>
                 <DataGridTextColumn Header="Motortype" Binding="{Binding MotorType}" Width="*"/>
+                <DataGridTextColumn Header="Vestiging" Binding="{Binding Establishment.Airport}" Width="*"/>
+                <DataGridTextColumn Header="Land" Binding="{Binding Establishment.Country}" Width="*"/>
 
             </DataGrid.Columns>
         </DataGrid>

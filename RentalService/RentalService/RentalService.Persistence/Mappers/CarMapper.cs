@@ -55,22 +55,22 @@ namespace RentalService.Persistence.Mappers
             }
             return car;
         }
-        public List<Car> GetCarsById(int carId)
-        {
-            Car car = new();
-            List<Car> cars = [];
-            using SqlConnection connection = new(DBInfo.ConnectionString);
-            connection.Open();
-            using SqlCommand getCarById = new("Select * from Cars where Id = @CarId;", connection);
-            getCarById.Parameters.AddWithValue("@CarId", carId);
-            SqlDataReader reader = getCarById.ExecuteReader();
-            while (reader.Read())
-            {
-                car = MapReaderToCar(reader);
-                cars.Add(car);
-            }
-            return cars;
-        }
+        //public List<Car> GetCarsById(int carId)
+        //{
+        //    Car car = new();
+        //    List<Car> cars = [];
+        //    using SqlConnection connection = new(DBInfo.ConnectionString);
+        //    connection.Open();
+        //    using SqlCommand getCarById = new("Select * from Cars where Id = @CarId;", connection);
+        //    getCarById.Parameters.AddWithValue("@CarId", carId);
+        //    SqlDataReader reader = getCarById.ExecuteReader();
+        //    while (reader.Read())
+        //    {
+        //        car = MapReaderToCar(reader);
+        //        cars.Add(car);
+        //    }
+        //    return cars;
+        //}
 
 
         public void ReadCars(string pad)
@@ -98,14 +98,15 @@ namespace RentalService.Persistence.Mappers
                     continue;
                 }
                 Car car = new();
+                Establishment establishment = new EstablishmentMapper().GetEstablishmentById(InitialEstablishmentId(i));
                 try
                 {
                     car = new(
                         delen[0],
                         delen[1],
                         int.TryParse(delen[2], out int zp) ? zp : -1,
-                        delen[3],
-                        InitialEstablishmentId(i));
+                        delen[3],establishment
+                        );
                 }
                 catch (Exception ex)
                 {
@@ -121,7 +122,7 @@ namespace RentalService.Persistence.Mappers
                     cmd.Parameters.AddWithValue("@Model", car.Model);
                     cmd.Parameters.AddWithValue("@Seats", car.Seats);
                     cmd.Parameters.AddWithValue("@MotorType", car.MotorType);
-                    cmd.Parameters.AddWithValue("@EstablishmentId", car.EstablishmentId);
+                    cmd.Parameters.AddWithValue("@EstablishmentId", car.Establishment.Id);
                     cmd.ExecuteNonQuery();
                     transaction.Commit();
                 }
@@ -145,8 +146,9 @@ namespace RentalService.Persistence.Mappers
             int seats = (int)reader["Seats"];
             string motorType = (string)reader["MotorType"];
             int establishmentId = (int)reader["EstablishmentId"];
+            Establishment establishment = new EstablishmentMapper().GetEstablishmentById(establishmentId);
 
-            return new Car(id, licensePlate, model, seats, motorType);
+            return new Car(id, licensePlate, model, seats, motorType, establishment);
         }
 
         private int InitialEstablishmentId(int carIndex)
