@@ -40,18 +40,20 @@ namespace RentalService.Persistence.Mappers
         {
             using SqlConnection connection = new(DBInfo.ConnectionString);
             connection.Open();
-            using SqlCommand MakeReservation = new("Insert into Reservations (StartDate, EndDate, CustomerId, CarId, EstablishmentId) VALUES (@StartDate, @EndDate, @CustomerId, @CarId, @EstablishmentId);", connection);
+            using SqlTransaction transaction = connection.BeginTransaction();
+            using SqlCommand MakeReservation = new("Insert into Reservations (StartDate, EndDate, CustomerId, CarId, EstablishmentId) VALUES (@StartDate, @EndDate, @CustomerId, @CarId, @EstablishmentId);", connection, transaction);
             MakeReservation.Parameters.Add(new SqlParameter("@StartDate", startDate));
             MakeReservation.Parameters.Add(new SqlParameter("@EndDate", endDate));
             MakeReservation.Parameters.Add(new SqlParameter("@CustomerId", customerId));
             MakeReservation.Parameters.Add(new SqlParameter("@CarId", carId));
             MakeReservation.Parameters.Add(new SqlParameter("@EstablishmentId", establishmentId));
-            //using SqlCommand SetCar = new("Insert into Cars (EstablishmentId) WHERE Id = @CarId VALUES (@EstablishmentId);", connection);
-            //SetCar.Parameters.AddWithValue(("@CarId"), carId);
-            //SetCar.Parameters.Add(new SqlParameter("@EstablishmentId", establishmentId));
+            using SqlCommand SetCar = new("Insert into Cars (EstablishmentId) VALUES (@EstablishmentId) WHERE Id = @CarId;", connection, transaction);
+            SetCar.Parameters.AddWithValue(("@CarId"), carId);
+            SetCar.Parameters.Add(new SqlParameter("@EstablishmentId", establishmentId));
 
             MakeReservation.ExecuteNonQuery();
-            //SetCar.ExecuteNonQuery();
+            SetCar.ExecuteScalar();
+            transaction.Commit();
             connection.Close();
         }
     }
