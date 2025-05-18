@@ -8,7 +8,6 @@ namespace RentalService.Persistence.Mappers
     {
         private readonly List<string> _fouten = new();
         private IEstablishmentRepository _establishmentRepository;
-        private ICarRepository _carRepository;
         public List<Car> GetCars()
         {
             using SqlConnection connection = new(DBInfo.ConnectionString);
@@ -141,7 +140,6 @@ namespace RentalService.Persistence.Mappers
             Establishment establishment = establishments[carIndex % aantalVestigingen];
             int establishmentId = establishment.Id;
             return establishmentId;
-
         }
     }
 }
