@@ -66,6 +66,11 @@ namespace RentalService.Presentation
         {
             return _domainManager.GetCarsByEstablishment(establishmentId);
         }
+        internal string GetCarById(int carId)
+        {
+            return _domainManager.GetCarById(carId);
+        }
+        
         internal List<EstablishmentDTO> GetEstablishments() 
         {
             return _domainManager.GetEstablishments();

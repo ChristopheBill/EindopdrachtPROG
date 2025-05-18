@@ -11,7 +11,7 @@ namespace RentalService.Domain.Repositories
     {
         public List<Car> GetCars();
         public void ReadCars(string pad);
-        //public void GetCarById(int carId);
+        public Car GetCarById(int carId);
         public List<Car> GetCarsByEstablishment(int establishmentId);
     }
 }

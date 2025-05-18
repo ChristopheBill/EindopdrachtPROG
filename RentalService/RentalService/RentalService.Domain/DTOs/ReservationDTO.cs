@@ -1,4 +1,5 @@
 ﻿using RentalService.Domain.Models;
+using RentalService.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace RentalService.Domain.DTOs
 {
     public class ReservationDTO
     {
+        //private ICarRepository _carRepository;
         public ReservationDTO(Reservation reservation) 
         {
             Id = reservation.Id;
@@ -26,6 +28,11 @@ namespace RentalService.Domain.DTOs
         public int CustomerId { get; set; }
         public int CarId{ get; set; }
         public int EstablishmentId { get; set; }
-        
+
+        //public override string? ToString()
+        //{
+        //    ICarRepository carRepository = _carRepository;
+        //    return $"{carRepository.GetCarById(CarId).Model}";
+        //}
     }
 }
