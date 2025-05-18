@@ -1,6 +1,7 @@
 ﻿using RentalService.Domain.DTOs;
 using RentalService.Domain.Models;
 using RentalService.Domain.Repositories;
+using System.Net.WebSockets;
 
 namespace RentalService.Domain
 {
@@ -21,6 +22,10 @@ namespace RentalService.Domain
         public List<CarDTO> GetCars()
         {
             return _carRepository.GetCars().Select(c=>new CarDTO(c)).ToList();
+        }
+        public List<CarDTO> GetCarsById(int carId)
+        {
+            return _carRepository.GetCarsById(carId).Select(c=>new CarDTO(c)).ToList();
         }
         public List<CarDTO> GetCarsByEstablishment(int establishmentId)
         {

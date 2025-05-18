@@ -55,6 +55,22 @@ namespace RentalService.Persistence.Mappers
             }
             return car;
         }
+        public List<Car> GetCarsById(int carId)
+        {
+            Car car = new();
+            List<Car> cars = [];
+            using SqlConnection connection = new(DBInfo.ConnectionString);
+            connection.Open();
+            using SqlCommand getCarById = new("Select * from Cars where Id = @CarId;", connection);
+            getCarById.Parameters.AddWithValue("@CarId", carId);
+            SqlDataReader reader = getCarById.ExecuteReader();
+            while (reader.Read())
+            {
+                car = MapReaderToCar(reader);
+                cars.Add(car);
+            }
+            return cars;
+        }
 
 
         public void ReadCars(string pad)

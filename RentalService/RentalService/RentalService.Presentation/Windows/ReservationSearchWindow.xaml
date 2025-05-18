@@ -30,7 +30,7 @@
         </StackPanel>
 
         <!-- Resultaten -->
-        <DataGrid x:Name="dgReservaties" Grid.Row="2" AutoGenerateColumns="False" Margin="0,10,0,10" SelectionMode="Single">
+        <DataGrid x:Name="dgReservaties" Grid.Row="2" AutoGenerateColumns="False" Margin="0,10,223,10" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Klant" Binding="{Binding CustomerId}" Width="*"/>
                 <DataGridTextColumn Header="Vestiging" Binding="{Binding EstablishmentId}" Width="*"/>
@@ -44,5 +44,10 @@
         <Button x:Name="btnAnnuleer" Content="Annuleer Geselecteerde Reservatie"
                 Grid.Row="3" Width="250" Height="40" HorizontalAlignment="Right"
                 Click="btnAnnuleer_Click"/>
+        <DataGrid x:Name="lvAutos" Grid.Row="2" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" Margin="570,10,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Model" Binding="{Binding Model}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

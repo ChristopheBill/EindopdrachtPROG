@@ -37,6 +37,9 @@ namespace RentalService.Presentation.Windows
             if (cmbCustomers.SelectedItem is CustomerDTO customer && cmbVestiging.SelectedItem is EstablishmentDTO establishment)
             {
                 dgReservaties.ItemsSource = _rentalServiceApplication.GetReservationsByCustomerIdEstablishmentId(customer.Id, establishment.Id);
+                
+                lvAutos.ItemsSource = _rentalServiceApplication.GetCarsById(reservationDTO.CarId);
+                
             }
             else
             {
