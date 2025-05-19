@@ -57,9 +57,13 @@ namespace RentalService.Domain
         {
             _reservationRepository.MakeReservation(startDate, endDate, customerId, carId, establishmentId);
         }
+        public void RemoveReservation(int reservationId)
+        {
+            _reservationRepository.RemoveReservation(reservationId);
+        }
         //public CustomerDTO GetCustomerById(int customerId)
         //{
-            //return _customerRepository.GetCustomerById(customerId).;
+        //return _customerRepository.GetCustomerById(customerId).;
         //}
 
     }

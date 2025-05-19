@@ -91,6 +91,10 @@ namespace RentalService.Presentation
         {
             _domainManager.MakeReservation(startDate, endDate, customerId, carId, establishmentId);
         }
+        internal void RemoveReservation(int reservationId)
+        {
+            _domainManager.RemoveReservation(reservationId);
+        }
     }
 
 }

@@ -73,6 +73,14 @@ namespace RentalService.Persistence.Mappers
 
             connection.Close();
         }
+        public void RemoveReservation (int reservationId)
+        {
+            using SqlConnection connection = new(DBInfo.ConnectionString);
+            connection.Open();
+            using SqlCommand RemoveReservation = new("Delete from Reservations where Id = @Id;", connection);
+            RemoveReservation.Parameters.Add(new SqlParameter("@Id", reservationId));
+            RemoveReservation.ExecuteNonQuery();
+        }
         private Reservation MapReaderToReservation(SqlDataReader reader) 
         {
             int id = (int)reader["Id"];

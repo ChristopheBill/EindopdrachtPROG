@@ -46,27 +46,36 @@ namespace RentalService.Presentation.Windows
 
         private void btnAnnuleer_Click(object sender, RoutedEventArgs e)
         {
-            //if (dgReservaties.SelectedItem is not ReservatieDTO reservatie)
-            //{
-            //    MessageBox.Show("Selecteer eerst een reservatie.");
-            //    return;
-            //}
+            if (dgReservaties.SelectedItem is ReservationDTO reservatie)
+            {
+                _rentalServiceApplication.RemoveReservation(reservatie.Id);
+                MessageBox.Show("Reservatie geannuleerd.");
+                dgReservaties.ItemsSource = _rentalServiceApplication.GetReservationsByCustomerIdEstablishmentId(cmbCustomers.SelectedItem is CustomerDTO customer ? customer.Id : 0,
+                    cmbVestiging.SelectedItem is EstablishmentDTO establishment ? establishment.Id : 0);
+            }
+            else
+            {
+                MessageBox.Show("Selecteer eerst een reservatie.");
+            }
+                //    MessageBox.Show("Selecteer eerst een reservatie.");
+                //    return;
+                //}
 
-            //var bevestiging = MessageBox.Show("Weet je zeker dat je deze reservatie wil annuleren?",
-            //                                  "Bevestig", MessageBoxButton.YesNo);
-            //if (bevestiging == MessageBoxResult.Yes)
-            //{
-            //    try
-            //    {
-            //        _reservatieService.VerwijderReservatie(reservatie.Id);
-            //        MessageBox.Show("Reservatie geannuleerd.");
-            //        btnZoek_Click(null, null); // herladen
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show("Fout bij annuleren: " + ex.Message);
-            //    }
-            //}
-        }
+                //var bevestiging = MessageBox.Show("Weet je zeker dat je deze reservatie wil annuleren?",
+                //                                  "Bevestig", MessageBoxButton.YesNo);
+                //if (bevestiging == MessageBoxResult.Yes)
+                //{
+                //    try
+                //    {
+                //        _reservatieService.VerwijderReservatie(reservatie.Id);
+                //        MessageBox.Show("Reservatie geannuleerd.");
+                //        btnZoek_Click(null, null); // herladen
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        MessageBox.Show("Fout bij annuleren: " + ex.Message);
+                //    }
+                //}
+            }
     }
 }
