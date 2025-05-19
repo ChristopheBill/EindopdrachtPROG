@@ -48,10 +48,18 @@ namespace RentalService.Presentation.Windows
         {
             if (dgReservaties.SelectedItem is ReservationDTO reservatie)
             {
-                _rentalServiceApplication.RemoveReservation(reservatie.Id);
-                MessageBox.Show("Reservatie geannuleerd.");
-                dgReservaties.ItemsSource = _rentalServiceApplication.GetReservationsByCustomerIdEstablishmentId(cmbCustomers.SelectedItem is CustomerDTO customer ? customer.Id : 0,
-                    cmbVestiging.SelectedItem is EstablishmentDTO establishment ? establishment.Id : 0);
+                var bevestiging = MessageBox.Show("Weet je zeker dat je deze reservatie wil annuleren?", "Bevestig", MessageBoxButton.YesNo);
+                if (bevestiging == MessageBoxResult.Yes)
+                {
+                    _rentalServiceApplication.RemoveReservation(reservatie.Id);
+                    MessageBox.Show("Reservatie geannuleerd.");
+                    dgReservaties.ItemsSource = _rentalServiceApplication.GetReservationsByCustomerIdEstablishmentId(cmbCustomers.SelectedItem is CustomerDTO customer ? customer.Id : 0,
+                        cmbVestiging.SelectedItem is EstablishmentDTO establishment ? establishment.Id : 0);
+                }
+                if (bevestiging == MessageBoxResult.No)
+                {
+                    MessageBox.Show("Reservatie annuleren geannuleerd.");
+                }
             }
             else
             {
@@ -77,5 +85,5 @@ namespace RentalService.Presentation.Windows
                 //    }
                 //}
             }
+        }
     }
-}
