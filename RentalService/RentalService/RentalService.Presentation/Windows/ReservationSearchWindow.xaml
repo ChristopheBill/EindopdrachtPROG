@@ -36,8 +36,8 @@
                 <DataGridTextColumn Header="" Binding="{Binding Customer.LastName}" Width="*"/>
                 <DataGridTextColumn Header="Vestiging" Binding="{Binding Establishment.Airport}" Width="*"/>
                 <DataGridTextColumn Header="Auto" Binding="{Binding Car.Model}" Width="*"/>
-                <DataGridTextColumn Header="Start" Binding="{Binding StartDate, StringFormat={}{0:dd-MM-yyyy HH:mm}}" Width="*"/>
-                <DataGridTextColumn Header="Einde" Binding="{Binding EndDate, StringFormat={}{0:dd-MM-yyyy HH:mm}}" Width="*"/>
+                <DataGridTextColumn Header="Start" Binding="{Binding StartDate,StringFormat={}{0:dd-MM-yyyy HH:mm}}" Width="*"/>
+                <DataGridTextColumn Header="Einde" Binding="{Binding EndDate,StringFormat={}{0:dd-MM-yyyy HH:mm}}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         

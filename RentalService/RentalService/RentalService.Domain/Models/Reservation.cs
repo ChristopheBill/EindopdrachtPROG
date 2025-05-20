@@ -13,17 +13,17 @@ namespace RentalService.Domain.Models
         private Customer _customer;
         private Car _car;
         private Establishment _establishment;
-        private DateTime _startDatum;
-        private DateTime _eindDatum;
+        private DateTime _startDate;
+        private DateTime _endDate;
 
-        public Reservation(int id, DateTime startDatum, DateTime eindDatum, Customer customer, Car car, Establishment establishment)
+        public Reservation(int id, DateTime startDate, DateTime endDate, Customer customer, Car car, Establishment establishment)
         {
             Id = id;
             Customer = customer;
             Car = car;
             Establishment = establishment;
-            StartDatum = startDatum;
-            EindDatum = eindDatum;
+            StartDate = startDate;
+            EndDate = endDate;
         }
 
         public int Id 
@@ -34,19 +34,19 @@ namespace RentalService.Domain.Models
         public Customer Customer { get => _customer; set => _customer = value; }
         public Car Car { get => _car; set => _car = value; }
         public Establishment Establishment { get => _establishment; set => _establishment = value; }
-        public DateTime StartDatum 
+        public DateTime StartDate 
         {
-            get => _startDatum;
+            get => _startDate;
             set
             {
                 //if (StartDatum < DateTime.Now)
                 //{
                 //    throw new ArgumentException("Startdatum moet in de toekomst liggen.");
                 //}
-                    _startDatum = value; 
+                    _startDate = value; 
             }
         }
-        public DateTime EindDatum { get => _eindDatum; set => _eindDatum = value; }
+        public DateTime EndDate { get => _endDate; set => _endDate = value; }
 
         //public void Valideer()
         //{
