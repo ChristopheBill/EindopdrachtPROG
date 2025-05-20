@@ -48,14 +48,14 @@ namespace RentalService.Domain.Models
         }
         public DateTime EindDatum { get => _eindDatum; set => _eindDatum = value; }
 
-        public void Valideer()
-        {
-            if (StartDatum < DateTime.Now)
-                throw new ArgumentException("Startdatum moet in de toekomst liggen.");
-            if (EindDatum <= StartDatum)
-                throw new ArgumentException("Einddatum moet na startdatum liggen.");
-            if ((EindDatum - StartDatum).TotalDays < 1)
-                throw new ArgumentException("Minimum huurperiode is 1 dag.");
-        }
+        //public void Valideer()
+        //{
+        //    if (StartDatum < DateTime.Now)
+        //        throw new ArgumentException("Startdatum moet in de toekomst liggen.");
+        //    if (EindDatum <= StartDatum)
+        //        throw new ArgumentException("Einddatum moet na startdatum liggen.");
+        //    if ((EindDatum - StartDatum).TotalDays < 1)
+        //        throw new ArgumentException("Minimum huurperiode is 1 dag.");
+        //}
     }
 }
