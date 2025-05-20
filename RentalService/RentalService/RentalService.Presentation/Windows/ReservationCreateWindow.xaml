@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RentalService.Presentation.Windows"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="ReservationCreateWindow" Height="450" Width="800">
     <Grid Margin="10">
@@ -25,7 +26,7 @@
         <!-- Huurperiode -->
         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,10">
             <Label Content="Startdatum:" VerticalAlignment="Center"/>
-            <DatePicker x:Name="dpStart" Width="150" Margin="10,0"/>
+            <DatePicker x:Name="dpStart" Width="150" Margin="10,0" SelectedDateChanged="dpStart_SelectedDateChanged"/>
             <TextBox x:Name="txtStartTijd" Width="80" Margin="10,0"/>
         </StackPanel>
 

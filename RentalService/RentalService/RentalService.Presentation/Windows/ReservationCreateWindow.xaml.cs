@@ -124,5 +124,10 @@ namespace RentalService.Presentation.Windows
         {
             //cmbEstablishments.
         }
+
+        private void dpStart_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
