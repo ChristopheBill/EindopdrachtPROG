@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RentalService.Domain.DTOs
 {
-    public class EstablishmentDTO
+    public record EstablishmentDTO
     {
         public EstablishmentDTO(Establishment establishment)
         {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RentalService.Domain.DTOs
 {
-    public class ReservationDTO
+    public record ReservationDTO
     {
         //private ICarRepository _carRepository;
         public ReservationDTO(Reservation reservation) 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RentalService.Domain.DTOs
 {
-    public class CarDTO
+    public record CarDTO
     {
         public CarDTO(Car car) 
         {
