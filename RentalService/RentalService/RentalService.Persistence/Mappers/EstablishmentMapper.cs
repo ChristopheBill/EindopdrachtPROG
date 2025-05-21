@@ -86,10 +86,11 @@ namespace RentalService.Persistence.Mappers
                 string[] delen = regels[i].Split(';');
                 if (delen.Length < 5)
                 {
-                    throw new Exception($"Fout bij het inlezen van de vestiging op regel {i + 1}: Onvoldoende kolommen.");
+                    fouten.Add($"Fout bij het inlezen van de vestiging op regel {i + 1}: Onvoldoende kolommen.");
                     //fouten.Add($"Vestigingen.csv - Regel {i + 1}: Onvoldoende kolommen.");
                     continue;
                 }
+                Establishment location = new();
                 try
                 {
                     location = new(
@@ -99,9 +100,9 @@ namespace RentalService.Persistence.Mappers
                         delen[3],
                         delen[4]);
                 }
-                catch (ArgumentException ex)
+                catch (Exception ex)
                 {
-                    throw new Exception($"Fout bij het inlezen van de vestiging op regel {i + 1}: {ex.Message}");
+                    fouten.Add($"Fout bij het inlezen van de vestiging op regel {i + 1}: {ex.Message}");
                     //fouten.Add($"Vestigingen.csv - Regel {i + 1}: {ex.Message}");
                     //continue;
                 }

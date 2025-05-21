@@ -68,6 +68,10 @@ namespace RentalService.Persistence.Mappers
             string[] regels = File.ReadAllLines(pad);
             string? path = Path.GetDirectoryName(pad) ?? throw new Exception("Folder path is null.");
             string errorlogPath = Path.Combine(path, "ErrorLogCustomers.txt");
+            if (File.Exists(errorlogPath))
+            {
+                File.Delete(errorlogPath);
+            }
             List<string> fouten = new();
             HashSet<string> entries = new();
             using SqlConnection connection = new(DBInfo.ConnectionString);
@@ -78,7 +82,7 @@ namespace RentalService.Persistence.Mappers
                 connection.Open();
                 command.ExecuteNonQuery();
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 fouten.Add($"Fout bij het verwijderen van de tabel: {ex.Message}");
                 //Console.WriteLine("Fout bij het verwijderen van de tabel: " + ex.Message);
@@ -106,7 +110,7 @@ namespace RentalService.Persistence.Mappers
                     delen[5],
                     delen[6]);
                 }
-                catch (SqlException ex)
+                catch (Exception ex)
                 {
                     fouten.Add("Fout bij het inlezen van de klant: " + ex.Message);
                     //continue;
@@ -137,7 +141,7 @@ namespace RentalService.Persistence.Mappers
                     cmd.ExecuteNonQuery();
                     transaction.Commit();
                 }
-                catch (SqlException ex)
+                catch (Exception ex)
                 {
                     transaction.Rollback();
                     fouten.Add($"Fout bij het toevoegen van de klant: {ex.Message}");
