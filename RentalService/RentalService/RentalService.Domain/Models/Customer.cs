@@ -112,9 +112,11 @@ namespace RentalService.Domain.Models
             get => _street;
             init
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value);
-                _street = value;
-                ;
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Street cannot be empty or whitespace", (nameof(Street)));
+                }
+                    _street = value;
             }
         }
         public string PostalCode
@@ -137,7 +139,10 @@ namespace RentalService.Domain.Models
             get => _city;
             init
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("City cannot be empty or whitespace", (nameof(City)));
+                }
                _city = value;
             }
         }
@@ -146,7 +151,10 @@ namespace RentalService.Domain.Models
             get => _country;
             init
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Country cannot be empty or whitespace", (nameof(Country)));
+                }
                _country = value;
             }
         }

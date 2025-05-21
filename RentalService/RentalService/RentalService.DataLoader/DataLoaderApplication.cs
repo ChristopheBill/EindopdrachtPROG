@@ -29,6 +29,10 @@ namespace RentalService.DataLoader
             uniekeNummerplaten.Clear();
             string? path = Path.GetDirectoryName(padAutos) ?? throw new Exception("Folder path is null.");
             string errorlogPath = Path.Combine(path, "ErrorLog.txt");
+            if (File.Exists(errorlogPath))
+            {
+                File.Delete(errorlogPath);
+            }
             try
             {
                 _customerMapper.ReadCustomers(padKlanten);

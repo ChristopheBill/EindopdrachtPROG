@@ -34,7 +34,6 @@ namespace RentalService.Persistence.Mappers
                     customers.Add(customer);
                 }
             }
-
             return customers;
         }
         public Customer GetCustomerById(int customerId)
@@ -61,15 +60,16 @@ namespace RentalService.Persistence.Mappers
                     return customer;
                 }
             }
-
-
             return customer;
         }
 
         public void ReadCustomers(string pad)
         {
             string[] regels = File.ReadAllLines(pad);
-
+            string? path = Path.GetDirectoryName(pad) ?? throw new Exception("Folder path is null.");
+            string errorlogPath = Path.Combine(path, "ErrorLogCustomers.txt");
+            List<string> fouten = new();
+            HashSet<string> entries = new();
             using SqlConnection connection = new(DBInfo.ConnectionString);
 
             try
@@ -80,7 +80,7 @@ namespace RentalService.Persistence.Mappers
             }
             catch (SqlException ex)
             {
-                throw new Exception($"Fout bij het verwijderen van de tabel: {ex.Message}");
+                fouten.Add($"Fout bij het verwijderen van de tabel: {ex.Message}");
                 //Console.WriteLine("Fout bij het verwijderen van de tabel: " + ex.Message);
             }
             finally { connection.Close(); }
@@ -91,27 +91,33 @@ namespace RentalService.Persistence.Mappers
                 string[] delen = regels[i].Split(';');
                 if (delen.Length < 7)
                 {
-                    throw new Exception($"Fout bij het inlezen van de klant op regel {i + 1}: Onvoldoende kolommen.");
+                    fouten.Add($"Fout bij het inlezen van de klant op regel {i + 1}: Onvoldoende kolommen.");
                     //continue;
                 }
                 Customer customer = new();
                 try
                 {
                     customer = new(
-                        delen[0],
-                        delen[1],
-                        delen[2],
-                        delen[3],
-                        delen[4],
-                        delen[5],
-                        delen[6]);
+                    delen[0],
+                    delen[1],
+                    delen[2],
+                    delen[3],
+                    delen[4],
+                    delen[5],
+                    delen[6]);
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
-                    throw new Exception("Fout bij het inlezen van de klant: " + ex.Message);
-                    //fouten.Add($"Klanten.csv - Regel {i + 1}: {ex.Message}");
+                    fouten.Add("Fout bij het inlezen van de klant: " + ex.Message);
                     //continue;
                 }
+                string customerEntry = $"{customer.FirstName};{customer.LastName};{customer.Email};{customer.Street};{customer.PostalCode};{customer.City};{customer.Country}".ToLower();
+                if (entries.Contains(customerEntry))
+                {
+                    fouten.Add($"Fout bij het inlezen van de klant op regel {i + 1}: Dubbele klant.");
+                }
+                    //continue;
+                
 
                 connection.Open();
 
@@ -131,14 +137,22 @@ namespace RentalService.Persistence.Mappers
                     cmd.ExecuteNonQuery();
                     transaction.Commit();
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
                     transaction.Rollback();
-                    throw new Exception($"Fout bij het toevoegen van de klant: {ex.Message}");
+                    fouten.Add($"Fout bij het toevoegen van de klant: {ex.Message}");
                 }
                 finally 
                 {
                     connection.Close(); 
+                }
+                if (fouten.Count > 0)
+                {
+                    using StreamWriter writer = new(errorlogPath, true);
+                    foreach (string fout in fouten)
+                    {
+                        writer.WriteLine(fout);
+                    }
                 }
             }
         }
