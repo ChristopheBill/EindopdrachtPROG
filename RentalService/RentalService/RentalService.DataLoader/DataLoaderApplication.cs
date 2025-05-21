@@ -33,7 +33,7 @@ namespace RentalService.DataLoader
                 _establishmentMapper.ReadEstablishments(padVestigingen);
                 _carMapper.ReadCars(padAutos);
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 fouten.Add(ex.Message);
             }

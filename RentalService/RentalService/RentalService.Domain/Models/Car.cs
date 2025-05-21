@@ -50,7 +50,7 @@ namespace RentalService.Domain.Models
         {
             get => _id;
             init
-            { if (value < 0) { throw new ArgumentException("Id kan niet lager zijn dan 0."); }
+            { if (value < 0) { throw new ArgumentException("Id cannot be less than 0."); }
                 _id = value;
             }
         }
@@ -69,7 +69,10 @@ namespace RentalService.Domain.Models
         {
             get => _model; init 
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("Model cannot be null or empty.", (nameof(value)));
+                }
                 _model = value; 
             } 
         }
@@ -83,8 +86,7 @@ namespace RentalService.Domain.Models
                     throw new ArgumentException("Car seats cannot be more than 10°.");
                 }
                 if (value >= 2) { _seats = value; }
-                //ArgumentOutOfRangeException.ThrowIfLessThan((value), 2);
-                //_seats = value; 
+                 
                 else { throw new ArgumentOutOfRangeException("Number of seats cannot be less than 2."); }
             } 
             

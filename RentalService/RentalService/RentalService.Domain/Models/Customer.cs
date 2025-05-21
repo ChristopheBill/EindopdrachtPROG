@@ -48,8 +48,10 @@ namespace RentalService.Domain.Models
             get => _id;
             init
             {
-
-                ArgumentOutOfRangeException.ThrowIfLessThanOrEqual((value), 0);
+                if (value < 0)
+                {
+                    throw new ArgumentException("Id cannot be less than 0", (nameof(Id)));
+                }
                 _id = value;
             }
         }
@@ -59,7 +61,14 @@ namespace RentalService.Domain.Models
             get => _firstName;
             init
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("First name cannot be empty or whitespace", (nameof(FirstName)));
+                }
+                if (value.Any(char.IsDigit))
+                {
+                    throw new ArgumentException("First name cannot contain digits", (nameof(FirstName)));
+                }
                 _firstName = value;
             }
         }
