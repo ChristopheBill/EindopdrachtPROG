@@ -61,10 +61,13 @@ namespace RentalService.Persistence.Mappers
         public void ReadEstablishments(string pad)
         {
             string[] regels = File.ReadAllLines(pad);
-            Establishment location;
+            string? path = Path.GetDirectoryName(pad) ?? throw new Exception("Folder path is null.");
+            string errorlogPath = Path.Combine(path, "ErrorLogEstablishments.txt");
+            if (File.Exists(errorlogPath))
+            {
+                File.Delete(errorlogPath);
+            }
             List<string> fouten = new();
-            //string? path = Path.GetDirectoryName(pad) ?? throw new Exception ("Folder path is null.");
-            //string errorlogPath = Path.Combine(path, "ErrorLog.txt");
             using SqlConnection connection = new(DBInfo.ConnectionString);
 
             try
@@ -75,9 +78,9 @@ namespace RentalService.Persistence.Mappers
                 command.ExecuteNonQuery();
                 deleteReservations.ExecuteNonQuery();
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                throw new Exception("Fout bij het verwijderen van de tabel: " + ex.Message);
+                fouten.Add("Fout bij het verwijderen van de tabel: " + ex.Message);
             }
             finally { connection.Close(); }
 
@@ -122,26 +125,33 @@ namespace RentalService.Persistence.Mappers
                     cmd.ExecuteNonQuery();
                     transaction.Commit();
                 }
-                catch (ArgumentException ex)
+                catch (Exception ex)
                 {
-                    throw new Exception($"Fout bij het inlezen van de vestiging op regel {i + 1}: {ex.Message}");
+                    transaction.Rollback();
+                    fouten.Add($"Fout bij het inlezen van de vestiging op regel {i + 1}: {ex.Message}");
                     //fouten.Add($"Invalid entry at line {i+1}, {ex.Message}");
                     //throw new Exception(ex.Message);
                 }
 
                 //catch (Exception ex)
                 //{
-                //    transaction.Rollback();
                 //    throw new Exception($"Something went wrong {ex}");
                 //}
-                
+
                 finally
                 {
                     connection.Close();
                 }
+                if (fouten.Count > 0)
+                {
+                    using StreamWriter writer = new(errorlogPath, true);
+                    foreach (string fout in fouten)
+                    {
+                        writer.WriteLine(fout);
+                    }
+                }
 
             }
-
         }
     }
 }

@@ -76,6 +76,13 @@ namespace RentalService.Persistence.Mappers
         public void ReadCars(string pad)
         {
             string[] regels = File.ReadAllLines(pad);
+            string? path = Path.GetDirectoryName(pad) ?? throw new Exception("Folder path is null.");
+            string errorlogPath = Path.Combine(path, "ErrorLogCars.txt");
+            if (File.Exists(errorlogPath))
+            {
+                File.Delete(errorlogPath);
+            }
+            List<string> fouten = new();
             using SqlConnection connection = new(DBInfo.ConnectionString);
             try
             {
@@ -83,9 +90,9 @@ namespace RentalService.Persistence.Mappers
                 connection.Open();
                 command.ExecuteNonQuery();
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                throw new Exception($"Fout bij het verwijderen van de tabel: {ex.Message}");
+                fouten.Add($"Fout bij het verwijderen van de tabel: {ex.Message}");
                 //Console.WriteLine("Fout bij het verwijderen van de tabel: " + ex.Message);
             }
             finally { connection.Close(); }
@@ -95,7 +102,7 @@ namespace RentalService.Persistence.Mappers
                 string[] delen = regels[i].Split(';');
                 if (delen.Length < 4)
                 {
-                    throw new Exception($"Fout bij het inlezen van de auto op regel {i+1}: Onvoldoende kolommen.");
+                    fouten.Add($"Fout bij het inlezen van de auto op regel {i+1}: Onvoldoende kolommen.");
                     //_fouten.Add($"Autos.csv - Regel {i + 1}: Onvoldoende kolommen.");
                     //continue;
                 }
@@ -112,7 +119,7 @@ namespace RentalService.Persistence.Mappers
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"Fout bij het aanmaken van de auto: {ex.Message}");
+                    fouten.Add($"Fout bij het aanmaken van de auto: {ex.Message}");
                     //_fouten.Add(ex.Message);
                     //continue;
                 }
@@ -125,18 +132,26 @@ namespace RentalService.Persistence.Mappers
                     cmd.Parameters.AddWithValue("@Model", car.Model);
                     cmd.Parameters.AddWithValue("@Seats", car.Seats);
                     cmd.Parameters.AddWithValue("@MotorType", car.MotorType);
-                    cmd.Parameters.AddWithValue("@EstablishmentId", car.Establishment.Id);
+                    cmd.Parameters.AddWithValue("@EstablishmentId", establishment.Id);
                     cmd.ExecuteNonQuery();
                     transaction.Commit();
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    throw new Exception($"Fout bij het toevoegen van de auto op regel {i+1}: " + ex.Message);
+                    fouten.Add($"Fout bij het toevoegen van de auto op regel {i+1}: " + ex.Message);
                 }
                 finally
                 {
                     connection.Close();
+                }
+                if (fouten.Count > 0)
+                {
+                    using StreamWriter writer = new(errorlogPath, true);
+                    foreach (string fout in fouten)
+                    {
+                        writer.WriteLine(fout);
+                    }
                 }
             }
         }

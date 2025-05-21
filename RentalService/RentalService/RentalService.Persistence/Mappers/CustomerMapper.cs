@@ -112,7 +112,7 @@ namespace RentalService.Persistence.Mappers
                 }
                 catch (Exception ex)
                 {
-                    fouten.Add("Fout bij het inlezen van de klant: " + ex.Message);
+                    fouten.Add($"Fout bij het inlezen van de klant op regel {i + 1}: " + ex.Message);
                     //continue;
                 }
                 string customerEntry = $"{customer.FirstName};{customer.LastName};{customer.Email};{customer.Street};{customer.PostalCode};{customer.City};{customer.Country}".ToLower();
@@ -144,7 +144,7 @@ namespace RentalService.Persistence.Mappers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    fouten.Add($"Fout bij het toevoegen van de klant: {ex.Message}");
+                    fouten.Add($"Fout bij het toevoegen van de klant op regel {i + 1}: {ex.Message}");
                 }
                 finally 
                 {
