@@ -50,8 +50,7 @@ namespace RentalService.Domain.Models
         {
             get => _id;
             init
-            {
-                ArgumentOutOfRangeException.ThrowIfLessThanOrEqual((value), 0);
+            { if (value < 0) { throw new ArgumentException("Id kan niet lager zijn dan 0."); }
                 _id = value;
             }
         }
@@ -59,8 +58,10 @@ namespace RentalService.Domain.Models
         {
             get => _licensePlate;
             init
-            {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value);
+            { if (value == null)
+                {
+                    throw new ArgumentNullException("License plate cannot be null.");
+                }
                 _licensePlate = value;
             }
         }
