@@ -61,16 +61,16 @@ namespace RentalService.DataLoader
 
         private void SendFiles_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 _dataLoaderApplication.InitialiseAllFiles(_filePath1, _filePath2, _filePath3);
 
-            }
-            catch (Exception ex)
-            {
-                _fouten.Add(ex.Message);
-            }
-            MessageBox.Show($"Bestanden geladen, er zijn {_fouten.Count()} fouten opgetreden.");
+            //}
+            //catch (Exception ex)
+            //{
+            //    _fouten.Add(ex.Message);
+            //}
+            //MessageBox.Show($"Bestanden geladen, er zijn {_fouten.Count()} fouten opgetreden.");
 
         }
     }

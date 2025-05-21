@@ -7,7 +7,7 @@ namespace RentalService.Persistence.Mappers
 {
     public class EstablishmentMapper : IEstablishmentRepository
     {
-        private readonly List<string> _fouten = new();
+        //private readonly List<string> _fouten = new();
 
         public List<Establishment> GetEstablishments()
         {
@@ -62,7 +62,9 @@ namespace RentalService.Persistence.Mappers
         {
             string[] regels = File.ReadAllLines(pad);
             Establishment location;
-
+            List<string> fouten = new();
+            //string? path = Path.GetDirectoryName(pad) ?? throw new Exception ("Folder path is null.");
+            //string errorlogPath = Path.Combine(path, "ErrorLog.txt");
             using SqlConnection connection = new(DBInfo.ConnectionString);
 
             try
@@ -75,7 +77,7 @@ namespace RentalService.Persistence.Mappers
             }
             catch (SqlException ex)
             {
-                Console.WriteLine("Fout bij het verwijderen van de tabel: " + ex.Message);
+                throw new Exception("Fout bij het verwijderen van de tabel: " + ex.Message);
             }
             finally { connection.Close(); }
 
@@ -84,7 +86,8 @@ namespace RentalService.Persistence.Mappers
                 string[] delen = regels[i].Split(';');
                 if (delen.Length < 5)
                 {
-                    _fouten.Add($"Vestigingen.csv - Regel {i + 1}: Onvoldoende kolommen.");
+                    throw new Exception($"Fout bij het inlezen van de vestiging op regel {i + 1}: Onvoldoende kolommen.");
+                    //fouten.Add($"Vestigingen.csv - Regel {i + 1}: Onvoldoende kolommen.");
                     continue;
                 }
                 try
@@ -98,8 +101,9 @@ namespace RentalService.Persistence.Mappers
                 }
                 catch (ArgumentException ex)
                 {
-                    _fouten.Add($"Vestigingen.csv - Regel {i + 1}: {ex.Message}");
-                    continue;
+                    throw new Exception($"Fout bij het inlezen van de vestiging op regel {i + 1}: {ex.Message}");
+                    //fouten.Add($"Vestigingen.csv - Regel {i + 1}: {ex.Message}");
+                    //continue;
                 }
 
                 connection.Open();
@@ -119,7 +123,8 @@ namespace RentalService.Persistence.Mappers
                 }
                 catch (ArgumentException ex)
                 {
-                    _fouten.Add($"Invalid entry at line {i+1}, {ex.Message}");
+                    throw new Exception($"Fout bij het inlezen van de vestiging op regel {i + 1}: {ex.Message}");
+                    //fouten.Add($"Invalid entry at line {i+1}, {ex.Message}");
                     //throw new Exception(ex.Message);
                 }
 

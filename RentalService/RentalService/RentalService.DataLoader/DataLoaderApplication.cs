@@ -27,6 +27,8 @@ namespace RentalService.DataLoader
             fouten.Clear();
             uniekeEmails.Clear();
             uniekeNummerplaten.Clear();
+            string? path = Path.GetDirectoryName(padAutos) ?? throw new Exception("Folder path is null.");
+            string errorlogPath = Path.Combine(path, "ErrorLog.txt");
             try
             {
                 _customerMapper.ReadCustomers(padKlanten);
@@ -36,6 +38,18 @@ namespace RentalService.DataLoader
             catch (Exception ex)
             {
                 fouten.Add(ex.Message);
+            }
+            if (fouten.Count > 0)
+            {
+                using StreamWriter writer = new(errorlogPath, true);
+                foreach (string fout in fouten)
+                {
+                    writer.WriteLine(fout);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Alle bestanden zijn succesvol ingelezen.");
             }
 
             //return fouten;

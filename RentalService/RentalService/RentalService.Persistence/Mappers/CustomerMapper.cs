@@ -80,7 +80,8 @@ namespace RentalService.Persistence.Mappers
             }
             catch (SqlException ex)
             {
-                Console.WriteLine("Fout bij het verwijderen van de tabel: " + ex.Message);
+                throw new Exception($"Fout bij het verwijderen van de tabel: {ex.Message}");
+                //Console.WriteLine("Fout bij het verwijderen van de tabel: " + ex.Message);
             }
             finally { connection.Close(); }
 
@@ -90,8 +91,8 @@ namespace RentalService.Persistence.Mappers
                 string[] delen = regels[i].Split(';');
                 if (delen.Length < 7)
                 {
-                    fouten.Add($"Klanten.csv - Regel {i + 1}: Onvoldoende kolommen.");
-                    continue;
+                    throw new Exception($"Fout bij het inlezen van de klant op regel {i + 1}: Onvoldoende kolommen.");
+                    //continue;
                 }
                 Customer customer = new();
                 try
@@ -107,8 +108,9 @@ namespace RentalService.Persistence.Mappers
                 }
                 catch (Exception ex)
                 {
-                    fouten.Add($"Klanten.csv - Regel {i + 1}: {ex.Message}");
-                    continue;
+                    throw new Exception("Fout bij het inlezen van de klant: " + ex.Message);
+                    //fouten.Add($"Klanten.csv - Regel {i + 1}: {ex.Message}");
+                    //continue;
                 }
 
                 connection.Open();
@@ -132,7 +134,7 @@ namespace RentalService.Persistence.Mappers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    throw new Exception($"Something went wrong {ex}");
+                    throw new Exception($"Fout bij het toevoegen van de klant: {ex.Message}");
                 }
                 finally 
                 {

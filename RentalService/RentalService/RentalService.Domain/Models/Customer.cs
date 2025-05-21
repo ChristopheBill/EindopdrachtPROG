@@ -77,7 +77,14 @@ namespace RentalService.Domain.Models
             get => _lastName;
             init
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value);
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Last name cannot be empty or whitespace", (nameof(LastName)));
+                }
+                if (value.Any(char.IsDigit))
+                {
+                    throw new ArgumentException("Last name cannot contain digits", (nameof(LastName)));
+                }
                 _lastName = value;
             }
         }
