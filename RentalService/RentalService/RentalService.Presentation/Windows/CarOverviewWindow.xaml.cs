@@ -61,22 +61,11 @@ namespace RentalService.Presentation.Windows
 
         private void btnGenereerMarkdown_Click(object sender, RoutedEventArgs e)
         {
-            //if (cmbVestigingen.SelectedItem is not Establishment vestiging ||
-            //    dpDatum.SelectedDate is not DateTime date ||
-            //    !TimeSpan.TryParse(txtTijd.Text, out var tijd))
-            //{
-            //    MessageBox.Show("Gelieve een geldige vestiging, datum en tijd in te geven.");
-            //    return;
-            //}
-
-            //DateTime tijdstip = date.Add(tijd);
-            //List<Car> beschikbareAutos = _carRepository.GetCars();
-            //dgAutos.ItemsSource = beschikbareAutos;
-
-            //string markdown = MarkdownGenerator.Genereer(vestiging, tijdstip, beschikbareAutos);
-            //System.IO.File.WriteAllText("auto-overzicht.md", markdown);
-
-            //MessageBox.Show("Markdown bestand gegenereerd als 'auto-overzicht.md'");
+           if (lvAutos.SelectedItem is CarDTO car
+                && cmbVestigingen.SelectedItem is EstablishmentDTO establishment)
+            {
+                _rentalServiceApplication.GenerateMarkdown(car.Id, establishment.Id);
+            }
         }
 
         private void getCarsByEstablishmentId_Click(object sender, RoutedEventArgs e)

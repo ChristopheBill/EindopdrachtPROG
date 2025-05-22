@@ -15,6 +15,7 @@ namespace RentalService.Domain.Repositories
         public List<Car> GetCarsByEstablishment(int establishmentId);
         public List<Car> GetCarsBySeatsEstablishmentAvailability(int establishmentId, int seats, DateTime start, DateTime stop);
         public void ReadCars(string pad);
+        public void GenerateMarkdown(int carId, int establishmentId);
 
     }
 }

@@ -86,6 +86,10 @@ namespace RentalService.Presentation
         {
             _domainManager.RemoveReservation(reservationId);
         }
+        internal void GenerateMarkdown(int carId, int establishmentId)
+        {
+            _domainManager.GenerateMarkdown(carId, establishmentId);
+        }
     }
 
 }

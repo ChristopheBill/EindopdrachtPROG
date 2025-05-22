@@ -16,6 +16,10 @@ namespace RentalService.Domain.Models
         private DateTime _startDate;
         private DateTime _endDate;
 
+        public Reservation()
+        {
+        }
+
         public Reservation(int id, DateTime startDate, DateTime endDate, Customer customer, Car car, Establishment establishment)
         {
             Id = id;

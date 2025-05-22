@@ -1,13 +1,15 @@
 ﻿using Microsoft.Data.SqlClient;
 using RentalService.Domain.Models;
 using RentalService.Domain.Repositories;
+using System.Dynamic;
+using System.Text;
 
 namespace RentalService.Persistence.Mappers
 {
     public class CarMapper : ICarRepository
     {
         private readonly List<string> _fouten = new();
-        private IEstablishmentRepository _establishmentRepository;
+        private string _pad;
         public List<Car> GetCars()
         {
             using SqlConnection connection = new(DBInfo.ConnectionString);
@@ -151,6 +153,55 @@ namespace RentalService.Persistence.Mappers
                 }
             }
         }
+        public void GenerateMarkdown(int carId, int establishmentId)
+        {
+            Car car = GetCarById(carId);
+            Establishment establishment = new EstablishmentMapper().GetEstablishmentById(establishmentId);
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string markdownPath = Path.Combine(basePath, "Markdown");
+            if (!Directory.Exists(markdownPath))
+            {
+                Directory.CreateDirectory(markdownPath);
+            }
+            string filePath = Path.Combine(markdownPath, $"AutoOverzicht_{car.LicensePlate}_{car.Model}_{DateTime.Now}.md");
+            StringBuilder sb = new();
+            sb.AppendLine("# Overzicht auto's");
+            sb.AppendLine($"**Vestiging:** {establishment.Airport}");
+            sb.AppendLine($"**Tijdstip:**{DateTime.Now}");
+            sb.AppendLine();
+            sb.AppendLine($"## Auto");
+            sb.AppendLine($"**Model:** {car.Model}");
+            sb.AppendLine($"**Nummerplaat:** {car.LicensePlate}");
+            sb.AppendLine($"**Aantal zitplaatsen:** {car.Seats}");
+            sb.AppendLine($"**Motor type:** {car.MotorType}");
+            sb.AppendLine();
+            sb.AppendLine("## Reserveringen");
+            sb.AppendLine($"**Vorige reservering:**");
+            if (PreviousReservation(car) != null)
+            {
+                sb.AppendLine($"**Periode:** {PreviousReservation(car).StartDate} - {PreviousReservation(car).EndDate}");
+                sb.AppendLine($"**Klant:** {PreviousReservation(car).Customer.FirstName} {PreviousReservation(car).Customer.LastName}");
+                sb.AppendLine($"**Adres klant:** {PreviousReservation(car).Customer.Street} {PreviousReservation(car).Customer.City} {PreviousReservation(car).Customer.Country}");
+            }
+            else
+            {
+                sb.AppendLine("Geen vorige reserveringen.");
+            }
+            sb.AppendLine($"**Volgende reservering:**");
+            if (NextReservation(car) != null)
+            {
+                sb.AppendLine($"**Periode:** {NextReservation(car).StartDate} - {NextReservation(car).EndDate}");
+                sb.AppendLine($"**Klant:** {NextReservation(car).Customer.FirstName} {NextReservation(car).Customer.LastName}");
+                sb.AppendLine($"**Adres klant:** {NextReservation(car).Customer.Street} {NextReservation(car).Customer.City} {NextReservation(car).Customer.Country}");
+            }
+            else
+            {
+                sb.AppendLine("Geen volgende reserveringen.");
+            }
+            sb.AppendLine("---");
+            File.WriteAllText(filePath, sb.ToString());
+            //System.Diagnostics.Process.Start("explorer", "AutoOverzicht.md");
+        }
 
         private Car MapReaderToCar(SqlDataReader reader)
         {
@@ -167,8 +218,8 @@ namespace RentalService.Persistence.Mappers
 
         private int InitialEstablishmentId(int carIndex)
         {
-            _establishmentRepository = new EstablishmentMapper();
-            List<Establishment> establishments = _establishmentRepository.GetEstablishments();
+            EstablishmentMapper establishmentMapper = new();
+            List<Establishment> establishments = establishmentMapper.GetEstablishments();
             int aantalVestigingen = establishments.Count();
             Establishment establishment = establishments[carIndex % aantalVestigingen];
             int establishmentId = establishment.Id;
@@ -196,6 +247,34 @@ namespace RentalService.Persistence.Mappers
                 cars.Remove(c);
             }
             return cars;
+        }
+        private Reservation PreviousReservation(Car car)
+        {
+            ReservationMapper reservationMapper = new();
+            List<Reservation> reservations = reservationMapper.GetReservations();
+            Reservation previousReservation = new();
+            foreach (Reservation r in reservations)
+            {
+                if (r.Car.Id == car.Id && r.EndDate < DateTime.Now)
+                {
+                    previousReservation = r;
+                }
+            }
+            return previousReservation;
+        }
+        private Reservation NextReservation(Car car)
+        {
+            ReservationMapper reservationMapper = new();
+            List<Reservation> reservations = reservationMapper.GetReservations();
+            Reservation nextReservation = new();
+            foreach (Reservation r in reservations)
+            {
+                if (r.Car.Id == car.Id && r.StartDate > DateTime.Now)
+                {
+                    nextReservation = r;
+                }
+            }
+            return nextReservation;
         }
     }
 }
