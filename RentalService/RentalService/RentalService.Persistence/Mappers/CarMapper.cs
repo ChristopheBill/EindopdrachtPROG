@@ -163,7 +163,8 @@ namespace RentalService.Persistence.Mappers
             {
                 Directory.CreateDirectory(markdownPath);
             }
-            string filePath = Path.Combine(markdownPath, $"AutoOverzicht_{car.LicensePlate}_{car.Model}_{DateTime.Now}.md");
+            string safeDate = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+            string filePath = Path.Combine(markdownPath, $"AutoOverzicht_{car.LicensePlate}_{car.Model}_{safeDate}.md");
             StringBuilder sb = new();
             sb.AppendLine("# Overzicht auto's");
             sb.AppendLine($"**Vestiging:** {establishment.Airport}");
@@ -177,16 +178,16 @@ namespace RentalService.Persistence.Mappers
             sb.AppendLine();
             sb.AppendLine("## Reserveringen");
             sb.AppendLine($"**Vorige reservering:**");
-            if (PreviousReservation(car) != null)
-            {
-                sb.AppendLine($"**Periode:** {PreviousReservation(car).StartDate} - {PreviousReservation(car).EndDate}");
-                sb.AppendLine($"**Klant:** {PreviousReservation(car).Customer.FirstName} {PreviousReservation(car).Customer.LastName}");
-                sb.AppendLine($"**Adres klant:** {PreviousReservation(car).Customer.Street} {PreviousReservation(car).Customer.City} {PreviousReservation(car).Customer.Country}");
-            }
-            else
-            {
-                sb.AppendLine("Geen vorige reserveringen.");
-            }
+            //if (PreviousReservation(car) is Reservation reservation)
+            //{
+            //    sb.AppendLine($"**Periode:** {PreviousReservation(car).StartDate} - {PreviousReservation(car).EndDate}");
+            //    sb.AppendLine($"**Klant:** {PreviousReservation(car).Customer.FirstName} {PreviousReservation(car).Customer.LastName}");
+            //    sb.AppendLine($"**Adres klant:** {PreviousReservation(car).Customer.Street} {PreviousReservation(car).Customer.City} {PreviousReservation(car).Customer.Country}");
+            //}
+            //else
+            //{
+            //    sb.AppendLine("Geen vorige reserveringen.");
+            //}
             sb.AppendLine($"**Volgende reservering:**");
             if (NextReservation(car) != null)
             {
