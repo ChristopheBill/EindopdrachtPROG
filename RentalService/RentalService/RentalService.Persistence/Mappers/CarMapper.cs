@@ -34,7 +34,7 @@ namespace RentalService.Persistence.Mappers
             using SqlCommand getCarsByEstablishmentId = new("Select * from Cars where EstablishmentId = @EstablishmentId;", connection);
             getCarsByEstablishmentId.Parameters.AddWithValue("@EstablishmentId", establishmentId);
             SqlDataReader reader = getCarsByEstablishmentId.ExecuteReader();
-            while (reader.Read()) 
+            while (reader.Read())
             {
                 cars.Add(MapReaderToCar(reader));
             }
@@ -55,24 +55,24 @@ namespace RentalService.Persistence.Mappers
             }
             return car;
         }
-        //public List<Car> GetCarsById(int carId)
-        //{
-        //    Car car = new();
-        //    List<Car> cars = [];
-        //    using SqlConnection connection = new(DBInfo.ConnectionString);
-        //    connection.Open();
-        //    using SqlCommand getCarById = new("Select * from Cars where Id = @CarId;", connection);
-        //    getCarById.Parameters.AddWithValue("@CarId", carId);
-        //    SqlDataReader reader = getCarById.ExecuteReader();
-        //    while (reader.Read())
-        //    {
-        //        car = MapReaderToCar(reader);
-        //        cars.Add(car);
-        //    }
-        //    return cars;
-        //}
-
-
+        public List<Car> GetCarsBySeatsEstablishmentAvailability(int establishmentId, int seats, DateTime start, DateTime stop)
+        {
+            Car car = new();
+            List<Car> cars = [];
+            using SqlConnection connection = new(DBInfo.ConnectionString);
+            connection.Open();
+            using SqlCommand getCarBySeatsEstablishment = new("Select * from Cars where EstablishmentId = @EstablishmentId AND Seats = @Seats;", connection);
+            getCarBySeatsEstablishment.Parameters.AddWithValue("@EstablishmentId", establishmentId);
+            getCarBySeatsEstablishment.Parameters.AddWithValue("@Seats", seats);
+            SqlDataReader reader = getCarBySeatsEstablishment.ExecuteReader();
+            while (reader.Read())
+            {
+                car = MapReaderToCar(reader);
+                cars.Add(car);
+            }
+            CheckAvailability(cars, start, stop);
+            return cars;
+        }
         public void ReadCars(string pad)
         {
             string[] regels = File.ReadAllLines(pad);
@@ -101,7 +101,7 @@ namespace RentalService.Persistence.Mappers
                 string[] delen = regels[i].Split(';');
                 if (delen.Length < 4)
                 {
-                    fouten.Add($"Fout bij het inlezen van de auto op regel {i+1}: Onvoldoende kolommen.");
+                    fouten.Add($"Fout bij het inlezen van de auto op regel {i + 1}: Onvoldoende kolommen.");
                 }
                 Car car = new();
                 Establishment establishment = new EstablishmentMapper().GetEstablishmentById(InitialEstablishmentId(i));
@@ -111,7 +111,7 @@ namespace RentalService.Persistence.Mappers
                         delen[0],
                         delen[1],
                         int.TryParse(delen[2], out int zp) ? zp : -1,
-                        delen[3],establishment
+                        delen[3], establishment
                         );
                 }
                 catch (Exception ex)
@@ -149,7 +149,6 @@ namespace RentalService.Persistence.Mappers
                 }
             }
         }
-
         private Car MapReaderToCar(SqlDataReader reader)
         {
             int id = (int)reader["Id"];
@@ -162,7 +161,6 @@ namespace RentalService.Persistence.Mappers
 
             return new Car(id, licensePlate, model, seats, motorType, establishment);
         }
-
         private int InitialEstablishmentId(int carIndex)
         {
             _establishmentRepository = new EstablishmentMapper();
@@ -171,6 +169,28 @@ namespace RentalService.Persistence.Mappers
             Establishment establishment = establishments[carIndex % aantalVestigingen];
             int establishmentId = establishment.Id;
             return establishmentId;
+        }
+        private List<Car> CheckAvailability(List<Car> cars, DateTime start, DateTime stop)
+        {
+            ReservationMapper reservationMapper = new();
+            List<Reservation> reservations = reservationMapper.GetReservations();
+            var carsToRemove = new List<Car>();
+            foreach (Car c in cars)
+            {
+                foreach (Reservation r in reservations)
+                {
+                    if (c.Id == r.Car.Id && r.StartDate < stop && r.EndDate > start)
+                    {
+                        carsToRemove.Add(c);
+                        break;
+                    }
+                }
+            }
+            foreach (Car c in carsToRemove)
+            {
+                cars.Remove(c);
+            }
+            return cars;
         }
     }
 }

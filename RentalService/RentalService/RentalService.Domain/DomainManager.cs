@@ -35,6 +35,10 @@ namespace RentalService.Domain
         {
             return _carRepository.GetCarById(carId).Model;
         }
+        public List<CarDTO> GetCarsBySeatsEstablishmentAvailability(int establishmentId, int seats, DateTime start, DateTime stop)
+        {
+            return _carRepository.GetCarsBySeatsEstablishmentAvailability(establishmentId, seats, start, stop).Select(c => new CarDTO(c)).ToList();
+        }
 
         public List<CustomerDTO> GetCustomers() 
         {

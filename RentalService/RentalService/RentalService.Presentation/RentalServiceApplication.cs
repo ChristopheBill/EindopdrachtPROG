@@ -1,6 +1,7 @@
 
 using RentalService.Domain;
 using RentalService.Domain.DTOs;
+using RentalService.Domain.Models;
 using RentalService.Domain.Repositories;
 using RentalService.Presentation.Windows;
 using System.Collections;
@@ -49,15 +50,6 @@ namespace RentalService.Presentation
         {
             new ReservationSearchWindow(this).Show();
         }
-        //internal CustomerDTO GetCustomerById(int customerId)
-        //{
-        //    return _domainManager.GetCustomerById(customerId);
-        //}
-
-        //public string GetCustomerName(CustomerDTO customer)
-        //{
-        //    return $"{customer.FirstName} {customer.LastName}";
-        //}
         internal List<CarDTO> GetCars()
         {
             return _domainManager.GetCars();
@@ -66,11 +58,10 @@ namespace RentalService.Presentation
         {
             return _domainManager.GetCarsByEstablishment(establishmentId);
         }
-        //internal List<CarDTO> GetCarsById (int carId)
-        //{
-        //    return _domainManager.GetCarsById(carId);
-        //}
-
+        internal List<CarDTO> GetCarsBySeatsEstablishmentAvailability(int establishmentId, int seats, DateTime start, DateTime stop)
+        {
+            return _domainManager.GetCarsBySeatsEstablishmentAvailability(establishmentId, seats, start, stop);
+        }
         internal List<EstablishmentDTO> GetEstablishments() 
         {
             return _domainManager.GetEstablishments();

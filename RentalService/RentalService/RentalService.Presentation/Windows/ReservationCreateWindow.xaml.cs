@@ -2,6 +2,7 @@
 using RentalService.Domain.DTOs;
 using RentalService.Domain.Repositories;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -24,7 +25,6 @@ namespace RentalService.Presentation.Windows
     public partial class ReservationCreateWindow : Window
     {
         private CustomerDTO _customer;
-        //private readonly EstablishmentDTO _establishmentDTO;
         private RentalServiceApplication _rentalServiceApplication;
         public ReservationCreateWindow(RentalServiceApplication rentalServiceApplication, CustomerDTO customer)
         {
@@ -33,15 +33,23 @@ namespace RentalService.Presentation.Windows
             _customer = customer;
             //dgAutos.ItemsSource = rentalServiceApplication.GetCars();
             cmbEstablishments.ItemsSource = rentalServiceApplication.GetEstablishments().ToList();
-
+            
         }
 
         private void btnZoekAutos_Click(object sender, RoutedEventArgs e)
         {
 
-            if (cmbEstablishments.SelectedItem is EstablishmentDTO establishment)
+            if (cmbEstablishments.SelectedItem is EstablishmentDTO establishment
+                && dpStart.SelectedDate is DateTime start
+                && dpEinde.SelectedDate is DateTime stop
+                && txtAantalZitplaatsen.Text is not null)
             {
-                dgAutos.ItemsSource = _rentalServiceApplication.GetCarsByEstablishment(establishment.Id);
+                int seats = 0;
+                if (int.TryParse(txtAantalZitplaatsen.Text, out int aantal))
+                {
+                    seats = aantal;
+                }
+                dgAutos.ItemsSource = _rentalServiceApplication.GetCarsBySeatsEstablishmentAvailability(establishment.Id, seats, start, stop);
             }
             //dpStart.SelectedDate is not DateTime startDatum ||
             //!TimeSpan.TryParse(txtStartTijd.Text, out var startTijd) ||
@@ -89,6 +97,12 @@ namespace RentalService.Presentation.Windows
                 int customerId = _customer.Id;
                 _rentalServiceApplication.MakeReservation(startDate, endDate, customerId, carId, establishmentId);
                 MessageBox.Show("Reservatie succesvol opgeslagen.");
+                int seats = 0;
+                if (int.TryParse(txtAantalZitplaatsen.Text, out int aantal))
+                {
+                    seats = aantal;
+                }
+                dgAutos.ItemsSource = _rentalServiceApplication.GetCarsBySeatsEstablishmentAvailability(establishment.Id, seats, startDate, endDate);
             }
             catch (ArgumentOutOfRangeException)
             {
