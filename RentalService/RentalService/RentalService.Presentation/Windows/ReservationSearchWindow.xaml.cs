@@ -42,7 +42,7 @@ namespace RentalService.Presentation.Windows
             }
             else
             {
-                MessageBox.Show("Gelieve een vestiging en klant te selecteren.");
+                MessageBox.Show("Gelieve een vestiging, klant en datum te selecteren.");
             }
         }
 
