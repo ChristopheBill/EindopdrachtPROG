@@ -11,7 +11,6 @@ namespace RentalService.Domain.DTOs
 {
     public record ReservationDTO
     {
-        //private ICarRepository _carRepository;
         public ReservationDTO(Reservation reservation) 
         {
             Id = reservation.Id;
@@ -29,10 +28,5 @@ namespace RentalService.Domain.DTOs
         public Car Car { get; set; }
         public Establishment Establishment { get; set; }
 
-        //public override string? ToString()
-        //{
-        //    ICarRepository carRepository = _carRepository;
-        //    return $"{carRepository.GetCarById(CarId).Model}";
-        //}
     }
 }

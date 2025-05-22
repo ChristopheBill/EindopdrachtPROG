@@ -38,8 +38,10 @@ namespace RentalService.Domain.Models
             get => _id;
             init
             {
-
-                ArgumentOutOfRangeException.ThrowIfLessThanOrEqual((value), 0);
+                if (value < 0)
+                {
+                    throw new ArgumentException("Id cannot be less than 0", (nameof(Id)));
+                }
                 _id = value;
             }
         }
@@ -48,7 +50,14 @@ namespace RentalService.Domain.Models
             get => _airport; 
             init 
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(Airport));
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Airport cannot be null or empty", nameof(Airport));
+                }
+                if (value.Any(char.IsDigit))
+                {
+                    throw new ArgumentException("Airport cannot contain numbers", nameof(Airport));
+                }
                 _airport = value; 
             }
         }
@@ -57,7 +66,14 @@ namespace RentalService.Domain.Models
             get => _street;
             init
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(Street));
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Street cannot be null or empty", nameof(Street));
+                }
+                if (value.Any(char.IsDigit))
+                {
+                    throw new ArgumentException("Street cannot contain numbers", nameof(Street));
+                }
                 _street = value;
             }
         }
@@ -66,7 +82,10 @@ namespace RentalService.Domain.Models
             get => _postalCode; 
             init
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(PostalCode));
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("PostalCode cannot be null or empty", nameof(PostalCode));
+                }
                 _postalCode = value; 
             }
         }
@@ -74,15 +93,27 @@ namespace RentalService.Domain.Models
         { get => _city;
             init
             {
-                ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(City));
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("City cannot be null or empty", nameof(City));
+                }
                 _city = value; 
             }
         }
         public string Country
         {
             get => _country;
-            init //logica om land te checken op cijfers in de naam
-            => _country = value;
+            init {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Country cannot be null or empty", nameof(Country));
+                }
+                if (value.Any(char.IsDigit))
+                {
+                    throw new ArgumentException("Country cannot contain numbers", nameof(Country));
+                }
+             _country = value;
+            }
         }
         public override bool Equals(object? obj)
         {

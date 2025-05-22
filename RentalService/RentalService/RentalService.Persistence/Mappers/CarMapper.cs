@@ -116,7 +116,7 @@ namespace RentalService.Persistence.Mappers
                 }
                 catch (Exception ex)
                 {
-                    fouten.Add($"Fout bij het aanmaken van de auto: {ex.Message}");
+                    fouten.Add($"Fout bij het aanmaken van de auto op regel {i + 1}: {ex.Message}");
                 }
                 connection.Open();
                 using SqlTransaction transaction = connection.BeginTransaction();

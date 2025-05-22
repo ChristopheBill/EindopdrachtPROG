@@ -124,13 +124,19 @@ namespace RentalService.Domain.Models
             get => _postalCode;
             init
             {
-                //if (value > 999)
-                //{
-                //    throw new ArgumentException("Zipcode is not supported");
-                //}
-                //else
-                //{
-                    _postalCode = value;
+                if (int.Parse(value) < 999)
+                {
+                    throw new ArgumentException("Zipcode is not supported");
+                }
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Postal code cannot be empty or whitespace", (nameof(PostalCode)));
+                }
+                if (value.Length != 4)
+                {
+                    throw new ArgumentException("Postal code must be 4 characters long", (nameof(PostalCode)));
+                }
+                _postalCode = value;
                 //}
             }
         }

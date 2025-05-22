@@ -50,7 +50,11 @@ namespace RentalService.Domain.Models
         {
             get => _id;
             init
-            { if (value < 0) { throw new ArgumentException("Id cannot be less than 0."); }
+            {
+                if (value < 0) 
+                {
+                    throw new ArgumentException("Id cannot be less than 0.", (nameof(Id))); 
+                }
                 _id = value;
             }
         }
@@ -58,20 +62,25 @@ namespace RentalService.Domain.Models
         {
             get => _licensePlate;
             init
-            { if (value == null)
+            { if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentNullException("License plate cannot be null.");
+                    throw new ArgumentException("License plate cannot be null or empty.", (nameof(LicensePlate)));
+                }
+                if (value.Length != 10)
+                {
+                    throw new ArgumentException("License plate must be 8 characters.", (nameof(LicensePlate)));
                 }
                 _licensePlate = value;
             }
         }
         public string Model 
         {
-            get => _model; init 
+            get => _model;
+            init 
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException("Model cannot be null or empty.", (nameof(value)));
+                    throw new ArgumentException("Model cannot be null or empty.", (nameof(Model)));
                 }
                 _model = value; 
             } 
@@ -83,11 +92,11 @@ namespace RentalService.Domain.Models
             {
                 if (value > 10)
                 {
-                    throw new ArgumentException("Car seats cannot be more than 10°.");
+                    throw new ArgumentException("Car seats cannot be more than 10°.", (Seats.ToString()));
                 }
                 if (value >= 2) { _seats = value; }
                  
-                else { throw new ArgumentOutOfRangeException("Number of seats cannot be less than 2."); }
+                else { throw new ArgumentOutOfRangeException("Number of seats cannot be less than 2.", (Seats.ToString())); }
             } 
             
         }
@@ -100,9 +109,7 @@ namespace RentalService.Domain.Models
                 {
                     _motorType = value;
                 }
-
                 else
-
                 {
                     throw new ArgumentException("Motor type can only be Hybrid, Gasoline, Diesel or Electric.");
                 }
@@ -114,14 +121,7 @@ namespace RentalService.Domain.Models
             get => _establishment;
             set
             {
-                //if (value != 0)
-                //{
                 _establishment = value;
-                //}
-                //else
-                //{
-                    //InitialEstablishmentId(this);
-                //}
             }
         }
 
@@ -134,16 +134,6 @@ namespace RentalService.Domain.Models
         public override int GetHashCode()
         {
             return HashCode.Combine(Id);
-        }
-
-        public override string? ToString()
-        {
-            return $"{Model} {LicensePlate} {Seats} {MotorType}";
-        }
-
-        private void AssignCarToEstablishment(int id)
-        {
-
         }
     }
 }
