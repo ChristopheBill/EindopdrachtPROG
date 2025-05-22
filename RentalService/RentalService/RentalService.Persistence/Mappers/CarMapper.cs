@@ -93,7 +93,6 @@ namespace RentalService.Persistence.Mappers
             catch (Exception ex)
             {
                 fouten.Add($"Fout bij het verwijderen van de tabel: {ex.Message}");
-                //Console.WriteLine("Fout bij het verwijderen van de tabel: " + ex.Message);
             }
             finally { connection.Close(); }
 
@@ -103,8 +102,6 @@ namespace RentalService.Persistence.Mappers
                 if (delen.Length < 4)
                 {
                     fouten.Add($"Fout bij het inlezen van de auto op regel {i+1}: Onvoldoende kolommen.");
-                    //_fouten.Add($"Autos.csv - Regel {i + 1}: Onvoldoende kolommen.");
-                    //continue;
                 }
                 Car car = new();
                 Establishment establishment = new EstablishmentMapper().GetEstablishmentById(InitialEstablishmentId(i));
@@ -120,8 +117,6 @@ namespace RentalService.Persistence.Mappers
                 catch (Exception ex)
                 {
                     fouten.Add($"Fout bij het aanmaken van de auto: {ex.Message}");
-                    //_fouten.Add(ex.Message);
-                    //continue;
                 }
                 connection.Open();
                 using SqlTransaction transaction = connection.BeginTransaction();
@@ -136,10 +131,9 @@ namespace RentalService.Persistence.Mappers
                     cmd.ExecuteNonQuery();
                     transaction.Commit();
                 }
-                catch (Exception ex)
+                catch (SqlException)
                 {
                     transaction.Rollback();
-                    fouten.Add($"Fout bij het toevoegen van de auto op regel {i+1}: " + ex.Message);
                 }
                 finally
                 {

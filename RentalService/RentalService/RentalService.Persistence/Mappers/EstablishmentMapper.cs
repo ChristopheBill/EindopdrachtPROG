@@ -89,7 +89,7 @@ namespace RentalService.Persistence.Mappers
                 if (delen.Length < 5)
                 {
                     fouten.Add($"Fout bij het inlezen van de vestiging op regel {i + 1}: Onvoldoende kolommen.");
-                    //badEntry = true;
+                    badEntry = true;
                 }
                 Establishment location = new();
                 try
@@ -106,8 +106,8 @@ namespace RentalService.Persistence.Mappers
                     fouten.Add($"Fout bij het inlezen van de vestiging op regel {i + 1}: {ex.Message}");
                     badEntry = true;
                 }
-                if (!badEntry)
-                {
+                //if (!badEntry)
+                //{
                     connection.Open();
                     using SqlTransaction transaction = connection.BeginTransaction();
 
@@ -123,16 +123,16 @@ namespace RentalService.Persistence.Mappers
                         cmd.ExecuteNonQuery();
                         transaction.Commit();
                     }
-                    catch (Exception ex)
+                    catch (SqlException)
                     {
                         transaction.Rollback();
-                        fouten.Add($"SQLFout bij het inlezen van de vestiging op regel {i + 1}: {ex.Message}");
+                        //fouten.Add($"SQLFout bij het inlezen van de vestiging op regel {i + 1}: {ex.Message}");
                     }
                     finally
                     {
                         connection.Close();
                     }
-                }
+                //}
                 if (fouten.Count > 0)
                 {
                     using StreamWriter writer = new(errorlogPath, true);

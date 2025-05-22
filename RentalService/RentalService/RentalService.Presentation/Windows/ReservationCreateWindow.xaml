@@ -33,7 +33,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,0,0,10">
             <Label Content="Einddatum:" VerticalAlignment="Center"/>
-            <DatePicker x:Name="dpEinde" Width="150" Margin="10,0"/>
+            <DatePicker x:Name="dpEinde" Width="150" Margin="10,0" SelectedDateChanged="dpEinde_SelectedDateChanged"/>
             <TextBox x:Name="txtEindeTijd" Width="80" Margin="10,0"/>
         </StackPanel>
 

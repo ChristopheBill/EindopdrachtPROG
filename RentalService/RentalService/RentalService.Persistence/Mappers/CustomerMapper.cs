@@ -73,7 +73,7 @@ namespace RentalService.Persistence.Mappers
             {
                 File.Delete(errorlogPath);
             }
-            List<string> fouten = new();
+            HashSet<string> fouten = new();
             HashSet<string> entries = new();
             using SqlConnection connection = new(DBInfo.ConnectionString);
 
@@ -86,7 +86,6 @@ namespace RentalService.Persistence.Mappers
             catch (Exception ex)
             {
                 fouten.Add($"Fout bij het verwijderen van de tabel: {ex.Message}");
-                //Console.WriteLine("Fout bij het verwijderen van de tabel: " + ex.Message);
             }
             finally { connection.Close(); }
 
@@ -97,7 +96,6 @@ namespace RentalService.Persistence.Mappers
                 if (delen.Length < 7)
                 {
                     fouten.Add($"Fout bij het inlezen van de klant op regel {i + 1}: Onvoldoende kolommen.");
-                    badEntry = true;
                 }
                 Customer customer = new();
                 try
@@ -114,16 +112,12 @@ namespace RentalService.Persistence.Mappers
                 catch (Exception ex)
                 {
                     fouten.Add($"Fout bij het inlezen van de klant op regel {i + 1}: " + ex.Message);
-                    badEntry = true;
                 }
                 string customerEntry = $"{customer.FirstName};{customer.LastName};{customer.Email};{customer.Street};{customer.PostalCode};{customer.City};{customer.Country}".ToLower();
                 if (entries.Contains(customerEntry))
                 {
                     fouten.Add($"Fout bij het inlezen van de klant op regel {i + 1}: Dubbele klant.");
-                    badEntry = true;
                 }
-                if (!badEntry)
-                {
                     connection.Open();
 
                     using SqlTransaction transaction = connection.BeginTransaction();
@@ -142,16 +136,14 @@ namespace RentalService.Persistence.Mappers
                         cmd.ExecuteNonQuery();
                         transaction.Commit();
                     }
-                    catch (Exception ex)
+                    catch (SqlException)
                     {
                         transaction.Rollback();
-                        fouten.Add($"Fout bij het toevoegen van de klant op regel {i + 1}: {ex.Message}");
                     }
                     finally
                     {
                         connection.Close();
                     }
-                }
                 if (fouten.Count > 0)
                 {
                     using StreamWriter writer = new(errorlogPath, true);

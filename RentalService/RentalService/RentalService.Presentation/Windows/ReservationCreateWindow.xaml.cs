@@ -120,12 +120,21 @@ namespace RentalService.Presentation.Windows
             //}
         }
 
-        private void cmbEstablishments_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //cmbEstablishments.
-        }
+        //private void cmbEstablishments_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    //cmbEstablishments.
+        //}
 
         private void dpStart_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dpStart.SelectedDate.HasValue)
+            {
+                DateTime selectedDate = dpStart.SelectedDate.Value;
+                dpEinde.DisplayDateStart = selectedDate.AddDays(1);
+            }
+        }
+
+        private void dpEinde_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
