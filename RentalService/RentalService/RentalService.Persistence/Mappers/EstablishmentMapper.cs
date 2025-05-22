@@ -7,8 +7,6 @@ namespace RentalService.Persistence.Mappers
 {
     public class EstablishmentMapper : IEstablishmentRepository
     {
-        //private readonly List<string> _fouten = new();
-
         public List<Establishment> GetEstablishments()
         {
             using SqlConnection connection = new(DBInfo.ConnectionString);
@@ -63,6 +61,7 @@ namespace RentalService.Persistence.Mappers
             string[] regels = File.ReadAllLines(pad);
             string? path = Path.GetDirectoryName(pad) ?? throw new Exception("Folder path is null.");
             string errorlogPath = Path.Combine(path, "ErrorLogEstablishments.txt");
+            bool badEntry = false;
             if (File.Exists(errorlogPath))
             {
                 File.Delete(errorlogPath);
@@ -90,8 +89,7 @@ namespace RentalService.Persistence.Mappers
                 if (delen.Length < 5)
                 {
                     fouten.Add($"Fout bij het inlezen van de vestiging op regel {i + 1}: Onvoldoende kolommen.");
-                    //fouten.Add($"Vestigingen.csv - Regel {i + 1}: Onvoldoende kolommen.");
-                    continue;
+                    //badEntry = true;
                 }
                 Establishment location = new();
                 try
@@ -106,41 +104,34 @@ namespace RentalService.Persistence.Mappers
                 catch (Exception ex)
                 {
                     fouten.Add($"Fout bij het inlezen van de vestiging op regel {i + 1}: {ex.Message}");
-                    //fouten.Add($"Vestigingen.csv - Regel {i + 1}: {ex.Message}");
-                    //continue;
+                    badEntry = true;
                 }
-
-                connection.Open();
-                using SqlTransaction transaction = connection.BeginTransaction();
-
-                try
+                if (!badEntry)
                 {
-                    using SqlCommand cmd = new("Insert into Establishments (Airport, Street, PostalCode, City, Country) Values (@Airport, @Street, @PostalCode, @City, @Country)", connection, transaction);
-                    cmd.Parameters.AddWithValue("@Airport", location.Airport);
-                    cmd.Parameters.AddWithValue("@Street", location.Street);
-                    cmd.Parameters.AddWithValue("@PostalCode", location.PostalCode);
-                    cmd.Parameters.AddWithValue("@City", location.City);
-                    cmd.Parameters.AddWithValue("@Country", location.Country);
+                    connection.Open();
+                    using SqlTransaction transaction = connection.BeginTransaction();
 
-                    cmd.ExecuteNonQuery();
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    fouten.Add($"Fout bij het inlezen van de vestiging op regel {i + 1}: {ex.Message}");
-                    //fouten.Add($"Invalid entry at line {i+1}, {ex.Message}");
-                    //throw new Exception(ex.Message);
-                }
+                    try
+                    {
+                        using SqlCommand cmd = new("Insert into Establishments (Airport, Street, PostalCode, City, Country) Values (@Airport, @Street, @PostalCode, @City, @Country)", connection, transaction);
+                        cmd.Parameters.AddWithValue("@Airport", location.Airport);
+                        cmd.Parameters.AddWithValue("@Street", location.Street);
+                        cmd.Parameters.AddWithValue("@PostalCode", location.PostalCode);
+                        cmd.Parameters.AddWithValue("@City", location.City);
+                        cmd.Parameters.AddWithValue("@Country", location.Country);
 
-                //catch (Exception ex)
-                //{
-                //    throw new Exception($"Something went wrong {ex}");
-                //}
-
-                finally
-                {
-                    connection.Close();
+                        cmd.ExecuteNonQuery();
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        fouten.Add($"SQLFout bij het inlezen van de vestiging op regel {i + 1}: {ex.Message}");
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
                 }
                 if (fouten.Count > 0)
                 {

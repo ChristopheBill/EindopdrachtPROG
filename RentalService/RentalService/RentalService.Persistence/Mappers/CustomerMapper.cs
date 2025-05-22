@@ -68,6 +68,7 @@ namespace RentalService.Persistence.Mappers
             string[] regels = File.ReadAllLines(pad);
             string? path = Path.GetDirectoryName(pad) ?? throw new Exception("Folder path is null.");
             string errorlogPath = Path.Combine(path, "ErrorLogCustomers.txt");
+            bool badEntry = false;
             if (File.Exists(errorlogPath))
             {
                 File.Delete(errorlogPath);
@@ -96,7 +97,7 @@ namespace RentalService.Persistence.Mappers
                 if (delen.Length < 7)
                 {
                     fouten.Add($"Fout bij het inlezen van de klant op regel {i + 1}: Onvoldoende kolommen.");
-                    //continue;
+                    badEntry = true;
                 }
                 Customer customer = new();
                 try
@@ -113,42 +114,43 @@ namespace RentalService.Persistence.Mappers
                 catch (Exception ex)
                 {
                     fouten.Add($"Fout bij het inlezen van de klant op regel {i + 1}: " + ex.Message);
-                    //continue;
+                    badEntry = true;
                 }
                 string customerEntry = $"{customer.FirstName};{customer.LastName};{customer.Email};{customer.Street};{customer.PostalCode};{customer.City};{customer.Country}".ToLower();
                 if (entries.Contains(customerEntry))
                 {
                     fouten.Add($"Fout bij het inlezen van de klant op regel {i + 1}: Dubbele klant.");
+                    badEntry = true;
                 }
-                    //continue;
-                
-
-                connection.Open();
-
-                using SqlTransaction transaction = connection.BeginTransaction();
-
-                try
+                if (!badEntry)
                 {
-                    using SqlCommand cmd = new("Insert into Customers (FirstName, LastName, Email, Street, PostalCode, City, Country) Values (@FirstName, @LastName, @Email, @Street, @PostalCode, @City, @Country)", connection, transaction);
-                    cmd.Parameters.AddWithValue("@FirstName", customer.FirstName);
-                    cmd.Parameters.AddWithValue("@LastName", customer.LastName);
-                    cmd.Parameters.AddWithValue("@Email", customer.Email);
-                    cmd.Parameters.AddWithValue("@Street", customer.Street);
-                    cmd.Parameters.AddWithValue("@PostalCode", customer.PostalCode);
-                    cmd.Parameters.AddWithValue("@City", customer.City);
-                    cmd.Parameters.AddWithValue("@Country", customer.Country);
+                    connection.Open();
 
-                    cmd.ExecuteNonQuery();
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    fouten.Add($"Fout bij het toevoegen van de klant op regel {i + 1}: {ex.Message}");
-                }
-                finally 
-                {
-                    connection.Close(); 
+                    using SqlTransaction transaction = connection.BeginTransaction();
+
+                    try
+                    {
+                        using SqlCommand cmd = new("Insert into Customers (FirstName, LastName, Email, Street, PostalCode, City, Country) Values (@FirstName, @LastName, @Email, @Street, @PostalCode, @City, @Country)", connection, transaction);
+                        cmd.Parameters.AddWithValue("@FirstName", customer.FirstName);
+                        cmd.Parameters.AddWithValue("@LastName", customer.LastName);
+                        cmd.Parameters.AddWithValue("@Email", customer.Email);
+                        cmd.Parameters.AddWithValue("@Street", customer.Street);
+                        cmd.Parameters.AddWithValue("@PostalCode", customer.PostalCode);
+                        cmd.Parameters.AddWithValue("@City", customer.City);
+                        cmd.Parameters.AddWithValue("@Country", customer.Country);
+
+                        cmd.ExecuteNonQuery();
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        fouten.Add($"Fout bij het toevoegen van de klant op regel {i + 1}: {ex.Message}");
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
                 }
                 if (fouten.Count > 0)
                 {
