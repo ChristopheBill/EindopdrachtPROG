@@ -28,7 +28,6 @@ namespace RentalService.Presentation.Windows
             _rentalServiceApplication = rentalServiceApplication;
             cmbCustomers.ItemsSource = rentalServiceApplication.GetCustomers();
             cmbVestiging.ItemsSource = rentalServiceApplication.GetEstablishments();
-            //dgReservaties.ItemsSource = rentalServiceApplication.GetReservations();
         }
 
         private void btnZoek_Click(object sender, RoutedEventArgs e)
@@ -60,11 +59,6 @@ namespace RentalService.Presentation.Windows
                         dgReservaties.ItemsSource = _rentalServiceApplication.GetReservationsByCustomerIdEstablishmentIdDate(cmbCustomers.SelectedItem is CustomerDTO customer ? customer.Id : 0,
                         cmbVestiging.SelectedItem is EstablishmentDTO establishment ? establishment.Id : 0, date);
                     }
-                    //else
-                    //{
-                    //    dgReservaties.ItemsSource = _rentalServiceApplication.GetReservationsByCustomerIdEstablishmentIdDate(cmbCustomers.SelectedItem is CustomerDTO customer ? customer.Id : 0,
-                    //    cmbVestiging.SelectedItem is EstablishmentDTO establishment ? establishment.Id : 0, );
-                    //}
                 }
                 if (bevestiging == MessageBoxResult.No)
                 {
