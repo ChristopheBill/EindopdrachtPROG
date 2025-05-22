@@ -3,6 +3,7 @@ using RentalService.Domain.Models;
 using RentalService.Domain.Repositories;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace RentalService.Persistence.Mappers
             }
             return reservations;
         }
-        public List<Reservation> GetReservationsByCustomerIdEstablishmentId(int customerId, int establishmentId)
+        public List<Reservation> GetReservationsByCustomerIdEstablishmentIdDate(int customerId, int establishmentId, DateTime date)
         {
             List<Reservation> reservations = new();
             using SqlConnection connection = new( DBInfo.ConnectionString);
@@ -48,7 +49,9 @@ namespace RentalService.Persistence.Mappers
                     reservations.Add(reservation);
                 }
             }
-            return reservations;
+            List<Reservation> filtered = reservations.Where(r => (r.StartDate <= date && r.EndDate >= date)).ToList();
+            List<Reservation> filteredReservations = reservations.Where(r => (r.StartDate >= date && r.StartDate <= date) || (r.EndDate >= date && r.EndDate <= date)).ToList();
+            return filtered;
 
 
         }

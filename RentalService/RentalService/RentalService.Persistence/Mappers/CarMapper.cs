@@ -55,6 +55,7 @@ namespace RentalService.Persistence.Mappers
             }
             return car;
         }
+
         public List<Car> GetCarsBySeatsEstablishmentAvailability(int establishmentId, int seats, DateTime start, DateTime stop)
         {
             Car car = new();
@@ -73,6 +74,7 @@ namespace RentalService.Persistence.Mappers
             CheckAvailability(cars, start, stop);
             return cars;
         }
+
         public void ReadCars(string pad)
         {
             string[] regels = File.ReadAllLines(pad);
@@ -149,6 +151,7 @@ namespace RentalService.Persistence.Mappers
                 }
             }
         }
+
         private Car MapReaderToCar(SqlDataReader reader)
         {
             int id = (int)reader["Id"];
@@ -161,6 +164,7 @@ namespace RentalService.Persistence.Mappers
 
             return new Car(id, licensePlate, model, seats, motorType, establishment);
         }
+
         private int InitialEstablishmentId(int carIndex)
         {
             _establishmentRepository = new EstablishmentMapper();
@@ -170,6 +174,7 @@ namespace RentalService.Persistence.Mappers
             int establishmentId = establishment.Id;
             return establishmentId;
         }
+
         private List<Car> CheckAvailability(List<Car> cars, DateTime start, DateTime stop)
         {
             ReservationMapper reservationMapper = new();

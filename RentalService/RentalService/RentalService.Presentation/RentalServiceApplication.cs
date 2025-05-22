@@ -74,9 +74,9 @@ namespace RentalService.Presentation
         {
             return _domainManager.GetReservations();
         }
-        internal List<ReservationDTO> GetReservationsByCustomerIdEstablishmentId(int customerId, int establishmentId)
+        internal List<ReservationDTO> GetReservationsByCustomerIdEstablishmentIdDate(int customerId, int establishmentId, DateTime date)
         {
-            return _domainManager.GetReservationsByCustomerIdEstablishmentId(customerId, establishmentId);
+            return _domainManager.GetReservationsByCustomerIdEstablishmentIdDate(customerId, establishmentId, date);
         }
         internal void MakeReservation(DateTime startDate, DateTime endDate, int customerId, int carId, int establishmentId)
         {

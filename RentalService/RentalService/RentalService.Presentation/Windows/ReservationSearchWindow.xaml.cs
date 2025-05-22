@@ -33,9 +33,11 @@ namespace RentalService.Presentation.Windows
 
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {
-            if (cmbCustomers.SelectedItem is CustomerDTO customer && cmbVestiging.SelectedItem is EstablishmentDTO establishment)
+            if (cmbCustomers.SelectedItem is CustomerDTO customer 
+                && cmbVestiging.SelectedItem is EstablishmentDTO establishment
+                && dpDatum.SelectedDate is DateTime date)
             {
-                List<ReservationDTO> reservations = _rentalServiceApplication.GetReservationsByCustomerIdEstablishmentId(customer.Id, establishment.Id);
+                List<ReservationDTO> reservations = _rentalServiceApplication.GetReservationsByCustomerIdEstablishmentIdDate(customer.Id, establishment.Id, date);
                 dgReservaties.ItemsSource = reservations;
             }
             else
@@ -53,8 +55,16 @@ namespace RentalService.Presentation.Windows
                 {
                     _rentalServiceApplication.RemoveReservation(reservatie.Id);
                     MessageBox.Show("Reservatie geannuleerd.");
-                    dgReservaties.ItemsSource = _rentalServiceApplication.GetReservationsByCustomerIdEstablishmentId(cmbCustomers.SelectedItem is CustomerDTO customer ? customer.Id : 0,
-                        cmbVestiging.SelectedItem is EstablishmentDTO establishment ? establishment.Id : 0);
+                    if (dpDatum.SelectedDate is DateTime date)
+                    {
+                        dgReservaties.ItemsSource = _rentalServiceApplication.GetReservationsByCustomerIdEstablishmentIdDate(cmbCustomers.SelectedItem is CustomerDTO customer ? customer.Id : 0,
+                        cmbVestiging.SelectedItem is EstablishmentDTO establishment ? establishment.Id : 0, date);
+                    }
+                    //else
+                    //{
+                    //    dgReservaties.ItemsSource = _rentalServiceApplication.GetReservationsByCustomerIdEstablishmentIdDate(cmbCustomers.SelectedItem is CustomerDTO customer ? customer.Id : 0,
+                    //    cmbVestiging.SelectedItem is EstablishmentDTO establishment ? establishment.Id : 0, );
+                    //}
                 }
                 if (bevestiging == MessageBoxResult.No)
                 {
@@ -65,25 +75,6 @@ namespace RentalService.Presentation.Windows
             {
                 MessageBox.Show("Selecteer eerst een reservatie.");
             }
-                //    MessageBox.Show("Selecteer eerst een reservatie.");
-                //    return;
-                //}
-
-                //var bevestiging = MessageBox.Show("Weet je zeker dat je deze reservatie wil annuleren?",
-                //                                  "Bevestig", MessageBoxButton.YesNo);
-                //if (bevestiging == MessageBoxResult.Yes)
-                //{
-                //    try
-                //    {
-                //        _reservatieService.VerwijderReservatie(reservatie.Id);
-                //        MessageBox.Show("Reservatie geannuleerd.");
-                //        btnZoek_Click(null, null); // herladen
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        MessageBox.Show("Fout bij annuleren: " + ex.Message);
-                //    }
-                //}
             }
         }
     }

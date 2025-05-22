@@ -52,9 +52,9 @@ namespace RentalService.Domain
         {
             return _reservationRepository.GetReservations().Select(r => new ReservationDTO(r)).ToList();
         }
-        public List<ReservationDTO> GetReservationsByCustomerIdEstablishmentId(int customerId, int establishmentId)
+        public List<ReservationDTO> GetReservationsByCustomerIdEstablishmentIdDate(int customerId, int establishmentId, DateTime date)
         {
-            return _reservationRepository.GetReservationsByCustomerIdEstablishmentId(customerId, establishmentId).Select(r=>new ReservationDTO(r)).ToList();
+            return _reservationRepository.GetReservationsByCustomerIdEstablishmentIdDate(customerId, establishmentId, date).Select(r=>new ReservationDTO(r)).ToList();
         }
 
         public void MakeReservation(DateTime startDate, DateTime endDate, int customerId, int carId, int establishmentId)
