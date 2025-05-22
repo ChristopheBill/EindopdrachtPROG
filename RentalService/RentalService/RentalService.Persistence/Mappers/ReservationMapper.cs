@@ -49,9 +49,8 @@ namespace RentalService.Persistence.Mappers
                     reservations.Add(reservation);
                 }
             }
-            List<Reservation> filtered = reservations.Where(r => (r.StartDate <= date && r.EndDate >= date)).ToList();
-            List<Reservation> filteredReservations = reservations.Where(r => (r.StartDate >= date && r.StartDate <= date) || (r.EndDate >= date && r.EndDate <= date)).ToList();
-            return filtered;
+            List<Reservation> filteredReservations = reservations.Where(r => (r.StartDate <= date && r.EndDate >= date)).ToList();
+            return filteredReservations;
 
 
         }
