@@ -178,18 +178,18 @@ namespace RentalService.Persistence.Mappers
             sb.AppendLine();
             sb.AppendLine("## Reserveringen");
             sb.AppendLine($"**Vorige reservering:**");
-            //if (PreviousReservation(car) is Reservation reservation)
-            //{
-            //    sb.AppendLine($"**Periode:** {PreviousReservation(car).StartDate} - {PreviousReservation(car).EndDate}");
-            //    sb.AppendLine($"**Klant:** {PreviousReservation(car).Customer.FirstName} {PreviousReservation(car).Customer.LastName}");
-            //    sb.AppendLine($"**Adres klant:** {PreviousReservation(car).Customer.Street} {PreviousReservation(car).Customer.City} {PreviousReservation(car).Customer.Country}");
-            //}
-            //else
-            //{
-            //    sb.AppendLine("Geen vorige reserveringen.");
-            //}
+            if (CheckPreviousReservation(car))
+            {
+                sb.AppendLine($"**Periode:** {PreviousReservation(car).StartDate} - {PreviousReservation(car).EndDate}");
+                sb.AppendLine($"**Klant:** {PreviousReservation(car).Customer.FirstName} {PreviousReservation(car).Customer.LastName}");
+                sb.AppendLine($"**Adres klant:** {PreviousReservation(car).Customer.Street} {PreviousReservation(car).Customer.City} {PreviousReservation(car).Customer.Country}");
+            }
+            else
+            {
+                sb.AppendLine("Geen vorige reserveringen.");
+            }
             sb.AppendLine($"**Volgende reservering:**");
-            if (NextReservation(car) != null)
+            if (CheckNextReservation(car))
             {
                 sb.AppendLine($"**Periode:** {NextReservation(car).StartDate} - {NextReservation(car).EndDate}");
                 sb.AppendLine($"**Klant:** {NextReservation(car).Customer.FirstName} {NextReservation(car).Customer.LastName}");
@@ -249,6 +249,20 @@ namespace RentalService.Persistence.Mappers
             }
             return cars;
         }
+
+        private bool CheckPreviousReservation (Car car)
+        {
+            ReservationMapper reservationMapper = new();
+            List<Reservation> reservations = reservationMapper.GetReservations();
+            foreach (Reservation r in reservations)
+            {
+                if (r.Car.Id == car.Id && r.EndDate <= DateTime.Now)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         private Reservation PreviousReservation(Car car)
         {
             ReservationMapper reservationMapper = new();
@@ -256,13 +270,28 @@ namespace RentalService.Persistence.Mappers
             Reservation previousReservation = new();
             foreach (Reservation r in reservations)
             {
-                if (r.Car.Id == car.Id && r.EndDate < DateTime.Now)
+                if (r.Car.Id == car.Id && r.EndDate <= DateTime.Now)
                 {
                     previousReservation = r;
                 }
             }
             return previousReservation;
         }
+
+        private bool CheckNextReservation(Car car)
+        {
+            ReservationMapper reservationMapper = new();
+            List<Reservation> reservations = reservationMapper.GetReservations();
+            foreach (Reservation r in reservations)
+            {
+                if (r.Car.Id == car.Id && r.StartDate >= DateTime.Now)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private Reservation NextReservation(Car car)
         {
             ReservationMapper reservationMapper = new();
@@ -270,7 +299,7 @@ namespace RentalService.Persistence.Mappers
             Reservation nextReservation = new();
             foreach (Reservation r in reservations)
             {
-                if (r.Car.Id == car.Id && r.StartDate > DateTime.Now)
+                if (r.Car.Id == car.Id && r.StartDate >= DateTime.Now)
                 {
                     nextReservation = r;
                 }
