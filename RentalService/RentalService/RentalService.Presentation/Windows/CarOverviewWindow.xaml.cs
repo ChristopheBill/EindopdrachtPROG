@@ -31,6 +31,7 @@ namespace RentalService.Presentation.Windows
             _rentalServiceApplication = rentalServiceApplication;
             cmbVestigingen.ItemsSource = _rentalServiceApplication.GetEstablishments();
         }
+        
 
         private void btnGenereerMarkdown_Click(object sender, RoutedEventArgs e)
         {
@@ -48,11 +49,18 @@ namespace RentalService.Presentation.Windows
             {
                 int id = establishment.Id;
                 lvAutos.ItemsSource = _rentalServiceApplication.GetCarsByEstablishment(id);
+                btnGenereerMarkdown.IsEnabled = false;
             }
-            else
-            {
-                MessageBox.Show("Gelieve een vestiging te selecteren.");
-            }
+        }
+
+        private void cmbVestigingen_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            getCarsByEstablishmentId.IsEnabled = true;
+        }
+
+        private void lvAutos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnGenereerMarkdown.IsEnabled = true;
         }
     }
 }

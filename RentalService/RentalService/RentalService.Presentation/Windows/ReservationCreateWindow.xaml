@@ -21,7 +21,7 @@
         <!-- Vestiging kiezen -->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
             <Label Content="Vestiging:" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmbEstablishments" Width="200" Margin="10,0" />
+            <ComboBox x:Name="cmbEstablishments" Width="200" Margin="10,0" SelectionChanged="cmbEstablishments_SelectionChanged" />
         </StackPanel>
 
         <!-- Huurperiode -->
@@ -40,12 +40,12 @@
         <!-- Zitplaatsen filter -->
         <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,0,0,10">
             <Label Content="Aantal personen:" VerticalAlignment="Center"/>
-            <TextBox x:Name="txtAantalZitplaatsen" Width="80" Margin="10,0"/>
-            <Button Content="Zoek auto's" Width="120" Click="btnZoekAutos_Click"/>
+            <TextBox x:Name="txtAantalZitplaatsen" Width="80" Margin="10,0" TextChanged="txtAantalZitplaatsen_TextChanged"/>
+            <Button Content="Zoek auto's" Name="btnZoek" Width="120" Click="btnZoekAutos_Click" IsEnabled="False"/>
         </StackPanel>
 
         <!-- Resultaat: beschikbare auto's -->
-        <DataGrid x:Name="dgAutos" Grid.Row="4" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+        <DataGrid x:Name="dgAutos" Grid.Row="4" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" SelectionChanged="dgAutos_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Model" Binding="{Binding Model}" Width="*"/>
                 <DataGridTextColumn Header="Zitplaatsen" Binding="{Binding Seats}" Width="*"/>
@@ -57,7 +57,7 @@
         <!-- Bevestigen -->
         <Button x:Name="btnReserveer" Grid.Row="5" Content="Bevestig Reservatie"
                 Width="200" Height="40" HorizontalAlignment="Right" Margin="0,10,0,0"
-                Click="btnReserveer_Click"/>
+                Click="btnReserveer_Click" IsEnabled="False"/>
         
     </Grid>
 </Window>

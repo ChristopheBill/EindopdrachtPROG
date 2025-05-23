@@ -18,20 +18,20 @@
         <!-- Zoekcriteria -->
         <StackPanel Orientation="Vertical" Grid.Row="0" Margin="0,0,0,10" HorizontalAlignment="Left" >
             <Label Content="Klantnaam:"/>
-            <ComboBox x:Name="cmbCustomers" Width="200" Margin="5,0"/>
+            <ComboBox x:Name="cmbCustomers" Width="200" Margin="5,0" SelectionChanged="cmbCustomers_SelectionChanged"/>
 
             <Label Content="Datum:" Margin="15,0,0,0"/>
-            <DatePicker x:Name="dpDatum" Width="150" Margin="5,0"/>
+            <DatePicker x:Name="dpDatum" Width="150" Margin="5,0" SelectedDateChanged="dpDatum_SelectedDateChanged"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Row="0" Margin="0,0,0,10" HorizontalAlignment="Right" >
             <Label Content="Vestiging:" Margin="15,0,0,0"/>
-            <ComboBox x:Name="cmbVestiging" Width="200" Margin="5,0"/>
+            <ComboBox x:Name="cmbVestiging" Width="200" Margin="5,0" SelectionChanged="cmbVestiging_SelectionChanged_1"/>
 
-            <Button Content="Zoek" Width="100" Margin="15,15,0,0" Click="btnZoek_Click"/>
+            <Button Content="Zoek" Width="100" Name="btnZoek" Margin="15,15,0,0" Click="btnZoek_Click" IsEnabled="False"/>
         </StackPanel>
 
         <!-- Resultaten -->
-        <DataGrid x:Name="dgReservaties" Grid.Row="2" AutoGenerateColumns="False" Margin="0,10,0,10" SelectionMode="Single" IsReadOnly="True">
+        <DataGrid x:Name="dgReservaties" Grid.Row="2" AutoGenerateColumns="False" Margin="0,10,0,10" SelectionMode="Single" IsReadOnly="True" SelectionChanged="dgReservaties_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Klant" Binding="{Binding Customer.FirstName}" Width="*"/>
                 <DataGridTextColumn Header="" Binding="{Binding Customer.LastName}" Width="*"/>
@@ -60,6 +60,6 @@
         <!-- Acties -->
         <Button x:Name="btnAnnuleer" Content="Annuleer Geselecteerde Reservatie"
                 Grid.Row="3" Width="250" Height="40" HorizontalAlignment="Right"
-                Click="btnAnnuleer_Click"/>
+                Click="btnAnnuleer_Click" IsEnabled="False"/>
     </Grid>
 </Window>

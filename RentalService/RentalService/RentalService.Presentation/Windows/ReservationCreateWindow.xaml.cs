@@ -50,43 +50,10 @@ namespace RentalService.Presentation.Windows
                 }
                 dgAutos.ItemsSource = _rentalServiceApplication.GetCarsBySeatsEstablishmentAvailability(establishment.Id, seats, start, stop);
             }
-            //dpStart.SelectedDate is not DateTime startDatum ||
-            //!TimeSpan.TryParse(txtStartTijd.Text, out var startTijd) ||
-            //dpEinde.SelectedDate is not DateTime eindDatum ||
-            //!TimeSpan.TryParse(txtEindeTijd.Text, out var eindTijd))
-            //{
-            //    MessageBox.Show("Vul alle velden correct in.");
-            //    return;
-            //}
-
-            //DateTime start = startDatum.Add(startTijd);
-            //DateTime einde = eindDatum.Add(eindTijd);
-
-            //if (start <= DateTime.Now || einde <= start || (einde - start).TotalDays < 1)
-            //{
-            //    MessageBox.Show("De huurperiode is ongeldig.");
-            //    return;
-            //}
-
-            //int? zitplaatsen = null;
-            //if (int.TryParse(txtAantalZitplaatsen.Text, out int aantal))
-            //{
-            //    zitplaatsen = aantal;
-            //}
-
-            //List<Auto> beschikbareAutos = _autoService.GetBeschikbareAutos(vestiging.Id, start, einde, zitplaatsen);
-            //dgAutos.ItemsSource = beschikbareAutos;
-
-            //if (beschikbareAutos.Count == 0)
-            //{
-            //    MessageBox.Show("Geen auto's beschikbaar voor de opgegeven periode.");
-            //}
         }
 
         private void btnReserveer_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
                 EstablishmentDTO establishment = (EstablishmentDTO)cmbEstablishments.SelectedItem;
                 CarDTO car = (CarDTO)dgAutos.SelectedItem;
                 DateTime startDate = (DateTime)dpStart.SelectedDate;
@@ -100,43 +67,13 @@ namespace RentalService.Presentation.Windows
                 if (int.TryParse(txtAantalZitplaatsen.Text, out int aantal))
                 {
                     seats = aantal;
+                    dgAutos.ItemsSource = _rentalServiceApplication.GetCarsBySeatsEstablishmentAvailability(establishment.Id, seats, startDate, endDate);
                 }
-                dgAutos.ItemsSource = _rentalServiceApplication.GetCarsBySeatsEstablishmentAvailability(establishment.Id, seats, startDate, endDate);
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                MessageBox.Show("Selecteer een startdatum, einddatum, auto en vestiging om te reserveren.");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Fout bij het maken van de reservatie: " + ex.Message);
-            }
-
-
-            //if (dgAutos.SelectedItem is not Auto geselecteerdeAuto)
-            //{
-            //    MessageBox.Show("Selecteer een auto om te reserveren.");
-            //    return;
-            //}
-
-            //DateTime start = dpStart.SelectedDate.Value.Add(TimeSpan.Parse(txtStartTijd.Text));
-            //DateTime einde = dpEinde.SelectedDate.Value.Add(TimeSpan.Parse(txtEindeTijd.Text));
-
-            //try
-            //{
-            //    _reservatieService.VoegReservatieToe(_loggedInCustomer.Id, geselecteerdeAuto.Id, start, einde);
-            //    this.Close();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Fout bij reservatie: " + ex.Message);
-            //}
+                else
+                {
+                    MessageBox.Show("Vul een geldig aantal zitplaatsen in.");
+                }
         }
-
-        //private void cmbEstablishments_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    //cmbEstablishments.
-        //}
 
         private void dpStart_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -145,11 +82,55 @@ namespace RentalService.Presentation.Windows
                 DateTime selectedDate = dpStart.SelectedDate.Value;
                 dpEinde.DisplayDateStart = selectedDate.AddDays(1);
             }
+            if (cmbEstablishments.SelectedItem != null && dpStart.SelectedDate != null && dpEinde.SelectedDate != null && txtAantalZitplaatsen.Text is int)
+            {
+                btnZoek.IsEnabled = true;
+            }
         }
 
         private void dpEinde_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (cmbEstablishments.SelectedItem != null && dpStart.SelectedDate != null && dpEinde.SelectedDate != null && txtAantalZitplaatsen.Text is int)
+            {
+                btnZoek.IsEnabled = true;
+            }
+        }
 
+        private void cmbEstablishments_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbEstablishments.SelectedItem != null && dpStart.SelectedDate != null && dpEinde.SelectedDate != null && txtAantalZitplaatsen.Text is int)
+            {
+                btnZoek.IsEnabled = true;
+            }
+        }
+
+        private void txtAantalZitplaatsen_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (cmbEstablishments.SelectedItem != null && dpStart.SelectedDate != null && dpEinde.SelectedDate != null && txtAantalZitplaatsen.Text is int && txtAantalZitplaatsen.Text != "0")
+            {
+                btnZoek.IsEnabled = true;
+            }
+            else if (cmbEstablishments.SelectedItem != null && dpStart.SelectedDate != null && dpEinde.SelectedDate != null && txtAantalZitplaatsen.Text is int && txtAantalZitplaatsen.Text == "0")
+            {
+                MessageBox.Show("Vul een geldig aantal zitplaatsen in.");
+                btnZoek.IsEnabled = false;
+            }
+            else
+            {
+                btnZoek.IsEnabled = true;
+            }
+        }
+
+        private void dgAutos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dgAutos.SelectedItem != null)
+            {
+                btnReserveer.IsEnabled = true;
+            }
+            else
+            {
+                btnReserveer.IsEnabled = false;
+            }
         }
     }
 }

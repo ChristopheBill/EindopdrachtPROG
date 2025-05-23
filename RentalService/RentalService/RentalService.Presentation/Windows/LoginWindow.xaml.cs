@@ -35,10 +35,11 @@ namespace RentalService.Presentation.Windows
             {
                 _rentalServiceApplication.TakeToOverviewWindow(this, customer);
             }
-            else
-            {
-                MessageBox.Show("Selecteer een klant om verder te gaan.", "Fout", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+        }
+
+        private void cmbCustomers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnLogin.IsEnabled = true;
         }
     }
 }

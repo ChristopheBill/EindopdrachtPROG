@@ -70,5 +70,38 @@ namespace RentalService.Presentation.Windows
                 MessageBox.Show("Selecteer eerst een reservatie.");
             }
             }
+
+        private void cmbCustomers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbVestiging.SelectedItem != null && cmbCustomers.SelectedItem != null && dpDatum.SelectedDate != null)
+            {
+                btnZoek.IsEnabled = true;
+                btnAnnuleer.IsEnabled = false;
+            }
+        }
+
+        private void dpDatum_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(cmbVestiging.SelectedItem != null && cmbCustomers.SelectedItem != null && dpDatum.SelectedDate != null)
+            {
+                btnZoek.IsEnabled = true;
+                btnAnnuleer.IsEnabled = false;
+            }
+        }
+
+        private void cmbVestiging_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbVestiging.SelectedItem != null && cmbCustomers.SelectedItem != null && dpDatum.SelectedDate != null)
+            {
+                btnZoek.IsEnabled = true;
+                btnAnnuleer.IsEnabled = false;
+            }
+        }
+
+        private void dgReservaties_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dgReservaties.SelectedItem != null)
+                btnAnnuleer.IsEnabled = true;
         }
     }
+}
