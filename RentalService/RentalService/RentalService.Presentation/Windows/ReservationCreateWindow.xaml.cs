@@ -31,7 +31,6 @@ namespace RentalService.Presentation.Windows
             InitializeComponent();
             _rentalServiceApplication = rentalServiceApplication;
             _customer = customer;
-            //dgAutos.ItemsSource = rentalServiceApplication.GetCars();
             cmbEstablishments.ItemsSource = rentalServiceApplication.GetEstablishments().ToList();
             
         }

@@ -29,7 +29,6 @@ namespace RentalService.Presentation.Windows
         {
             InitializeComponent();
             _rentalServiceApplication = rentalServiceApplication;
-            //lvAutos.ItemsSource = _rentalServiceApplication.GetCars();
             cmbVestigingen.ItemsSource = _rentalServiceApplication.GetEstablishments();
         }
 

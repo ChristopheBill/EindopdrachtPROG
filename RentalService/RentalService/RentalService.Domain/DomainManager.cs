@@ -35,14 +35,29 @@ namespace RentalService.Domain
         {
             return _carRepository.GetCarsBySeatsEstablishmentAvailability(establishmentId, seats, start, stop).Select(c => new CarDTO(c)).ToList();
         }
+        public void ReadCars(string pad)
+        {
+            _carRepository.ReadCars(pad);
+        }
+
         public List<CustomerDTO> GetCustomers() 
         {
             return _customerRepository.GetCustomers().Select(c=>new CustomerDTO(c)).ToList();
         }
+        public void ReadCustomers(string pad)
+        {
+            _customerRepository.ReadCustomers(pad);
+        }
+
         public List<EstablishmentDTO> GetEstablishments() 
         {
             return _establishmentRepository.GetEstablishments().Select(e=>new EstablishmentDTO(e)).ToList();
         }
+        public void ReadEstablishments(string pad)
+        {
+            _establishmentRepository.ReadEstablishments(pad);
+        }
+
         public List<ReservationDTO> GetReservations()
         {
             return _reservationRepository.GetReservations().Select(r => new ReservationDTO(r)).ToList();

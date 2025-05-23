@@ -22,10 +22,14 @@ namespace RentalService.DataLoader
         private string _filePath2;
         private string _filePath3;
         private List<string> _fouten;
-        public MainWindow()
+        //public MainWindow()
+        //{
+        //    InitializeComponent();
+        //}
+        public MainWindow(DataLoaderApplication dataLoaderApplication)
         {
             InitializeComponent();
-            _dataLoaderApplication = new();
+            _dataLoaderApplication = dataLoaderApplication;
             _fouten = new List<string>();
         }
         private void UploadFile1_Click(object sender, RoutedEventArgs e)

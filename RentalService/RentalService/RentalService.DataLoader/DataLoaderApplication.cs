@@ -14,22 +14,27 @@ namespace RentalService.DataLoader
 {
     public class DataLoaderApplication
     {
-        private readonly HashSet<string> uniekeEmails = new();
-        private readonly HashSet<string> uniekeNummerplaten = new();
-        private readonly List<string> fouten = new();
-        private CarMapper _carMapper = new();
-        private EstablishmentMapper _establishmentMapper = new();
-        private CustomerMapper _customerMapper = new();
-        //private DomainManager _domainManager;
+        //private readonly HashSet<string> uniekeEmails = new();
+        //private readonly HashSet<string> uniekeNummerplaten = new();
+        //private readonly List<string> fouten = new();
+        private DomainManager _domainManager;
+        private MainWindow _mainWindow;
+        private readonly DataLoaderApplication _dataLoaderApplication;
 
+        public DataLoaderApplication(DomainManager domainManager)
+        {
+            _domainManager = domainManager;
+            _mainWindow = new MainWindow(this);
+            _mainWindow.Show();
+        }
         public void InitialiseAllFiles(string padVestigingen, string padAutos, string padKlanten)
         {
-            fouten.Clear();
-            uniekeEmails.Clear();
-            uniekeNummerplaten.Clear();
-            _establishmentMapper.ReadEstablishments(padVestigingen);
-            _customerMapper.ReadCustomers(padKlanten);
-            _carMapper.ReadCars(padAutos);
+            //fouten.Clear();
+            //uniekeEmails.Clear();
+            //uniekeNummerplaten.Clear();
+            _domainManager.ReadEstablishments(padVestigingen);
+            _domainManager.ReadCustomers(padKlanten);
+            _domainManager.ReadCars(padAutos);
         }
 
 

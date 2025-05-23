@@ -21,7 +21,6 @@ namespace RentalService.Presentation.Windows
     /// </summary>
     public partial class OverviewWindow : Window
     {
-        private DomainManager _domainManager;
         private readonly CustomerDTO _customer;
         private RentalServiceApplication _rentalServiceApplication;
         public OverviewWindow(RentalServiceApplication rentalServiceApplication, CustomerDTO customer)

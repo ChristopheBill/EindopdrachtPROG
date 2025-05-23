@@ -22,10 +22,7 @@ namespace RentalService.Presentation.Windows
     /// </summary>
     public partial class LoginWindow : Window
     {
-        private DomainManager _domainManager;
-        private OverviewWindow _overviewWindow;
         private RentalServiceApplication _rentalServiceApplication;
-        private string _customerName;
         public LoginWindow(RentalServiceApplication rentalServiceApplication)
         {
             InitializeComponent();
