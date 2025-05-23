@@ -17,20 +17,15 @@ namespace RentalService.DataLoader
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly DataLoaderApplication _dataLoaderApplication;
+        private DataLoaderApplication _dataLoaderApplication;
         private string _filePath1;
         private string _filePath2;
         private string _filePath3;
-        private List<string> _fouten;
-        //public MainWindow()
-        //{
-        //    InitializeComponent();
-        //}
+       
         public MainWindow(DataLoaderApplication dataLoaderApplication)
         {
             InitializeComponent();
             _dataLoaderApplication = dataLoaderApplication;
-            _fouten = new List<string>();
         }
         private void UploadFile1_Click(object sender, RoutedEventArgs e)
         {

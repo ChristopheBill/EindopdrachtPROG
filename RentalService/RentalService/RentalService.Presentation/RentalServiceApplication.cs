@@ -19,7 +19,6 @@ namespace RentalService.Presentation
         private readonly CarOverviewWindow _carOverviewWindow;
         private readonly ReservationSearchWindow _reservationSearchWindow;
         private readonly ReservationCreateWindow _reservationCreateWindow;
-        private readonly RentalServiceApplication _rentalServiceApplication;
         private CustomerDTO _customer;
 
         public RentalServiceApplication(DomainManager domainManager)
