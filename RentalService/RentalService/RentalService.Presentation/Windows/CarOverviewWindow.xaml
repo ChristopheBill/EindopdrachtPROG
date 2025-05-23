@@ -26,11 +26,11 @@
             <Button Content="Zoek auto's" Name="getCarsByEstablishmentId" Click="getCarsByEstablishmentId_Click"/>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,10" Grid.ColumnSpan="2">
+      <!--  <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,10" Grid.ColumnSpan="2">
             <Label Content="Tijdstip:" VerticalAlignment="Center"/>
             <DatePicker x:Name="dpDatum" Width="150" Margin="10,0"/>
             <TextBox x:Name="txtTijd" Width="80" Margin="10,0"/>
-        </StackPanel>
+        </StackPanel> -->
 
         <DataGrid x:Name="lvAutos" Grid.Row="2" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" Grid.ColumnSpan="2">
             <DataGrid.Columns>

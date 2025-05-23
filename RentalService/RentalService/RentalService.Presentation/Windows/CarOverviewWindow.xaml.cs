@@ -29,35 +29,9 @@ namespace RentalService.Presentation.Windows
         {
             InitializeComponent();
             _rentalServiceApplication = rentalServiceApplication;
-            lvAutos.ItemsSource = _rentalServiceApplication.GetCars();
+            //lvAutos.ItemsSource = _rentalServiceApplication.GetCars();
             cmbVestigingen.ItemsSource = _rentalServiceApplication.GetEstablishments();
-
-            //lvAutos.ItemsSource = _carRepository.GetCars();
-
-            //_establishmentRepository = establishment;
-            //_carRepository = carRepository;
-            //LoadVestigingen();
         }
-
-
-        //public CarOverviewWindow(IEstablishmentRepository establishmentRepository, ICarRepository carRepository, ComboBox cmbVestigingen, DatePicker dpDatum, TextBox txtTijd, DataGrid dgAutos, Button btnGenereerMarkdown, bool contentLoaded)
-        //{
-        //    _establishmentRepository = establishmentRepository;
-        //    _carRepository = carRepository;
-        //    this.cmbVestigingen = cmbVestigingen;
-        //    this.dpDatum = dpDatum;
-        //    this.txtTijd = txtTijd;
-        //    this.lvAutos = dgAutos;
-        //    this.btnGenereerMarkdown = btnGenereerMarkdown;
-        //    _contentLoaded = contentLoaded;
-        //lvAutos.ItemsSource = _carRepository.GetCars();
-
-        //}
-
-        //private void LoadVestigingen()
-        //{
-           
-        //}
 
         private void btnGenereerMarkdown_Click(object sender, RoutedEventArgs e)
         {
@@ -65,6 +39,7 @@ namespace RentalService.Presentation.Windows
                 && cmbVestigingen.SelectedItem is EstablishmentDTO establishment)
             {
                 _rentalServiceApplication.GenerateMarkdown(car.Id, establishment.Id);
+                MessageBox.Show("Markdown file is gegenereerd.");
             }
         }
 
@@ -80,18 +55,5 @@ namespace RentalService.Presentation.Windows
                 MessageBox.Show("Gelieve een vestiging te selecteren.");
             }
         }
-
-        //private void Window_Closed(object sender, EventArgs e)
-        //{
-        //    _rentalServiceApplication.TakeToOverviewWindow(this, "");
-        //}
-
-        //private void LoadWindow(object sender, RoutedEventArgs e)
-        //{
-        //    lvAutos.ItemsSource = _rentalServiceApplication.GetCars();
-        //    cmbVestigingen.ItemsSource = _rentalServiceApplication.GetEstablishments();
-
-
-        //}
     }
 }

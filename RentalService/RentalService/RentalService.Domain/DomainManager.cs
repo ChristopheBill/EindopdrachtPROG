@@ -23,10 +23,6 @@ namespace RentalService.Domain
         {
             return _carRepository.GetCars().Select(c=>new CarDTO(c)).ToList();
         }
-        //public List<CarDTO> GetCarsById(int carId)
-        //{
-        //    return _carRepository.GetCarsById(carId).Select(c=>new CarDTO(c)).ToList();
-        //}
         public List<CarDTO> GetCarsByEstablishment(int establishmentId)
         {
             return _carRepository.GetCarsByEstablishment(establishmentId).Select(c => new CarDTO(c)).ToList();
@@ -39,7 +35,6 @@ namespace RentalService.Domain
         {
             return _carRepository.GetCarsBySeatsEstablishmentAvailability(establishmentId, seats, start, stop).Select(c => new CarDTO(c)).ToList();
         }
-
         public List<CustomerDTO> GetCustomers() 
         {
             return _customerRepository.GetCustomers().Select(c=>new CustomerDTO(c)).ToList();
@@ -69,10 +64,5 @@ namespace RentalService.Domain
         {
             _carRepository.GenerateMarkdown(carId, establishmentId);
         }
-        //public CustomerDTO GetCustomerById(int customerId)
-        //{
-        //return _customerRepository.GetCustomerById(customerId).;
-        //}
-
     }
 }

@@ -27,25 +27,26 @@ namespace RentalService.DataLoader
             InitializeComponent();
             _dataLoaderApplication = new();
             _fouten = new List<string>();
-            //btnSendFiles.IsEnabled = (_filePath1 != null && _filePath2 != null && _filePath3 != null );
         }
         private void UploadFile1_Click(object sender, RoutedEventArgs e)
         {
             _filePath1 = OpenFile();
             File1Text.Text = _filePath1 ?? "";
+            btnCars.IsEnabled = true;
         }
 
         private void UploadFile2_Click(object sender, RoutedEventArgs e)
         {
             _filePath2 = OpenFile();
             File2Text.Text = _filePath2 ?? "";
+            btnCustomers.IsEnabled = true;
         }
 
         private void UploadFile3_Click(object sender, RoutedEventArgs e)
         {
             _filePath3 = OpenFile();
             File3Text.Text = _filePath3 ?? "";
-            //btnSendFiles.IsEnabled = true;
+            btnSendFiles.IsEnabled = true;
         }
 
         private string OpenFile()
@@ -61,17 +62,8 @@ namespace RentalService.DataLoader
 
         private void SendFiles_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-                _dataLoaderApplication.InitialiseAllFiles(_filePath1, _filePath2, _filePath3);
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    _fouten.Add(ex.Message);
-            //}
-            //MessageBox.Show($"Bestanden geladen, er zijn {_fouten.Count()} fouten opgetreden.");
-
+            _dataLoaderApplication.InitialiseAllFiles(_filePath1, _filePath2, _filePath3);
+            MessageBox.Show("Bestanden zijn geladen, foutlog is beschikbaar.");
         }
     }
 }
