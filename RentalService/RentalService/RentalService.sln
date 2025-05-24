@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentalService.Persistence", "RentalService.Persistence\RentalService.Persistence.csproj", "{18118316-24C5-4F79-B8A2-2BDC8F2FDCC4}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentalService.Presentation", "RentalService.Presentation\RentalService.Presentation.csproj", "{7BC4F88F-E465-4979-ABAF-D4833B9F492D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentalService.DataLoader", "RentalService.DataLoader\RentalService.DataLoader.csproj", "{0B8DB25B-5FEE-408D-B7BC-0378CFED103F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentalService.Tests", "RentalService.Tests\RentalService.Tests.csproj", "{D4B50EF9-69EF-46A0-9D5D-3D3123FA25DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{0B8DB25B-5FEE-408D-B7BC-0378CFED103F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B8DB25B-5FEE-408D-B7BC-0378CFED103F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B8DB25B-5FEE-408D-B7BC-0378CFED103F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4B50EF9-69EF-46A0-9D5D-3D3123FA25DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4B50EF9-69EF-46A0-9D5D-3D3123FA25DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4B50EF9-69EF-46A0-9D5D-3D3123FA25DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4B50EF9-69EF-46A0-9D5D-3D3123FA25DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
