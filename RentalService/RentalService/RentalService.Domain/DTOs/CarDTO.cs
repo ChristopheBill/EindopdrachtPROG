@@ -9,6 +9,10 @@ namespace RentalService.Domain.DTOs
 {
     public record CarDTO
     {
+        public CarDTO()
+        {
+        }
+
         public CarDTO(int id, string licensePlate, string model, int seats, string motorType, EstablishmentDTO establishment) 
         {
             Id = id;

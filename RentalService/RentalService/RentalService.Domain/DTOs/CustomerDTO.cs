@@ -9,6 +9,10 @@ namespace RentalService.Domain.DTOs
 {
     public record CustomerDTO
     {
+        public CustomerDTO()
+        {
+        }
+
         public CustomerDTO(int id, string firstName, string lastName, string email, string street, string postalCode, string city, string country)
         {
             Id = id;

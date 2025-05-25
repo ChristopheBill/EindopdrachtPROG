@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using RentalService.Domain.DTOs;
 using RentalService.Domain.Models;
 using RentalService.Domain.Repositories;
 
@@ -8,14 +9,14 @@ namespace RentalService.Persistence.Mappers
     {
         private readonly List<string> fouten = new();
 
-        public List<Customer> GetCustomers()
+        public List<CustomerDTO> GetCustomers()
         {
             using SqlConnection connection = new(DBInfo.ConnectionString);
             connection.Open();
             using SqlCommand command = new("SELECT * FROM Customers", connection);
             using SqlDataReader reader = command.ExecuteReader();
 
-            List<Customer> customers = [];
+            List<CustomerDTO> customers = [];
 
             if (reader.HasRows)
             {
@@ -30,15 +31,15 @@ namespace RentalService.Persistence.Mappers
                     string city = (string)reader["City"];
                     string country = (string)reader["Country"];
 
-                    Customer customer = new(id, firstName, lastName, email, street, postalCode, city, country);
+                    CustomerDTO customer = new(id, firstName, lastName, email, street, postalCode, city, country);
                     customers.Add(customer);
                 }
             }
             return customers;
         }
-        public Customer GetCustomerById(int customerId)
+        public CustomerDTO GetCustomerById(int customerId)
         {
-            Customer customer = new();
+            CustomerDTO customer = new();
             using SqlConnection connection = new(DBInfo.ConnectionString);
             using SqlCommand getCustomerById = new("Select * from Customers where Id = @Id", connection);
             getCustomerById.Parameters.AddWithValue("@Id", customerId);

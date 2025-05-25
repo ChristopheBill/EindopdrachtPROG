@@ -1,4 +1,5 @@
-﻿using RentalService.Domain.Repositories;
+﻿using RentalService.Domain.DTOs;
+using RentalService.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,7 +24,7 @@ namespace RentalService.Domain.Models
         {
         }
 
-        public Car(string licensePlate, string model, int seats, string motorType)
+        public Car(string licensePlate, string model, int seats, string motorType, EstablishmentDTO establishment)
         {
             LicensePlate = licensePlate;
             Model = model;
@@ -31,19 +32,38 @@ namespace RentalService.Domain.Models
             MotorType = motorType;
         }
 
-        public Car(int id, string licensePlate, string model, int seats, string motorType) : this(licensePlate, model, seats, motorType)
-        {
-            Id = id;
-        }
+        //public Car(int id, string licensePlate, string model, int seats, string motorType) : this(licensePlate, model, seats, motorType)
+        //{
+        //    Id = id;
+        //}
 
-        public Car(string licensePlate, string model, int seats, string motorType, Establishment establishment) : this(licensePlate, model, seats, motorType)
-        {
-            Establishment = establishment;
-        }
+        //public Car(string licensePlate, string model, int seats, string motorType, Establishment establishment) : this(licensePlate, model, seats, motorType)
+        //{
+        //    Establishment = establishment;
+        //}
 
-        public Car(int id, string licensePlate, string model, int seats, string motorType, Establishment establishment) : this(id, licensePlate, model, seats, motorType)
+        //public Car(int id, string licensePlate, string model, int seats, string motorType, Establishment establishment) : this(id, licensePlate, model, seats, motorType)
+        //{
+        //    Establishment = establishment;
+        //}
+        public Car(CarDTO car)
         {
-            Establishment = establishment;
+            Id = car.Id;
+            LicensePlate = car.LicensePlate;
+            Model = car.Model;
+            Seats = car.Seats;
+            MotorType = car.MotorType;
+
+            // Fix for CS0029: Convert EstablishmentDTO to Establishment
+            Establishment = new Establishment
+            {
+                Id = car.Establishment.Id,
+                Airport = car.Establishment.Airport,
+                Street = car.Establishment.Street,
+                PostalCode = car.Establishment.PostalCode,
+                City = car.Establishment.City,
+                Country = car.Establishment.Country
+            };
         }
 
         public int Id

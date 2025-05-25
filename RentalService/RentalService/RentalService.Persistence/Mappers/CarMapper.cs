@@ -44,9 +44,9 @@ namespace RentalService.Persistence.Mappers
             return cars;
         }
 
-        public Car GetCarById(int carId)
+        public CarDTO GetCarById(int carId)
         {
-            Car car = new();
+            CarDTO car = new();
             using SqlConnection connection = new(DBInfo.ConnectionString);
             connection.Open();
             using SqlCommand getCarById = new("Select * from Cars where Id = @CarId;", connection);
@@ -59,10 +59,10 @@ namespace RentalService.Persistence.Mappers
             return car;
         }
 
-        public List<Car> GetCarsBySeatsEstablishmentAvailability(int establishmentId, int seats, DateTime start, DateTime stop)
+        public List<CarDTO> GetCarsBySeatsEstablishmentAvailability(int establishmentId, int seats, DateTime start, DateTime stop)
         {
-            Car car = new();
-            List<Car> cars = [];
+            CarDTO car = new();
+            List<CarDTO> cars = [];
             using SqlConnection connection = new(DBInfo.ConnectionString);
             connection.Open();
             using SqlCommand getCarBySeatsEstablishment = new("Select * from Cars where EstablishmentId = @EstablishmentId AND Seats = @Seats;", connection);
@@ -109,7 +109,7 @@ namespace RentalService.Persistence.Mappers
                     fouten.Add($"Fout bij het inlezen van de auto op regel {i + 1}: Onvoldoende kolommen.");
                 }
                 Car car = new();
-                Establishment establishment = new EstablishmentMapper().GetEstablishmentById(InitialEstablishmentId(i));
+                EstablishmentDTO establishment = new EstablishmentMapper().GetEstablishmentById(InitialEstablishmentId(i));
                 try
                 {
                     car = new(
@@ -156,8 +156,8 @@ namespace RentalService.Persistence.Mappers
         }
         public void GenerateMarkdown(int carId, int establishmentId)
         {
-            Car car = GetCarById(carId);
-            Establishment establishment = new EstablishmentMapper().GetEstablishmentById(establishmentId);
+            CarDTO car = GetCarById(carId);
+            EstablishmentDTO establishment = new EstablishmentMapper().GetEstablishmentById(establishmentId);
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             string markdownPath = Path.Combine(basePath, "Markdown");
             if (!Directory.Exists(markdownPath))
@@ -213,7 +213,7 @@ namespace RentalService.Persistence.Mappers
             int seats = (int)reader["Seats"];
             string motorType = (string)reader["MotorType"];
             int establishmentId = (int)reader["EstablishmentId"];
-            Establishment establishment = new EstablishmentMapper().GetEstablishmentById(establishmentId);
+            EstablishmentDTO establishment = new EstablishmentMapper().GetEstablishmentById(establishmentId);
 
             return new CarDTO(id, licensePlate, model, seats, motorType, establishment);
         }
@@ -221,21 +221,21 @@ namespace RentalService.Persistence.Mappers
         private int InitialEstablishmentId(int carIndex)
         {
             EstablishmentMapper establishmentMapper = new();
-            List<Establishment> establishments = establishmentMapper.GetEstablishments();
+            List<EstablishmentDTO> establishments = establishmentMapper.GetEstablishments();
             int aantalVestigingen = establishments.Count();
-            Establishment establishment = establishments[carIndex % aantalVestigingen];
+            EstablishmentDTO establishment = establishments[carIndex % aantalVestigingen];
             int establishmentId = establishment.Id;
             return establishmentId;
         }
 
-        private List<Car> CheckAvailability(List<Car> cars, DateTime start, DateTime stop)
+        private List<CarDTO> CheckAvailability(List<CarDTO> cars, DateTime start, DateTime stop)
         {
             ReservationMapper reservationMapper = new();
-            List<Reservation> reservations = reservationMapper.GetReservations();
-            var carsToRemove = new List<Car>();
-            foreach (Car c in cars)
+            List<ReservationDTO> reservations = reservationMapper.GetReservations();
+            var carsToRemove = new List<CarDTO>();
+            foreach (CarDTO c in cars)
             {
-                foreach (Reservation r in reservations)
+                foreach (ReservationDTO r in reservations)
                 {
                     if (c.Id == r.Car.Id && r.StartDate < stop && r.EndDate > start)
                     {
@@ -244,18 +244,18 @@ namespace RentalService.Persistence.Mappers
                     }
                 }
             }
-            foreach (Car c in carsToRemove)
+            foreach (CarDTO c in carsToRemove)
             {
                 cars.Remove(c);
             }
             return cars;
         }
 
-        private bool CheckPreviousReservation (Car car)
+        private bool CheckPreviousReservation (CarDTO car)
         {
             ReservationMapper reservationMapper = new();
-            List<Reservation> reservations = reservationMapper.GetReservations();
-            foreach (Reservation r in reservations)
+            List<ReservationDTO> reservations = reservationMapper.GetReservations();
+            foreach (ReservationDTO r in reservations)
             {
                 if (r.Car.Id == car.Id && r.EndDate <= DateTime.Now)
                 {
@@ -264,12 +264,12 @@ namespace RentalService.Persistence.Mappers
             }
             return false;
         }
-        private Reservation PreviousReservation(Car car)
+        private ReservationDTO PreviousReservation(CarDTO car)
         {
             ReservationMapper reservationMapper = new();
-            List<Reservation> reservations = reservationMapper.GetReservations();
-            Reservation previousReservation = new();
-            foreach (Reservation r in reservations)
+            List<ReservationDTO> reservations = reservationMapper.GetReservations();
+            ReservationDTO previousReservation = new();
+            foreach (ReservationDTO r in reservations)
             {
                 if (r.Car.Id == car.Id && r.EndDate <= DateTime.Now)
                 {
@@ -279,11 +279,11 @@ namespace RentalService.Persistence.Mappers
             return previousReservation;
         }
 
-        private bool CheckNextReservation(Car car)
+        private bool CheckNextReservation(CarDTO car)
         {
             ReservationMapper reservationMapper = new();
-            List<Reservation> reservations = reservationMapper.GetReservations();
-            foreach (Reservation r in reservations)
+            List<ReservationDTO> reservations = reservationMapper.GetReservations();
+            foreach (ReservationDTO r in reservations)
             {
                 if (r.Car.Id == car.Id && r.StartDate >= DateTime.Now)
                 {
@@ -293,12 +293,12 @@ namespace RentalService.Persistence.Mappers
             return false;
         }
 
-        private Reservation NextReservation(Car car)
+        private ReservationDTO NextReservation(CarDTO car)
         {
             ReservationMapper reservationMapper = new();
-            List<Reservation> reservations = reservationMapper.GetReservations();
-            Reservation nextReservation = new();
-            foreach (Reservation r in reservations)
+            List<ReservationDTO> reservations = reservationMapper.GetReservations();
+            ReservationDTO nextReservation = new();
+            foreach (ReservationDTO r in reservations)
             {
                 if (r.Car.Id == car.Id && r.StartDate >= DateTime.Now)
                 {

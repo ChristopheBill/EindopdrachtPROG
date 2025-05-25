@@ -12,6 +12,10 @@ namespace RentalService.Domain.DTOs
 {
     public record ReservationDTO
     {
+        public ReservationDTO()
+        {
+        }
+
         public ReservationDTO(int id, DateTime startDate, DateTime endDate, CustomerDTO customer, CarDTO car, EstablishmentDTO establishment) 
         {
             Id = id;

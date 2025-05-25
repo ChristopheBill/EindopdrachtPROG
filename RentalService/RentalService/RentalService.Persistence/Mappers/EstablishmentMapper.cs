@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Data.SqlClient.DataClassification;
+using RentalService.Domain.DTOs;
 using RentalService.Domain.Models;
 using RentalService.Domain.Repositories;
 
@@ -7,14 +8,14 @@ namespace RentalService.Persistence.Mappers
 {
     public class EstablishmentMapper : IEstablishmentRepository
     {
-        public List<Establishment> GetEstablishments()
+        public List<EstablishmentDTO> GetEstablishments()
         {
             using SqlConnection connection = new(DBInfo.ConnectionString);
             connection.Open();
             using SqlCommand command = new("SELECT * FROM Establishments", connection);
             using SqlDataReader reader = command.ExecuteReader();
 
-            List<Establishment> establishments = [];
+            List<EstablishmentDTO> establishments = [];
 
             if (reader.HasRows)
             {
@@ -27,20 +28,20 @@ namespace RentalService.Persistence.Mappers
                     string city = (string)reader["City"];
                     string country = (string)reader["Country"];
 
-                    Establishment establishment = new(id, airport, street, postalCode, city, country);
+                    EstablishmentDTO establishment = new(id, airport, street, postalCode, city, country);
                     establishments.Add(establishment);
                 }
             }
             return establishments;
         }
-        public Establishment GetEstablishmentById(int establishmentId)
+        public EstablishmentDTO GetEstablishmentById(int establishmentId)
         {
             using SqlConnection connection = new(DBInfo.ConnectionString);
             connection.Open();
             using SqlCommand command = new("SELECT * FROM Establishments WHERE Id = @Id", connection);
             command.Parameters.Add(new SqlParameter("@Id", establishmentId));
             using SqlDataReader reader = command.ExecuteReader();
-            Establishment establishment = new();
+            EstablishmentDTO establishment = new();
             if (reader.HasRows)
             {
                 while (reader.Read())

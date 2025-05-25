@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using RentalService.Domain.DTOs;
 using RentalService.Domain.Models;
 using RentalService.Domain.Repositories;
 using System;
@@ -12,29 +13,29 @@ namespace RentalService.Persistence.Mappers
 {
     public class ReservationMapper : IReservationRepository
     {
-        public List<Reservation> GetReservations()
+        public List<ReservationDTO> GetReservations()
         {
             using SqlConnection connection = new(DBInfo.ConnectionString);
             connection.Open();
             using SqlCommand command = new("SELECT * FROM Reservations", connection);
             using SqlDataReader reader = command.ExecuteReader();
 
-            List<Reservation> reservations = [];
+            List<ReservationDTO> reservations = [];
 
             if (reader.HasRows)
             {
                 while (reader.Read())
                 {
                     
-                    Reservation reservation = MapReaderToReservation(reader);
+                    ReservationDTO reservation = MapReaderToReservation(reader);
                     reservations.Add(reservation);
                 }
             }
             return reservations;
         }
-        public List<Reservation> GetReservationsByCustomerIdEstablishmentIdDate(int customerId, int establishmentId, DateTime date)
+        public List<ReservationDTO> GetReservationsByCustomerIdEstablishmentIdDate(int customerId, int establishmentId, DateTime date)
         {
-            List<Reservation> reservations = new();
+            List<ReservationDTO> reservations = new();
             using SqlConnection connection = new( DBInfo.ConnectionString);
             connection.Open();
             using SqlCommand command = new("SELECT * FROM Reservations WHERE CustomerId = @CustomerId AND EstablishmentId = @EstablishmentId;", connection);
@@ -45,11 +46,11 @@ namespace RentalService.Persistence.Mappers
             {
                 while (reader.Read())
                 {
-                    Reservation reservation = MapReaderToReservation(reader);
+                    ReservationDTO reservation = MapReaderToReservation(reader);
                     reservations.Add(reservation);
                 }
             }
-            List<Reservation> filteredReservations = reservations.Where(r => (r.StartDate <= date && r.EndDate >= date)).ToList();
+            List<ReservationDTO> filteredReservations = reservations.Where(r => (r.StartDate <= date && r.EndDate >= date)).ToList();
             return filteredReservations;
 
 
@@ -83,7 +84,7 @@ namespace RentalService.Persistence.Mappers
             RemoveReservation.Parameters.Add(new SqlParameter("@Id", reservationId));
             RemoveReservation.ExecuteNonQuery();
         }
-        private Reservation MapReaderToReservation(SqlDataReader reader) 
+        private ReservationDTO MapReaderToReservation(SqlDataReader reader) 
         {
             int id = (int)reader["Id"];
             DateTime startDate = (DateTime)reader["StartDate"];
@@ -91,10 +92,10 @@ namespace RentalService.Persistence.Mappers
             int customerId = (int)reader["CustomerId"];
             int carId = (int)reader["CarId"];
             int establishmentId = (int)reader["EstablishmentId"];
-            Customer customer = new CustomerMapper().GetCustomerById(customerId);
-            Car car = new CarMapper().GetCarById(carId);
-            Establishment establishment = new EstablishmentMapper().GetEstablishmentById(establishmentId);
-            return new Reservation(id, startDate, endDate, customer, car, establishment);
+            CustomerDTO customer = new CustomerMapper().GetCustomerById(customerId);
+            CarDTO car = new CarMapper().GetCarById(carId);
+            EstablishmentDTO establishment = new EstablishmentMapper().GetEstablishmentById(establishmentId);
+            return new ReservationDTO(id, startDate, endDate, customer, car, establishment);
         }
     }
 }
