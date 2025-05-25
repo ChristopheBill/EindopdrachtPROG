@@ -1,4 +1,4 @@
-﻿using RentalService.Domain.Repositories;
+﻿using RentalService.Domain.DTOs;
 
 namespace RentalService.Tests
 {

@@ -1,4 +1,4 @@
-﻿using RentalService.Domain.Models;
+﻿using RentalService.Domain.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace RentalService.Domain.Repositories
 {
     public interface IEstablishmentRepository
     {
-        public List<Establishment> GetEstablishments();
+        public List<EstablishmentDTO> GetEstablishments();
         public void ReadEstablishments(string pad);
     }
 }
