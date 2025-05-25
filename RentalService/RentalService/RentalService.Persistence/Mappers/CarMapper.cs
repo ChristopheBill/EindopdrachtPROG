@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using RentalService.Domain.Models;
+using RentalService.Domain.DTOs;
 using RentalService.Domain.Repositories;
 using System.Dynamic;
 using System.Text;
@@ -10,13 +11,13 @@ namespace RentalService.Persistence.Mappers
     {
         private readonly List<string> _fouten = new();
         private string _pad;
-        public List<Car> GetCars()
+        public List<CarDTO> GetCars()
         {
             using SqlConnection connection = new(DBInfo.ConnectionString);
             connection.Open();
             using SqlCommand command = new("SELECT * FROM Cars", connection);
             using SqlDataReader reader = command.ExecuteReader();
-            List<Car> cars = [];
+            List<CarDTO> cars = [];
 
             if (reader.HasRows)
             {
@@ -28,9 +29,9 @@ namespace RentalService.Persistence.Mappers
             return cars;
         }
 
-        public List<Car> GetCarsByEstablishment(int establishmentId)
+        public List<CarDTO> GetCarsByEstablishment(int establishmentId)
         {
-            List<Car> cars = [];
+            List<CarDTO> cars = [];
             using SqlConnection connection = new(DBInfo.ConnectionString);
             connection.Open();
             using SqlCommand getCarsByEstablishmentId = new("Select * from Cars where EstablishmentId = @EstablishmentId;", connection);
@@ -204,7 +205,7 @@ namespace RentalService.Persistence.Mappers
             //System.Diagnostics.Process.Start("explorer", "AutoOverzicht.md");
         }
 
-        private Car MapReaderToCar(SqlDataReader reader)
+        private CarDTO MapReaderToCar(SqlDataReader reader)
         {
             int id = (int)reader["Id"];
             string licensePlate = (string)reader["LicensePlate"];
@@ -214,7 +215,7 @@ namespace RentalService.Persistence.Mappers
             int establishmentId = (int)reader["EstablishmentId"];
             Establishment establishment = new EstablishmentMapper().GetEstablishmentById(establishmentId);
 
-            return new Car(id, licensePlate, model, seats, motorType, establishment);
+            return new CarDTO(id, licensePlate, model, seats, motorType, establishment);
         }
 
         private int InitialEstablishmentId(int carIndex)

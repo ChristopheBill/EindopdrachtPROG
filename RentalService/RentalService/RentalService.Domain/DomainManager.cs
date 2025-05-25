@@ -21,11 +21,11 @@ namespace RentalService.Domain
         }
         public List<CarDTO> GetCars()
         {
-            return _carRepository.GetCars().Select(c=>new CarDTO(c)).ToList();
+            return _carRepository.GetCars().Select(c=>new CarDTO(c.Id, c.LicensePlate, c.Model, c.Seats, c.MotorType, c.Establishment)).ToList();
         }
         public List<CarDTO> GetCarsByEstablishment(int establishmentId)
         {
-            return _carRepository.GetCarsByEstablishment(establishmentId).Select(c => new CarDTO(c)).ToList();
+            return _carRepository.GetCarsByEstablishment(establishmentId).Select(c => new CarDTO(c.Id, c.LicensePlate, c.Model, c.Seats, c.MotorType, c.Establishment)).ToList();
         }
         public string GetCarById(int carId)
         {
@@ -33,7 +33,7 @@ namespace RentalService.Domain
         }
         public List<CarDTO> GetCarsBySeatsEstablishmentAvailability(int establishmentId, int seats, DateTime start, DateTime stop)
         {
-            return _carRepository.GetCarsBySeatsEstablishmentAvailability(establishmentId, seats, start, stop).Select(c => new CarDTO(c)).ToList();
+            return _carRepository.GetCarsBySeatsEstablishmentAvailability(establishmentId, seats, start, stop).Select(c => new CarDTO(c.Id, c.LicensePlate, c.Model, c.Seats, c.MotorType, c.Establishment)).ToList();
         }
         public void ReadCars(string pad)
         {
@@ -42,7 +42,7 @@ namespace RentalService.Domain
 
         public List<CustomerDTO> GetCustomers() 
         {
-            return _customerRepository.GetCustomers().Select(c=>new CustomerDTO(c)).ToList();
+            return _customerRepository.GetCustomers().Select(c=>new CustomerDTO(c.Id, c.FirstName, c.LastName, c.Email, c.Street, c.PostalCode, c.City, c.Country)).ToList();
         }
         public void ReadCustomers(string pad)
         {
@@ -51,7 +51,7 @@ namespace RentalService.Domain
 
         public List<EstablishmentDTO> GetEstablishments() 
         {
-            return _establishmentRepository.GetEstablishments().Select(e=>new EstablishmentDTO(e)).ToList();
+            return _establishmentRepository.GetEstablishments().Select(e=>new EstablishmentDTO(e.Id, e.Airport, e.Street, e.PostalCode, e.City, e.Country)).ToList();
         }
         public void ReadEstablishments(string pad)
         {
@@ -60,11 +60,11 @@ namespace RentalService.Domain
 
         public List<ReservationDTO> GetReservations()
         {
-            return _reservationRepository.GetReservations().Select(r => new ReservationDTO(r)).ToList();
+            return _reservationRepository.GetReservations().Select(r => new ReservationDTO(r.Id, r.StartDate, r.EndDate, r.Customer, r.Car, r.Establishment)).ToList();
         }
         public List<ReservationDTO> GetReservationsByCustomerIdEstablishmentIdDate(int customerId, int establishmentId, DateTime date)
         {
-            return _reservationRepository.GetReservationsByCustomerIdEstablishmentIdDate(customerId, establishmentId, date).Select(r=>new ReservationDTO(r)).ToList();
+            return _reservationRepository.GetReservationsByCustomerIdEstablishmentIdDate(customerId, establishmentId, date).Select(r=>new ReservationDTO(r.Id, r.StartDate, r.EndDate, r.Customer, r.Car, r.Establishment)).ToList();
         }
 
         public void MakeReservation(DateTime startDate, DateTime endDate, int customerId, int carId, int establishmentId)

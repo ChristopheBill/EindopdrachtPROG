@@ -9,16 +9,16 @@ namespace RentalService.Domain.DTOs
 {
     public record CustomerDTO
     {
-        public CustomerDTO(Customer customer)
+        public CustomerDTO(int id, string firstName, string lastName, string email, string street, string postalCode, string city, string country)
         {
-            Id = customer.Id;
-            FirstName = customer.FirstName;
-            LastName = customer.LastName;
-            Email = customer.Email;
-            Street = customer.Street;
-            PostalCode = customer.PostalCode;
-            City = customer.City;
-            Country = customer.Country;
+            Id = id;
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            Street = street;
+            PostalCode = postalCode;
+            City = city;
+            Country = country;
         }
 
         public int Id { get; set; }

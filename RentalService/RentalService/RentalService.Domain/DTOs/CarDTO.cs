@@ -9,21 +9,21 @@ namespace RentalService.Domain.DTOs
 {
     public record CarDTO
     {
-        public CarDTO(Car car) 
+        public CarDTO(int id, string licensePlate, string model, int seats, string motorType, EstablishmentDTO establishment) 
         {
-            Id = car.Id;
-            LicensePlate = car.LicensePlate;
-            Model = car.Model;
-            Seats = car.Seats;
-            MotorType = car.MotorType;
-            Establishment = car.Establishment;
+            Id = id;
+            LicensePlate = licensePlate;
+            Model = model;
+            Seats = seats;
+            MotorType = motorType;
+            Establishment = establishment;
         }
         public int Id { get; set; }
         public string LicensePlate { get; set; }
         public string Model { get; set; }
         public int Seats { get; set; }
         public string MotorType { get; set; }
-        public Establishment Establishment { get; set; }
+        public EstablishmentDTO Establishment { get; set; }
 
     }
 }
