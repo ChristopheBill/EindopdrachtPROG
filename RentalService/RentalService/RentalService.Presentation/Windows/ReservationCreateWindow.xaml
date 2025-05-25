@@ -28,13 +28,11 @@
         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,10">
             <Label Content="Startdatum:" VerticalAlignment="Center"/>
             <DatePicker x:Name="dpStart" Width="150" Margin="10,0" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDateChanged="dpStart_SelectedDateChanged"/>
-            <TextBox x:Name="txtStartTijd" Width="80" Margin="10,0"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,0,0,10">
             <Label Content="Einddatum:" VerticalAlignment="Center"/>
             <DatePicker x:Name="dpEinde" Width="150" Margin="10,0" SelectedDateChanged="dpEinde_SelectedDateChanged"/>
-            <TextBox x:Name="txtEindeTijd" Width="80" Margin="10,0"/>
         </StackPanel>
 
         <!-- Zitplaatsen filter -->

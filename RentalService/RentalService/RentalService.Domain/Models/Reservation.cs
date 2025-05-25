@@ -15,11 +15,6 @@ namespace RentalService.Domain.Models
         private Establishment _establishment;
         private DateTime _startDate;
         private DateTime _endDate;
-
-        public Reservation()
-        {
-        }
-
         public Reservation(int id, DateTime startDate, DateTime endDate, Customer customer, Car car, Establishment establishment)
         {
             Id = id;
@@ -38,28 +33,7 @@ namespace RentalService.Domain.Models
         public Customer Customer { get => _customer; set => _customer = value; }
         public Car Car { get => _car; set => _car = value; }
         public Establishment Establishment { get => _establishment; set => _establishment = value; }
-        public DateTime StartDate 
-        {
-            get => _startDate;
-            set
-            {
-                //if (StartDatum < DateTime.Now)
-                //{
-                //    throw new ArgumentException("Startdatum moet in de toekomst liggen.");
-                //}
-                    _startDate = value; 
-            }
-        }
+        public DateTime StartDate { get => _startDate; set => _startDate = value; }
         public DateTime EndDate { get => _endDate; set => _endDate = value; }
-
-        //public void Valideer()
-        //{
-        //    if (StartDatum < DateTime.Now)
-        //        throw new ArgumentException("Startdatum moet in de toekomst liggen.");
-        //    if (EindDatum <= StartDatum)
-        //        throw new ArgumentException("Einddatum moet na startdatum liggen.");
-        //    if ((EindDatum - StartDatum).TotalDays < 1)
-        //        throw new ArgumentException("Minimum huurperiode is 1 dag.");
-        //}
     }
 }

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using RentalService.Domain.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +39,16 @@ namespace RentalService.Domain.Models
         public Customer(int id, string firstName, string lastName, string email, string street, string postalCode, string city, string country) : this(firstName, lastName, email, street, postalCode, city, country)
         {
             Id = id;
+        }
+        public Customer(CustomerDTO customer)
+        {
+            FirstName = customer.FirstName;
+            LastName = customer.LastName;
+            Email = customer.Email;
+            Street = customer.Street;
+            PostalCode = customer.PostalCode;
+            City = customer.City;
+            Country = customer.Country;
         }
 
         public Customer()

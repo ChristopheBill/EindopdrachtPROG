@@ -1,6 +1,8 @@
-﻿using System;
+﻿using RentalService.Domain.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,11 +16,7 @@ namespace RentalService.Domain.Models
         private string _postalCode;
         private string _city;
         private string _country;
-
-        public Establishment()
-        {
-        }
-
+        
         public Establishment(string airport, string streetName, string postalCode, string city, string country)
         {
             Airport = airport;
@@ -31,6 +29,19 @@ namespace RentalService.Domain.Models
         public Establishment(int id, string airport, string streetName, string postalCode, string city, string country) : this (airport, streetName, postalCode, city, country)
         {
             Id = id;
+        }
+        public Establishment(EstablishmentDTO establishment)
+        {
+            Id = establishment.Id;
+            Airport = establishment.Airport;
+            Street = establishment.Street;
+            PostalCode = establishment.PostalCode;
+            City = establishment.City;
+            Country = establishment.Country;
+        }
+
+        public Establishment()
+        {
         }
 
         public int Id
