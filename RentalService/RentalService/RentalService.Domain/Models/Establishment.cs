@@ -108,6 +108,10 @@ namespace RentalService.Domain.Models
                 {
                     throw new ArgumentException("City cannot be null or empty", nameof(City));
                 }
+                if (value.Any(char.IsDigit))
+                {
+                    throw new ArgumentException("City cannot contain numbers", nameof(Street));
+                }
                 _city = value; 
             }
         }

@@ -1,15 +1,27 @@
-﻿using RentalService.Domain.DTOs;
+﻿using RentalService.Domain;
+using RentalService.Domain.Repositories;
+using RentalService.Tests.TestMappers;
 
 namespace RentalService.Tests
 {
-    public class DomainManagerTests
+    public class DomainManagerTestSetup
     {
-        //    private readonly DomainManager _domainManager;
-        //    private readonly Mock<ICarRepository> _carRepoMock;
-        //    private readonly Mock<ICustomerRepository> _customerRepoMock;
-        //    private readonly Mock<IEstablishmentRepository> _establishmentRepoMock;
-        //    private readonly Mock<IReservationRepository> _reservationRepoMock;
+            public static DomainManager CreateDomainManagerWithTestMappers()
+            {
+            ICarRepository carRepository = new TestCarMapper();
+            ICustomerRepository customerRepository = new TestCustomerMapper();
+            IEstablishmentRepository establishmentRepository = new TestEstablishmentMapper();
+            IReservationRepository reservationRepository = new TestReservationMapper();
 
+            return new DomainManager(
+                    carRepository,
+                    customerRepository,
+                    establishmentRepository,
+                    reservationRepository
+                );
+        }
+    }
+}
         //    public DomainManagerTests()
         //    {
         //        _carRepoMock = new Mock<ICarRepository>();
@@ -68,5 +80,5 @@ namespace RentalService.Tests
 
         //        _reservationRepoMock.Verify(r => r.MakeReservation(start, end, 1, 2, 3), Times.Once);
         //    }
-    }
-}
+    //}
+//}

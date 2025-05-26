@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RentalService.Tests.TestMappers
 {
-    internal class TestEstablishmentRepository : IEstablishmentRepository
+    internal class TestEstablishmentMapper : IEstablishmentRepository
     {
         public List<EstablishmentDTO> GetEstablishments()
         {
