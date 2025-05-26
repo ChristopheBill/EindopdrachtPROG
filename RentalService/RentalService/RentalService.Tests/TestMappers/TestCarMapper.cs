@@ -22,7 +22,15 @@ namespace RentalService.Tests.TestMappers
 
         public List<CarDTO> GetCars()
         {
-            throw new NotImplementedException();
+            List<CarDTO> cars = new();
+            EstablishmentDTO establishment = new EstablishmentDTO(1, "TestEstablishment", "123 Test St", "TestCode", "TestCity", "TestCountry");
+
+            cars.Add(new CarDTO(1, "BE-HDE-010", "Mercedes", 5, "Diesel", establishment));
+            cars.Add(new CarDTO(2, "BE-OGN-454", "BMW", 4, "Petrol", establishment));
+            cars.Add(new CarDTO(3, "BE-HOW-101", "Volvo", 2, "Electric", establishment));
+            cars.Add(new CarDTO(4, "BE-WWW-100", "Bugatti", 7, "Hybrid", establishment));
+            cars.Add(new CarDTO(5, "BE-ZZZ-300", "Chevrolet", 5, "Diesel", establishment));
+            return cars;
         }
 
         public List<CarDTO> GetCarsByEstablishment(int establishmentId)
