@@ -2,7 +2,7 @@
 using RentalService.Domain.Repositories;
 using RentalService.Tests.TestMappers;
 
-namespace RentalService.Tests
+namespace RentalService.Tests.TestSetup
 {
     public class DomainManagerTestSetup
     {
