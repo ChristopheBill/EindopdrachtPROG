@@ -15,14 +15,26 @@ namespace RentalService.Tests
         {
             // Arrange
             var domainManager = TestSetup.DomainManagerTestSetup.CreateDomainManagerWithTestMappers();
-            
+
             // Act
             var cars = domainManager.GetCars();
-            
+
             // Assert
             Assert.NotNull(cars);
             Assert.IsType<List<CarDTO>>(cars);
             Assert.NotEmpty(cars);
+        }
+        [Fact]
+        public void GetCarsByEstablishment_ReturnsCorrectCars()
+        {
+            // Arrange
+            var domainManager = TestSetup.DomainManagerTestSetup.CreateDomainManagerWithTestMappers();
+            int establishmentId = 1; // Assuming establishment with ID 1 exists in the test data
+            // Act
+            var cars = domainManager.GetCarsByEstablishment(establishmentId);
+            // Assert
+            Assert.NotNull(cars);
+            Assert.All(cars, car => Assert.Equal(establishmentId, car.Establishment.Id));
         }
     }
 }

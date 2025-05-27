@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RentalService.Tests.TestMappers
 {
-    internal class TestReservationMapper : IReservationRepository
+    class TestReservationMapper : IReservationRepository
     {
         public List<ReservationDTO> GetReservations()
         {

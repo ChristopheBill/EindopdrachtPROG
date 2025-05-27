@@ -35,7 +35,8 @@ namespace RentalService.Tests.TestMappers
 
         public List<CarDTO> GetCarsByEstablishment(int establishmentId)
         {
-            throw new NotImplementedException();
+            List<CarDTO> cars = GetCars();
+            return cars.Where(c => c.Establishment.Id == establishmentId).ToList();
         }
 
         public List<CarDTO> GetCarsBySeatsEstablishmentAvailability(int establishmentId, int seats, DateTime start, DateTime stop)

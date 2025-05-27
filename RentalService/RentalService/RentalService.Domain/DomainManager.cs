@@ -27,10 +27,10 @@ namespace RentalService.Domain
         {
             return _carRepository.GetCarsByEstablishment(establishmentId).Select(c => new CarDTO(c.Id, c.LicensePlate, c.Model, c.Seats, c.MotorType, c.Establishment)).ToList();
         }
-        public string GetCarById(int carId)
-        {
-            return _carRepository.GetCarById(carId).Model;
-        }
+        //public string GetCarById(int carId)
+        //{
+        //    return _carRepository.GetCarById(carId).Model;
+        //}
         public List<CarDTO> GetCarsBySeatsEstablishmentAvailability(int establishmentId, int seats, DateTime start, DateTime stop)
         {
             return _carRepository.GetCarsBySeatsEstablishmentAvailability(establishmentId, seats, start, stop).Select(c => new CarDTO(c.Id, c.LicensePlate, c.Model, c.Seats, c.MotorType, c.Establishment)).ToList();
