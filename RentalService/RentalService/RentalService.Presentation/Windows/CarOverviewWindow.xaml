@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RentalService.Presentation.Windows"
         mc:Ignorable="d"
-        Title="CarOverviewWindow" Height="450" Width="800"
+        Title="Auto overzicht" Height="450" Width="800"
         MinWidth="450" MinHeight="400">
 
     <Grid Margin="10">

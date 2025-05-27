@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RentalService.Presentation.Windows"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="300" Width="450">
+        Title="Login" Height="300" Width="450"
+        MinWidth="200" MinHeight="200">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

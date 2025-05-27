@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RentalService.Presentation.Windows"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="ReservationCreateWindow" Height="450" Width="800"
+        Title="Reservatie maken" Height="450" Width="800"
         MinWidth="450" MinHeight="400">
     <Grid Margin="10">
         <Grid.RowDefinitions>

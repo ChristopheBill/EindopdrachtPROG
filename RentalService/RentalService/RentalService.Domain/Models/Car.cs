@@ -32,20 +32,6 @@ namespace RentalService.Domain.Models
             MotorType = motorType;
         }
 
-        //public Car(int id, string licensePlate, string model, int seats, string motorType) : this(licensePlate, model, seats, motorType)
-        //{
-        //    Id = id;
-        //}
-
-        //public Car(string licensePlate, string model, int seats, string motorType, Establishment establishment) : this(licensePlate, model, seats, motorType)
-        //{
-        //    Establishment = establishment;
-        //}
-
-        //public Car(int id, string licensePlate, string model, int seats, string motorType, Establishment establishment) : this(id, licensePlate, model, seats, motorType)
-        //{
-        //    Establishment = establishment;
-        //}
         public Car(CarDTO car)
         {
             Id = car.Id;
