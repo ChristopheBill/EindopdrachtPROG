@@ -19,9 +19,7 @@ using System.Windows.Shapes;
 
 namespace RentalService.Presentation.Windows
 {
-    /// <summary>
-    /// Interaction logic for ReservationCreateWindow.xaml
-    /// </summary>
+    // Interaction logic for ReservationCreateWindow.xaml
     public partial class ReservationCreateWindow : Window
     {
         private CustomerDTO _customer;

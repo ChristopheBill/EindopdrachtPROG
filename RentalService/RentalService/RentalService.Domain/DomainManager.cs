@@ -1,5 +1,4 @@
 ﻿using RentalService.Domain.DTOs;
-using RentalService.Domain.Models;
 using RentalService.Domain.Repositories;
 using System.Net.WebSockets;
 
@@ -35,6 +34,10 @@ namespace RentalService.Domain
         public void ReadCars(string pad)
         {
             _carRepository.ReadCars(pad);
+        }
+        public void GenerateMarkdown(int carId, int establishmentId)
+        {
+            _carRepository.GenerateMarkdown(carId, establishmentId);
         }
 
         //Customer related methods
@@ -73,10 +76,6 @@ namespace RentalService.Domain
         public void RemoveReservation(int reservationId)
         {
             _reservationRepository.RemoveReservation(reservationId);
-        }
-        public void GenerateMarkdown(int carId, int establishmentId)
-        {
-            _carRepository.GenerateMarkdown(carId, establishmentId);
         }
     }
 }

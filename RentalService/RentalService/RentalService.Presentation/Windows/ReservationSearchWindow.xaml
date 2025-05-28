@@ -42,20 +42,6 @@
                 <DataGridTextColumn Header="Einde" Binding="{Binding EndDate,StringFormat={}{0:dd-MM-yyyy HH:mm}}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        
-           <!-- <ListView x:Name="lvReservaties" Grid.Row="2" Margin="0,10,0,0">
-                <ListView.View>
-                    <GridView>
-                    <GridViewColumn Header="Auto" DisplayMemberBinding="{Binding Customer.Firstname}" Width="auto"/>
-                    <GridViewColumn Header="Auto" DisplayMemberBinding="{Binding Customer.LastName}" Width="auto"/>
-                    <GridViewColumn Header="Auto" DisplayMemberBinding="{Binding Establishment.Airport}" Width="auto"/>
-                    <GridViewColumn Header="Auto" DisplayMemberBinding="{Binding Car.Model}" Width="auto"/>
-                    <GridViewColumn Header="Start" DisplayMemberBinding="{Binding StartDate}" Width="auto"/>
-                    <GridViewColumn Header="Einde" DisplayMemberBinding="{Binding EndDate}" Width="auto"/>
-                </GridView>
-                </ListView.View>
-            </ListView>
-        -->
 
         <!-- Acties -->
         <Button x:Name="btnAnnuleer" Content="Annuleer Geselecteerde Reservatie"

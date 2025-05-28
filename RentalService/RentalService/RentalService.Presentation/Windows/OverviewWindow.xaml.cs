@@ -16,9 +16,7 @@ using System.Windows.Shapes;
 
 namespace RentalService.Presentation.Windows
 {
-    /// <summary>
-    /// Interaction logic for OverviewWindow.xaml
-    /// </summary>
+    // Interaction logic for OverviewWindow.xaml
     public partial class OverviewWindow : Window
     {
         private readonly CustomerDTO _customer;

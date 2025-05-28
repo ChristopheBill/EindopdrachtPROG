@@ -7,9 +7,7 @@ using System.Windows;
 
 namespace RentalService.DataLoader
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
+    // Interaction logic for App.xaml
     public partial class App : Application
     {
         private void Application_Startup(object sender, StartupEventArgs e)

@@ -26,9 +26,6 @@ namespace RentalService.Presentation
             _domainManager = domainManager;
             _loginWindow = new LoginWindow(this);
             _loginWindow.Show();
-
-            //logica om windows te openen moet hier
-            //geen referentie naar domainmanager in windows?
         }
         internal void TakeToOverviewWindow(Window window, CustomerDTO customer)
         {

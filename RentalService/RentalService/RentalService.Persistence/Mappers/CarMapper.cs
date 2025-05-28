@@ -10,7 +10,6 @@ namespace RentalService.Persistence.Mappers
     public class CarMapper : ICarRepository
     {
         private readonly List<string> _fouten = new();
-        //private string _pad;
         public List<CarDTO> GetCars()
         {
             using SqlConnection connection = new(DBInfo.ConnectionString);
@@ -202,7 +201,6 @@ namespace RentalService.Persistence.Mappers
             }
             sb.AppendLine("---");
             File.WriteAllText(filePath, sb.ToString());
-            //System.Diagnostics.Process.Start("explorer", "AutoOverzicht.md");
         }
 
         private CarDTO MapReaderToCar(SqlDataReader reader)

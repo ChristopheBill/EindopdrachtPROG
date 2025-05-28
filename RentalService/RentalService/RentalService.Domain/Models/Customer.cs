@@ -15,7 +15,6 @@ namespace RentalService.Domain.Models
         private string _firstName;
         private string _lastName;
         private string _email;
-        static List<string> _registeredEmails = new();
         private string _street;
         private string _city;
         private string _postalCode;
@@ -103,21 +102,19 @@ namespace RentalService.Domain.Models
         public string Email
         {
             get => _email;
-            init =>
-            //{
-            //    if (string.IsNullOrWhiteSpace(Email))
-            //    {
-            //        throw new ArgumentException("Email cannot be empty");
-            //    }
-            //    else if (IsEmailUnique(value))
-            //    {
+            init
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Email cannot be empty or whitespace", (nameof(Email)));
+                }
+                if (!value.Contains("@") || !value.Contains("."))
+                {
+                    throw new ArgumentException("Email must contain '@' and '.'", (nameof(Email)));
+                }
                     _email = value;
-                //}
-                //else
-                //{
-                //    throw new ArgumentException("Email already exists.");
-                //}
             }
+        }
         
         public string Street
         {
@@ -175,20 +172,6 @@ namespace RentalService.Domain.Models
                 }
                _country = value;
             }
-        }
-
-        static bool IsEmailUnique(string email)
-        {
-            if (!_registeredEmails.Contains(email))
-            {
-                _registeredEmails.Add(email);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
         }
 
         public override bool Equals(object? obj)

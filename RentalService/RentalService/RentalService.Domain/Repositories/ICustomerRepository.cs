@@ -11,6 +11,5 @@ namespace RentalService.Domain.Repositories
     {
         public List<CustomerDTO> GetCustomers();
         public void ReadCustomers(string pad);
-        public CustomerDTO GetCustomerById(int customerId);
     }
 }

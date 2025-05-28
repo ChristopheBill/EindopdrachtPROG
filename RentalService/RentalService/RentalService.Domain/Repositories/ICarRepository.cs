@@ -10,7 +10,6 @@ namespace RentalService.Domain.Repositories
     public interface ICarRepository
     {
         public List<CarDTO> GetCars();
-        public CarDTO GetCarById(int carId);
         public List<CarDTO> GetCarsByEstablishment(int establishmentId);
         public List<CarDTO> GetCarsBySeatsEstablishmentAvailability(int establishmentId, int seats, DateTime start, DateTime stop);
         public void ReadCars(string pad);

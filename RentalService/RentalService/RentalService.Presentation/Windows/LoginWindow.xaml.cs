@@ -17,9 +17,7 @@ using System.Windows.Shapes;
 
 namespace RentalService.Presentation.Windows
 {
-    /// <summary>
-    /// Interaction logic for LoginWindow.xaml
-    /// </summary>
+    // Interaction logic for LoginWindow.xaml
     public partial class LoginWindow : Window
     {
         private RentalServiceApplication _rentalServiceApplication;

@@ -16,9 +16,7 @@ using System.Windows.Shapes;
 
 namespace RentalService.Presentation.Windows
 {
-    /// <summary>
-    /// Interaction logic for ReservationSearchWindow.xaml
-    /// </summary>
+    // Interaction logic for ReservationSearchWindow.xaml
     public partial class ReservationSearchWindow : Window
     {
         private RentalServiceApplication _rentalServiceApplication;

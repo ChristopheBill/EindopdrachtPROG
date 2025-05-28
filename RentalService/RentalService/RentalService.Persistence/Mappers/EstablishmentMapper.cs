@@ -107,8 +107,6 @@ namespace RentalService.Persistence.Mappers
                     fouten.Add($"Fout bij het inlezen van de vestiging op regel {i + 1}: {ex.Message}");
                     badEntry = true;
                 }
-                //if (!badEntry)
-                //{
                     connection.Open();
                     using SqlTransaction transaction = connection.BeginTransaction();
 
@@ -127,13 +125,11 @@ namespace RentalService.Persistence.Mappers
                     catch (SqlException)
                     {
                         transaction.Rollback();
-                        //fouten.Add($"SQLFout bij het inlezen van de vestiging op regel {i + 1}: {ex.Message}");
                     }
                     finally
                     {
                         connection.Close();
                     }
-                //}
                 if (fouten.Count > 0)
                 {
                     using StreamWriter writer = new(errorlogPath, true);

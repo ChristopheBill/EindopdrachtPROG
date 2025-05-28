@@ -19,9 +19,7 @@ using System.Windows.Shapes;
 
 namespace RentalService.Presentation.Windows
 {
-    /// <summary>
-    /// Interaction logic for CarOverviewWindow.xaml
-    /// </summary>
+    // Interaction logic for CarOverviewWindow.xaml
     public partial class CarOverviewWindow : Window
     {
         private RentalServiceApplication _rentalServiceApplication;
