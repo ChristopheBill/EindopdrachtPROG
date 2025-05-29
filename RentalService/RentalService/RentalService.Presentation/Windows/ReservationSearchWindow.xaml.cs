@@ -36,6 +36,10 @@ namespace RentalService.Presentation.Windows
             {
                 List<ReservationDTO> reservations = _rentalServiceApplication.GetReservationsByCustomerIdEstablishmentIdDate(customer.Id, establishment.Id, date);
                 dgReservaties.ItemsSource = reservations;
+                if (reservations.Count == 0)
+                {
+                    MessageBox.Show("Geen reservaties gevonden voor deze klant, vestiging en datum.");
+                }
             }
             else
             {

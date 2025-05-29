@@ -42,11 +42,15 @@ namespace RentalService.Presentation.Windows
                 && txtAantalZitplaatsen.Text is not null)
             {
                 int seats = 0;
-                if (int.TryParse(txtAantalZitplaatsen.Text, out int aantal))
+                if (int.TryParse(txtAantalZitplaatsen.Text, out int aantal) && aantal != 0)
                 {
                     seats = aantal;
-                }
                 dgAutos.ItemsSource = _rentalServiceApplication.GetCarsBySeatsEstablishmentAvailability(establishment.Id, seats, start, stop);
+                }
+                else
+                {
+                    MessageBox.Show("Vul een geldig aantal zitplaatsen in.");
+                }
             }
         }
 
@@ -62,7 +66,7 @@ namespace RentalService.Presentation.Windows
                 _rentalServiceApplication.MakeReservation(startDate, endDate, customerId, carId, establishmentId);
                 MessageBox.Show("Reservatie succesvol opgeslagen.");
                 int seats = 0;
-                if (int.TryParse(txtAantalZitplaatsen.Text, out int aantal))
+                if (int.TryParse(txtAantalZitplaatsen.Text, out int aantal) && aantal != 0)
                 {
                     seats = aantal;
                     dgAutos.ItemsSource = _rentalServiceApplication.GetCarsBySeatsEstablishmentAvailability(establishment.Id, seats, startDate, endDate);

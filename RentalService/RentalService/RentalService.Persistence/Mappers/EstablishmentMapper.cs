@@ -62,7 +62,6 @@ namespace RentalService.Persistence.Mappers
             string[] regels = File.ReadAllLines(pad);
             string? path = Path.GetDirectoryName(pad) ?? throw new Exception("Folder path is null.");
             string errorlogPath = Path.Combine(path, "ErrorLogEstablishments.txt");
-            bool badEntry = false;
             if (File.Exists(errorlogPath))
             {
                 File.Delete(errorlogPath);
@@ -90,7 +89,6 @@ namespace RentalService.Persistence.Mappers
                 if (delen.Length < 5)
                 {
                     fouten.Add($"Fout bij het inlezen van de vestiging op regel {i + 1}: Onvoldoende kolommen.");
-                    badEntry = true;
                 }
                 Establishment location = new();
                 try
@@ -105,7 +103,6 @@ namespace RentalService.Persistence.Mappers
                 catch (Exception ex)
                 {
                     fouten.Add($"Fout bij het inlezen van de vestiging op regel {i + 1}: {ex.Message}");
-                    badEntry = true;
                 }
                     connection.Open();
                     using SqlTransaction transaction = connection.BeginTransaction();

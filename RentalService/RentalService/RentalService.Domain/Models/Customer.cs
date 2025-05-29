@@ -125,6 +125,10 @@ namespace RentalService.Domain.Models
                 {
                     throw new ArgumentException("Street cannot be empty or whitespace", (nameof(Street)));
                 }
+                if (!value.Any(char.IsDigit)) 
+                {
+                    throw new ArgumentException("Street must contain a number", (nameof(Street)));
+                }
                     _street = value;
             }
         }
@@ -146,7 +150,6 @@ namespace RentalService.Domain.Models
                     throw new ArgumentException("Postal code must be 4 characters long", (nameof(PostalCode)));
                 }
                 _postalCode = value;
-                //}
             }
         }
         public string City
@@ -158,7 +161,11 @@ namespace RentalService.Domain.Models
                 {
                     throw new ArgumentException("City cannot be empty or whitespace", (nameof(City)));
                 }
-               _city = value;
+                if (value.Any(char.IsDigit))
+                {
+                    throw new ArgumentException("City cannot contain digits", (nameof(City)));
+                }
+                _city = value;
             }
         }
         public string Country
@@ -170,7 +177,11 @@ namespace RentalService.Domain.Models
                 {
                     throw new ArgumentException("Country cannot be empty or whitespace", (nameof(Country)));
                 }
-               _country = value;
+                if (value.Any(char.IsDigit))
+                {
+                    throw new ArgumentException("Country cannot contain digits", (nameof(Country)));
+                }
+                _country = value;
             }
         }
 
