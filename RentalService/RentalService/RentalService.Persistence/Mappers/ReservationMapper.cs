@@ -60,6 +60,8 @@ namespace RentalService.Persistence.Mappers
             using SqlConnection connection = new(DBInfo.ConnectionString);
             connection.Open();
             using SqlTransaction transaction = connection.BeginTransaction();
+            try 
+            {
             using SqlCommand MakeReservation = new("Insert into Reservations (StartDate, EndDate, CustomerId, CarId, EstablishmentId) VALUES (@StartDate, @EndDate, @CustomerId, @CarId, @EstablishmentId);", connection, transaction);
             MakeReservation.Parameters.Add(new SqlParameter("@StartDate", startDate));
             MakeReservation.Parameters.Add(new SqlParameter("@EndDate", endDate));
@@ -75,6 +77,12 @@ namespace RentalService.Persistence.Mappers
             transaction.Commit();
 
             connection.Close();
+                }
+            catch (Exception ex) 
+            {
+                transaction.Rollback();
+                throw new Exception("Fout bij het maken van de reservering: " + ex.Message);
+            }
         }
         public void RemoveReservation (int reservationId)
         {
