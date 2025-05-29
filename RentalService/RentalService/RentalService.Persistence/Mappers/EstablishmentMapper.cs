@@ -96,11 +96,11 @@ namespace RentalService.Persistence.Mappers
                 try
                 {
                     location = new(
-                        delen[0],
-                        delen[1],
-                        delen[2],
-                        delen[3],
-                        delen[4]);
+                        delen[0].Trim(),
+                        delen[1].Trim(),
+                        delen[2].Trim(),
+                        delen[3].Trim(),
+                        delen[4].Trim());
                 }
                 catch (Exception ex)
                 {

@@ -81,9 +81,10 @@ namespace RentalService.Domain.Models
                 {
                     throw new ArgumentException("Street cannot be null or empty", nameof(Street));
                 }
-                if (value.Any(char.IsDigit))
+                if (!value.Any(char.IsDigit))
                 {
-                    throw new ArgumentException("Street cannot contain numbers", nameof(Street));
+                    // Ensure street contains at least one digit (house number)
+                    throw new ArgumentException("Street must contain a house number", nameof(Street));
                 }
                 _street = value;
             }
@@ -96,6 +97,10 @@ namespace RentalService.Domain.Models
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("PostalCode cannot be null or empty", nameof(PostalCode));
+                }
+                if (!value.Any(char.IsDigit))
+                {
+                    throw new ArgumentException("PostalCode must be a number", nameof(PostalCode));
                 }
                 _postalCode = value; 
             }

@@ -112,10 +112,10 @@ namespace RentalService.Persistence.Mappers
                 try
                 {
                     car = new(
-                        delen[0],
-                        delen[1],
+                        delen[0].Trim(),
+                        delen[1].Trim(),
                         int.TryParse(delen[2], out int zp) ? zp : -1,
-                        delen[3], establishment
+                        delen[3].Trim(), establishment
                         );
                 }
                 catch (Exception ex)
