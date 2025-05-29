@@ -46,6 +46,10 @@ namespace RentalService.Presentation.Windows
                 {
                     seats = aantal;
                 dgAutos.ItemsSource = _rentalServiceApplication.GetCarsBySeatsEstablishmentAvailability(establishment.Id, seats, start, stop);
+                    if (dgAutos.Items.Count == 0)
+                    {
+                        MessageBox.Show("Geen beschikbare auto's gevonden voor deze vestiging, aantal zitplaatsen en periode.");
+                    }
                 }
                 else
                 {
