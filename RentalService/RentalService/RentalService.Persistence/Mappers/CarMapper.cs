@@ -82,11 +82,13 @@ namespace RentalService.Persistence.Mappers
             string[] regels = File.ReadAllLines(pad);
             string? path = Path.GetDirectoryName(pad) ?? throw new Exception("Folder path is null.");
             string errorlogPath = Path.Combine(path, "ErrorLogCars.txt");
+
             if (File.Exists(errorlogPath))
             {
                 File.Delete(errorlogPath);
             }
             List<string> fouten = new();
+            HashSet<string> entries = new();
             using SqlConnection connection = new(DBInfo.ConnectionString);
             try
             {
@@ -122,6 +124,14 @@ namespace RentalService.Persistence.Mappers
                 {
                     fouten.Add($"Fout bij het aanmaken van de auto op regel {i + 1}: {ex.Message}");
                 }
+                string licensePlate = car.LicensePlate;
+                if (entries.Contains(licensePlate))
+                {
+                    fouten.Add($"Fout bij het inlezen van de auto op regel {i + 1}: Nummerplaat '{licensePlate}' is al in gebruik.");
+                    continue;
+                }
+                entries.Add(licensePlate);
+
                 connection.Open();
                 using SqlTransaction transaction = connection.BeginTransaction();
                 try

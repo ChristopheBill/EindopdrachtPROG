@@ -69,7 +69,6 @@ namespace RentalService.Persistence.Mappers
             string[] regels = File.ReadAllLines(pad);
             string? path = Path.GetDirectoryName(pad) ?? throw new Exception("Folder path is null.");
             string errorlogPath = Path.Combine(path, "ErrorLogCustomers.txt");
-            bool badEntry = false;
             if (File.Exists(errorlogPath))
             {
                 File.Delete(errorlogPath);
@@ -114,12 +113,14 @@ namespace RentalService.Persistence.Mappers
                 {
                     fouten.Add($"Fout bij het inlezen van de klant op regel {i + 1}: " + ex.Message);
                 }
-                string customerEntry = $"{customer.FirstName};{customer.LastName};{customer.Email};{customer.Street};{customer.PostalCode};{customer.City};{customer.Country}".ToLower();
-                if (entries.Contains(customerEntry))
+                string customerEmail = customer.Email;
+
+                if (entries.Contains(customerEmail))
                 {
-                    fouten.Add($"Fout bij het inlezen van de klant op regel {i + 1}: Dubbele klant.");
+                    fouten.Add($"Fout bij het inlezen van de klant op regel {i + 1}: Dubbel emailadres.");
                 }
-                    connection.Open();
+                entries.Add(customerEmail);
+                connection.Open();
 
                     using SqlTransaction transaction = connection.BeginTransaction();
 
